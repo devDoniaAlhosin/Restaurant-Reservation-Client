@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationEnd, RouterOutlet, Router } from '@angular/router';
 import { NavbarComponent } from './Shared/components/navbar/navbar.component';
 import { FooterComponent } from './Shared/components/footer/footer.component';
 
@@ -12,4 +12,13 @@ import { FooterComponent } from './Shared/components/footer/footer.component';
 })
 export class AppComponent {
   title = 'Client';
+
+  constructor(private router: Router) {}
+  ngOnInit() {
+    this.router.events.subscribe((event: any) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    });
+  }
 }

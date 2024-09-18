@@ -1,0 +1,87 @@
+.hero--Section {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  height: 100vh;
+
+  .hero--container {
+    height: 100%;
+    background-image: url(".././../../../src//assets//img/heroSection.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .hero--content {
+      position: absolute;
+      top: 50%;
+      left: 55%;
+      transform: translate(-55%, -50%);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      .hero--text {
+        width: 80%;
+
+        h1 {
+          padding-top: 1rem;
+          text-transform: uppercase;
+          width: 100%;
+          font-family: "Playfair Display", serif !important;
+          font-size: 4rem;
+          font-weight: 600;
+        }
+      }
+      .hero--paragraph {
+        width: 80%;
+        p {
+          font-size: 20px;
+        }
+      }
+      .hero--btns {
+        .button {
+          font-weight: 500;
+          display: inline-block;
+          padding: 10px 20px;
+          font-size: 16px;
+          color: #fff;
+          background-color: var(--primary-color);
+          text-align: center;
+          text-decoration: none;
+          border-radius: 20px;
+          border: none;
+        }
+
+        .button--primary {
+          background-color: var(--primary-color);
+          transition: 0.3s all ease;
+        }
+
+        .button--primary:hover {
+          background-color: var(--text-color);
+          color: var(--white-color);
+        }
+
+        .button--outline {
+          transition: 0.3s all ease;
+          background-color: transparent;
+          border: 2px solid var(--primary-color);
+          color: var(--text-color);
+          border: 1px solid var(--black-color);
+        }
+
+        .button--outline:hover {
+          background-color: var(--text-color);
+          color: var(--white-color);
+          border: 1px solid var(--black-color);
+        }
+      }
+    }
+  }
+}

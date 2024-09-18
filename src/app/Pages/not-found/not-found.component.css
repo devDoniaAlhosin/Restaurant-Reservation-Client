@@ -1,0 +1,30 @@
+.notFoundContainer {
+  margin: 0 auto !important;
+  padding: 10rem 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .card {
+    .card-body {
+      align-items: center;
+      text-align: center;
+      padding: 5rem 3rem;
+      .icon-div {
+        fa-icon {
+          font-size: 5rem;
+        }
+      }
+      a {
+        width: 100%;
+        border-radius: 20px;
+        padding: 0.5rem 1rem;
+        background-color: var(--secondary-color);
+        color: var(--white-color);
+        &:hover {
+          background-color: var(--primary-color);
+        }
+      }
+    }
+  }
+}

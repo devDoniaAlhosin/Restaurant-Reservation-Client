@@ -6,7 +6,7 @@
 }
 .uppernav--container {
   width: 100%;
-  padding: 10px 0;
+  padding: 7px 0;
   background-color: var(--background-color);
 }
 
@@ -96,13 +96,20 @@
 }
 .side--nav {
   button {
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 1.5rem;
     border: 2px solid var(--black-color);
     border-radius: 20px;
+    transition: 0.3s ease all;
     a {
       transition: 0.3s all ease-in-out;
       color: var(---text-color);
       font-weight: 700;
+    }
+    &:hover {
+      background-color: var(--text-color);
+      a {
+        color: var(--white-color);
+      }
     }
   }
 }

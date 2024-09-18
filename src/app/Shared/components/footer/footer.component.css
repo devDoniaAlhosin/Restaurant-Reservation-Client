@@ -69,7 +69,7 @@ footer ul > li > a:hover {
   background: #474747;
   color: white;
   text-align: center;
-  padding: 12px;
+  padding: 2rem 0;
   a {
     border-width: 0;
     transition: 0.3s ease all;
