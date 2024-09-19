@@ -10,6 +10,7 @@ import { NotFoundComponent } from './Pages/not-found/not-found.component';
 import { UsersDashboardComponent } from './Pages/subs-dashboard/users-dashboard/users-dashboard.component';
 import { MenuDashboardComponent } from './Pages/subs-dashboard/menu-dashboard/menu-dashboard.component';
 import { RequestsDashboardComponent } from './Pages/subs-dashboard/requests-dashboard/requests-dashboard.component';
+import { MenuComponent } from './Pages/menu/menu.component';
 
 export const routes: Routes = [
   {
@@ -46,6 +47,11 @@ export const routes: Routes = [
         path: '',
         component: HomeComponent,
         title: 'Bistro Bliss | Where Food Meets Passion',
+      },
+      {
+        path: 'menu',
+        component: MenuComponent,
+        title: 'Bistro Bliss | Menu',
       },
       {
         path: 'login',

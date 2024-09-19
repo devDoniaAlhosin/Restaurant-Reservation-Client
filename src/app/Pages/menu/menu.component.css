@@ -1,0 +1,130 @@
+
+
+.header-text{
+        h1 {
+          font-family: "Playfair Display", serif ;
+          font-size: 100px;
+          font-weight: 400;
+          line-height: 96px;
+        }
+          p{
+            font-size: 18px;
+            line-height: 28px;
+            font-weight: 400;
+          }
+}
+
+.menu{
+  .filter-items{
+    button{
+      color: #2C2F24;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 24px;
+      padding: 10px 40px;
+      border-radius: 50px;
+      border: 1px solid rgb(209, 209, 209);
+      font:bold;
+      margin: 0 10px;
+      background-color: white;
+      transition: .3s ease all;
+      outline: none;
+      &:hover{
+        background-color: #ad343e;
+        color: white;
+        border: 1px solid #ad343e;
+      }
+      &.active {
+        background-color: #ad343e; /* Same as hover color */
+        color: white;
+        border: 1px solid #ad343e; /* Optional to match hover style */
+      }
+    }
+  }
+
+  .menu-items{
+    padding-top: 2rem;
+    padding-bottom: 8rem;
+    font-family:"DM" sans-serif;
+    .card{
+      width:306px;
+      height: 428px;
+
+      .card-img-top{
+        width: 306px;
+        height: 230px;
+      }
+
+      .card-body{
+        text-align: center;
+        font-weight: 700;
+
+        .card-price{
+          color: #AD343E;
+          line-height: 30px;
+          font-size: 24px;
+        }
+
+        .card-title{
+          font-family: "DM Sans", sans-serif;
+            color: #2C2F24;
+            font-size: 20px;
+            line-height:26px;
+            font-weight: 700;
+          }
+
+        .card-desc{
+          color: #414536;
+          font-size: 16px;
+          line-height: 24px;
+          font-weight: 400;
+        }
+      }
+
+  }
+}
+
+}
+
+.payment-section{
+  background-color: #F9F9F7;
+  padding-top: 4rem;
+  padding-bottom: 7rem;
+  .payment-text{
+    margin-top: 5rem;
+    font-size: 55px;
+    line-height: 60.5px;
+    font-weight: 600;
+    padding: 7rem 0;
+  }
+
+  .methods{
+    border-radius: 20px;
+    padding: 10px;
+
+    .row {
+      display: flex;
+      gap: 20px;
+    }
+
+    .row > *{
+      background-color: #ffffff;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      margin-top: 50px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+    /* .second > *{
+      padding: 0 50px ;
+    } */
+    .row > *:hover {
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+  }
+
+}
