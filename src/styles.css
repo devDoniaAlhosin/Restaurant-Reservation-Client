@@ -21,7 +21,6 @@ a {
   text-decoration: none;
 }
 body {
-  height: 200vh;
   color: var(--text-color);
   font-family: "DM Sans", sans-serif;
   /* Optional if needed use in your Css file  */

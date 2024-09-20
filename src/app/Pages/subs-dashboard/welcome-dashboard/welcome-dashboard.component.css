@@ -1,0 +1,27 @@
+.container-fluid {
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.lead {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.dashboard-icon {
+  font-size: 3rem;
+  color: var(--primary-color);
+}
+
+.btn {
+  margin-top: 1rem;
+}
+
+a.btn-primary {
+  background-color: var(--primary-color);
+  border: none;
+}

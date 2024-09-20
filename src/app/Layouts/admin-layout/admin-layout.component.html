@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <div class="row">
     <!-- Sidebar -->
-    <nav id="sidebar" class="col-md-2 d-md-block bg-light sidebar">
-      <div class="position-sticky">
+    <nav id="sidebar" class="col-md-2 d-md-block bg-light sidebar position-fixed" >
+      <div class="">
         <div class="sidebar-header text-center py-3">
           <img
             src="https://via.placeholder.com/100"
@@ -11,7 +11,7 @@
             style="width: 100px; height: 100px; object-fit: cover"
           />
 
-          <p class="mb-1">Hello, <strong>Admin</strong></p>
+          <p class="mb-2">Hello, <strong>Admin</strong></p>
           <button class="btn btn-danger">
             <a
               [routerLink]="'/admin-login'"
@@ -21,6 +21,20 @@
           </button>
         </div>
         <ul class="nav flex-column mt-4">
+          <!-- Dashboard Welcome  -->
+          <li
+          class="nav-item d-flex align-content-center align-items-center mb-2"
+        >
+          <fa-icon [icon]="faUser" class="me-2"></fa-icon>
+          <a
+            class="nav-link"
+            routerLink="/admin"
+            routerLinkActive="active-link"
+
+          >
+            Dashboard
+          </a>
+        </li>
           <!-- Users Link -->
           <li
             class="nav-item d-flex align-content-center align-items-center mb-2"

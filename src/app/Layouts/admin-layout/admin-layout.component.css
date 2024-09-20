@@ -1,11 +1,28 @@
+
+#sidebar{
+
+  height: 100vh;
+  padding:  1rem 2rem ;
+
+}
 a {
   color: var(--black-color);
+  text-decoration: none;
 }
 
-.nav-link:focus {
+a:hover {
+  color: var(--primary-color);
+}
+.nav-link
+{
+  border-radius: 17px;
+}
+
+.nav-link:focus,
+.nav-link.active-link {
   width: 100%;
   background-color: var(--primary-color);
   color: var(--white-color);
-  border-radius: 4px;
+  border-radius: 17px;
   text-decoration: none;
 }

@@ -1,0 +1,46 @@
+
+    <div class="col-md-12 text-center py-3">
+      <img
+        src="assets/img/japanese-food.svg"
+        alt="Bistro Bliss Logo"
+        style="max-width: 200px; height: 200px"
+        class="mb-4"
+      />
+      <h1>Welcome to the Bistro Bliss Admin Dashboard</h1>
+      <p class="lead">
+        Manage restaurant operations, update menu items, handle booking
+        requests, and more from here.
+      </p>
+    </div>
+  <div class="row d-flex justify-content-center">
+    <!-- Users Dashboard -->
+    <div class="col-md-3 text-center p-4">
+      <fa-icon [icon]="faUser" class="dashboard-icon mb-2"></fa-icon>
+      <h3>Manage Users</h3>
+      <p>View, update, and manage all users.</p>
+      <a routerLink="/admin/users-dashboard" class="btn btn-primary"
+        >Go to Users</a
+      >
+    </div>
+
+    <!-- Menu Dashboard -->
+    <div class="col-md-3 text-center p-4">
+      <fa-icon [icon]="faBowlFood" class="dashboard-icon mb-2"></fa-icon>
+      <h3>Manage Menu</h3>
+      <p>Update and create menu items.</p>
+      <a routerLink="/admin/menu-dashboard" class="btn btn-primary"
+        >Go to Menu</a
+      >
+    </div>
+
+    <!-- Booking Requests -->
+    <div class="col-md-3 text-center p-4">
+      <fa-icon [icon]="faCodePullRequest" class="dashboard-icon mb-2"></fa-icon>
+      <h3>Handle Bookings</h3>
+      <p>View and approve booking requests.</p>
+      <a routerLink="/admin/requests-dashboard" class="btn btn-primary"
+        >Go to Bookings</a
+      >
+    </div>
+  </div>
+

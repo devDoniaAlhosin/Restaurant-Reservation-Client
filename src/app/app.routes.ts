@@ -10,6 +10,7 @@ import { NotFoundComponent } from './Pages/not-found/not-found.component';
 import { UsersDashboardComponent } from './Pages/subs-dashboard/users-dashboard/users-dashboard.component';
 import { MenuDashboardComponent } from './Pages/subs-dashboard/menu-dashboard/menu-dashboard.component';
 import { RequestsDashboardComponent } from './Pages/subs-dashboard/requests-dashboard/requests-dashboard.component';
+import { WelcomeDashboardComponent } from './Pages/subs-dashboard/welcome-dashboard/welcome-dashboard.component';
 
 export const routes: Routes = [
   {
@@ -22,19 +23,24 @@ export const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       {
+        path: '',
+        component: WelcomeDashboardComponent,
+        title: 'Bistro Bliss | Admin  Dashboard',
+      },
+      {
         path: 'users-dashboard',
         component: UsersDashboardComponent,
-        title: 'Bistro Bliss | Dashboard',
+        title: 'Bistro Bliss | Users Dashboard',
       },
       {
         path: 'menu-dashboard',
         component: MenuDashboardComponent,
-        title: 'Bistro Bliss | Dashboard',
+        title: 'Bistro Bliss | Menu Dashboard',
       },
       {
         path: 'requests-dashboard',
         component: RequestsDashboardComponent,
-        title: 'Bistro Bliss | Dashboard',
+        title: 'Bistro Bliss | Requests Dashboard',
       },
     ],
   },

@@ -1,0 +1,81 @@
+
+
+.login-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('../../../../assets/img/heroSection.png') no-repeat center center/cover;
+
+}
+
+
+.login-box {
+  margin-left: 5rem ;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 4rem 40px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.login-header {
+  margin-bottom: 20px;
+}
+
+.logo {
+  border-radius: 50%;
+  border: 1px solid var(--primary-color);
+  padding: 2rem;
+  width: 200px;
+  height: auto;
+}
+
+h2 {
+   font-family: "Playfair Display", serif;
+  color: #333;
+}
+
+
+.form-control {
+  border-radius: 30px;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+}
+
+.btn-block {
+  width: 100%;
+  padding: 10px;
+  border-radius: 30px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 16px;
+  border: 0;
+}
+
+.btn-block:hover {
+  background-color: var(--black-color);
+  cursor: pointer;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .login-box {
+    width: 90%;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-box {
+  animation: fadeIn 0.7s ease-in-out;
+}

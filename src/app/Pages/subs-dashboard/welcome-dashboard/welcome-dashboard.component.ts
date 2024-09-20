@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AdminLoginComponent } from '../../Pages/auth/admin-login/admin-login.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -8,15 +7,14 @@ import {
   faBowlFood,
 } from '@fortawesome/free-solid-svg-icons';
 @Component({
-  selector: 'app-admin-layout',
+  selector: 'app-welcome-dashboard',
   standalone: true,
-  imports: [AdminLoginComponent, RouterOutlet,FontAwesomeModule, RouterLink],
-  templateUrl: './admin-layout.component.html',
-  styleUrl: './admin-layout.component.css',
+  imports: [ RouterOutlet, FontAwesomeModule, RouterLink],
+  templateUrl: './welcome-dashboard.component.html',
+  styleUrl: './welcome-dashboard.component.css'
 })
-export class AdminLayoutComponent {
+export class WelcomeDashboardComponent {
   faCodePullRequest = faCodePullRequest;
   faUser = faUser;
   faBowlFood = faBowlFood;
-active: any;
 }
