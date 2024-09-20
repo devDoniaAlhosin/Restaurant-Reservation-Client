@@ -11,9 +11,9 @@
 
     <div class="filter-items text-center pb-5">
       <button (click)="fetchMenu('all')" [class.active]="selectedMenuType === 'all'" autofocus>All</button>
-      <button (click)="fetchMenu('Breakfast')" [class.active]="selectedMenuType === 'Breakfast'">Breakfast</button>
-      <button (click)="fetchMenu('main')" [class.active]="selectedMenuType === 'main'">Main Dishes</button>
-      <button (click)="fetchMenu('drinks')" [class.active]="selectedMenuType === 'drinks'">Drinks</button>
+      <button (click)="fetchMenu('breakfast')" [class.active]="selectedMenuType === 'Breakfast'">Breakfast</button>
+      <button (click)="fetchMenu('main_dish')" [class.active]="selectedMenuType === 'main_dish'">Main Dishes</button>
+      <button (click)="fetchMenu('drink')" [class.active]="selectedMenuType === 'drink'">Drinks</button>
       <button (click)="fetchMenu('dessert')" [class.active]="selectedMenuType === 'dessert'">Desserts</button>
     </div>
 
