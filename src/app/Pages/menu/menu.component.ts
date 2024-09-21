@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuService } from '../../Services/Menu/menu.service';
+import { MenuService } from '../../Core/services/menuService/menu.service';
 import { Menu } from '../../Models/menu.model';
 import { HttpClient } from '@angular/common/http';
 @Component({
@@ -14,6 +14,7 @@ export class MenuComponent implements OnInit {
   menuItems: Menu[] = [];
   selectedMenuType: string = 'all';
 
+
   constructor(private menuService:MenuService){}
 
   ngOnInit(): void {
@@ -21,11 +22,12 @@ export class MenuComponent implements OnInit {
   }
 
   getMenu() {
-    this.menuService.getMenu().subscribe((data) => {
-      this.menuItems = data;
+    this.menuService.getMenu().subscribe((data:any) => {
+      this.menuItems = data.data;
       console.log(data);
     });
   }
+
 
   getFilteredMenuItems() {
     if(this.selectedMenuType === 'all') {

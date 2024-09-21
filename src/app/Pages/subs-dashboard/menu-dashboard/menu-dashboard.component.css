@@ -1,0 +1,12 @@
+.specialIcon{
+  font-size: 25px;
+  text-decoration: none;
+  color: rgb(92, 92, 92);
+  cursor: pointer;
+  margin-top: 20px;
+  display: flex;
+  justify-content: end;
+  padding-right: 50px;
+  position: relative;
+  bottom: 40px;
+}

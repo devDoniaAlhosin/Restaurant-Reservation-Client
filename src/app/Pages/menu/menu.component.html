@@ -20,7 +20,7 @@
     <div class="menu-items row text-center">
 
       @for(item of getFilteredMenuItems();track $index){
-        <div class="menu-item col pb-4">
+        <div class="menu-item col pb-4 ">
         <div class="card">
           <img [src] = "item?.image" class="card-img-top">
           <div class="card-body">
@@ -33,7 +33,10 @@
       }
     </div>
   </div>
+
 </div>
+
+
 
   <div class="payment-section">
     <div class="container">

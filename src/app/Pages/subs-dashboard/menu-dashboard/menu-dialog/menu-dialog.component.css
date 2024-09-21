@@ -1,0 +1,17 @@
+mat-dialog-content {
+  width: 500px;
+  border-radius: 0px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+h2{
+  margin-top: 20px;
+}
