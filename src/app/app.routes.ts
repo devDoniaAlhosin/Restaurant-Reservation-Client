@@ -11,6 +11,8 @@ import { UsersDashboardComponent } from './Pages/subs-dashboard/users-dashboard/
 import { MenuDashboardComponent } from './Pages/subs-dashboard/menu-dashboard/menu-dashboard.component';
 import { RequestsDashboardComponent } from './Pages/subs-dashboard/requests-dashboard/requests-dashboard.component';
 import { WelcomeDashboardComponent } from './Pages/subs-dashboard/welcome-dashboard/welcome-dashboard.component';
+import { AuthLayoutComponent } from './Layouts/auth-layout/auth-layout.component';
+import { RegisterComponent } from './Pages/auth/register/register.component';
 
 export const routes: Routes = [
   {
@@ -54,15 +56,22 @@ export const routes: Routes = [
         title: 'Bistro Bliss | Where Food Meets Passion',
       },
       {
-        path: 'login',
-        component: LoginComponent,
-        title: 'Bistro Bliss | Login',
+        path: 'auth',
+        component: AuthLayoutComponent,
+        title: 'Bistro Bliss | Authentication',
+        children: [
+          {path : '' , component: LoginComponent   },
+          { path: 'login', component: LoginComponent },
+          { path: 'register', component: RegisterComponent },
+        ],
       },
+
       {
         path: 'profile',
         component: ProfileComponent,
         title: 'Bistro Bliss | Profile',
       },
+
       { path: '**', component: NotFoundComponent },
     ],
   },

@@ -1,0 +1,194 @@
+<div class="tab-content">
+  <div class="tab-pane fade show active" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+    <form
+    [formGroup]="registerForm"
+    class="login-form"
+    (ngSubmit)="onSubmit()"
+    enctype="multipart/form-data"
+
+     >
+      <div class="text-center mb-4">
+        <h2 class="mb-3">Create an Account</h2>
+        <p class="fs-6">Sign up with:</p>
+        <div class="social-buttons mb-3">
+          <button type="button" class="btn btn-link btn-floating mx-1">
+            <fa-icon class="fs-4" [icon]="faFacebook"></fa-icon>
+          </button>
+          <button type="button" class="btn btn-link btn-floating mx-1">
+            <fa-icon class="fs-4" [icon]="faGoogle"></fa-icon>
+          </button>
+          <button type="button" class="btn btn-link btn-floating mx-1">
+            <fa-icon class="fs-4" [icon]="faLinkedin"></fa-icon>
+          </button>
+          <button type="button" class="btn btn-link btn-floating mx-1">
+            <fa-icon class="fs-4" [icon]="faGithub"></fa-icon>
+          </button>
+        </div>
+        <p class="text-center or-separator">or</p>
+      </div>
+
+      <!-- Email input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="registerEmail">Email <span class="required-indicator">*</span></label>
+        <input type="email" id="registerEmail" class="form-control"
+        formControlName="email"
+         placeholder="Email Address"
+         required />
+        <div
+        *ngIf="
+          registerForm.get('email')?.touched &&
+          registerForm.get('email')?.invalid
+        "
+        class="form-text text-danger fs-6"
+      >
+        <div *ngIf="registerForm.get('email')?.hasError('required')">
+          Email is required.
+        </div>
+        <div *ngIf="registerForm.get('email')?.hasError('email')">
+          Please enter a valid email address.
+        </div>
+      </div>
+      </div>
+
+      <!-- Username input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="registerUsername"> Username<span class="required-indicator">*</span> </label>
+        <input type="text" id="registerUsername" class="form-control"
+         formControlName="username" required placeholder="Username" />
+        <div
+        *ngIf="
+          registerForm.get('username')?.touched &&
+          registerForm.get('username')?.invalid
+        "
+        class="form-text text-danger fs-6"
+      >
+        <div *ngIf="registerForm.get('username')?.hasError('required')">
+          username is required.
+        </div>
+        <div *ngIf="registerForm.get('username')?.hasError('minlength')">
+          username must be at least 4 characters long.
+        </div>
+      </div>
+      </div>
+
+      <!-- Password input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="registerPassword">  Password<span class="required-indicator">*</span></label>
+        <input type="password" id="registerPassword" class="form-control" required
+        formControlName="password"  placeholder=" Password" />
+        <div
+        *ngIf="
+          registerForm.get('password')?.touched &&
+          registerForm.get('password')?.invalid
+        "
+        class="form-text text-danger fs-6"
+      >
+        <div *ngIf="registerForm.get('password')?.hasError('required')">
+          Password is required.
+        </div>
+        <div
+          *ngIf="registerForm.get('password')?.hasError('strongPassword')"
+        >
+          Password must be at least 8 characters long, with at least one
+          uppercase letter, one special character, and one number.
+        </div>
+      </div>
+      </div>
+
+      <!-- Confirm Password input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="confirmPassword">  Confirm Password<span class="required-indicator">*</span></label>
+        <input type="password"
+         id="confirmPassword"
+         class="form-control"
+         required
+         formControlName="confirmPassword"
+        placeholder="Retype Password" />
+        <div
+        *ngIf="
+          registerForm.hasError('passwordMismatch') &&
+          registerForm.get('confirmPassword')?.touched
+        "
+        class="form-text text-danger fs-6"
+      >
+        Passwords do not match.
+      </div>
+
+      </div>
+
+      <!-- Address input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="address"> Address<span class="required-indicator">*</span> </label>
+        <input type="text" id="address" class="form-control"    placeholder="Enter your address" formControlName="address" required  />
+        <div
+        *ngIf="
+          registerForm.get('address')?.touched &&
+          registerForm.get('address')?.invalid
+        "
+        class="form-text text-danger fs-6"
+      >
+        <div *ngIf="registerForm.get('address')?.hasError('required')">
+          Address is required.
+        </div>
+        <div
+          *ngIf="registerForm.get('address')?.hasError('minlength')"
+        >
+        Address can't be longer than 100 characters.
+        </div>
+        <div
+        *ngIf="registerForm.get('address')?.hasError('maxlength')"
+      >
+      Address can't be longer than 100 characters.
+      </div>
+      </div>
+      </div>
+
+      <!-- Phone Number input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="phoneNumber">  Phone Number<span class="required-indicator">*</span> </label>
+        <input type="tel" id="phoneNumber"
+        formControlName="phoneNumber"
+        class="form-control"
+        placeholder="(e.g., +1234567890)."
+
+         required />
+         <div
+         *ngIf="
+           registerForm.get('phoneNumber')?.touched &&
+           registerForm.get('phoneNumber')?.invalid
+         "
+         class="form-text text-danger fs-6"
+       >
+         <div *ngIf="registerForm.get('phoneNumber')?.hasError('required')">
+          Phone number is required.
+         </div>
+         <div *ngIf="registerForm.get('phoneNumber')?.hasError('pattern')">
+          Please enter a valid phone number (e.g., +1234567890).
+         </div>
+       </div>
+      </div>
+
+      <!-- Image upload -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="imageUpload">Profile Image  <span class="required-indicator">*</span></label>
+        <input type="file"
+         id="imageUpload"
+         class="form-control"
+         accept="image/*"
+          (change)="onFileSelected($event)"
+        name="avatar"
+        required/>
+      </div>
+      <div class="submit--btn">
+        <button type="submit" class="btn w-100 submit--btn btn-primary btn-block mb-4" [disabled]="registerForm.invalid">
+          Sign Up
+        </button>
+      </div>
+
+
+      <div class="text-center">
+        <p>Already a member? <a [routerLink]="'/auth/login'">Login</a></p>
+      </div>
+    </form>
+  </div>
+</div>

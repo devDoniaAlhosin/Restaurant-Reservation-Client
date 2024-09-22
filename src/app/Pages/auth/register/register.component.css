@@ -1,4 +1,5 @@
 .tab-content {
+  height: 100%;
   background-color: rgba(255, 255, 255, 0.95);
   padding: 2rem 3rem;
   border-radius: 20px;
@@ -105,9 +106,79 @@ h2 {
   border-bottom: 3px solid var(--primary-color);
   outline: none;
 }
+
 .submit--btn {
   width: 100% !important;
   a{
     border-radius: 20px;
+  }
+}
+
+/* Media Query */
+@media (max-width: 992px) {
+  .tab-content {
+    padding: 2rem 3rem;
+    width: 100%;
+    padding: 1rem 14px;
+  }
+  .form-outline .form-label {
+    font-size: 0.8rem;
+  }
+
+  .form-control {
+    padding: 0.8rem;
+  }
+
+  .btn-primary {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .tab-content {
+    padding: 2rem 3rem;
+    width: 100%;
+    padding: 1rem 14px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .btn-primary {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .social-buttons button {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .tab-content {
+    padding: 2rem 3rem;
+    width: 100%;
+    padding: 1rem 14px;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .btn-primary {
+    font-size: 0.8rem;
+    padding: 6px;
+  }
+
+  .social-buttons button {
+    font-size: 0.7rem;
   }
 }

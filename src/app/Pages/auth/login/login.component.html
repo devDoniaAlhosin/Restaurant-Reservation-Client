@@ -1,8 +1,123 @@
-<p>login works!</p>
+<div class="tab-content">
+  <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+    <form
+      #loginForm="ngForm"
+      (ngSubmit)="SendLoginData(loginForm)"
+    >
+      <div class="text-center mb-4">
+        <h2 class="mb-3">Welcome Back!</h2>
+        <p class="fs-6">Sign in with:</p>
+        <div class="social-buttons mb-3">
+          <button type="button" class="btn btn-link btn-floating mx-1">
+            <fa-icon class="fs-4" [icon]="faFacebook"></fa-icon>
+          </button>
+          <button type="button" class="btn btn-link btn-floating mx-1">
+            <fa-icon class="fs-4" [icon]="faGoogle"></fa-icon>
+          </button>
+          <button type="button" class="btn btn-link btn-floating mx-1">
+            <fa-icon class="fs-4" [icon]="faLinkedin"></fa-icon>
+          </button>
+          <button type="button" class="btn btn-link btn-floating mx-1">
+            <fa-icon class="fs-4" [icon]="faGithub"></fa-icon>
+          </button>
+        </div>
+        <p class="text-center or-separator">or</p>
+      </div>
 
-<div class="login-form">
-  <h2>User Login</h2>
-  <form>
-    <!-- User login form fields -->
-  </form>
+      <!-- Email input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="loginName">Username </label>
+        <input
+          type="text"
+          id="loginName"
+          class="form-control"
+          placeholder="Enter Your Username"
+          required
+          ngModel
+          #username="ngModel"
+          minlength="4"
+          pattern="^[a-zA-Z0-9 ]+$"
+          name="username"
+        />
+        <div
+        *ngIf="username.invalid && username.touched"
+        class="form-text text-danger fs-6"
+      >
+        <div
+          *ngIf="
+            username.hasError('required') && !username.hasError('minlength')
+          "
+        >
+          Username Is Required Field
+        </div>
+        <div
+          *ngIf="
+            username.hasError('minlength') && !username.hasError('required')
+          "
+        >
+          Username Should Contain More than 4 Characters
+        </div>
+        <div
+          *ngIf="
+            username.hasError('pattern') &&
+            !username.hasError('required') &&
+            !username.hasError('minlength')
+          "
+        >
+          Username Can Only Contain Letters and Numbers
+        </div>
+      </div>
+      </div>
+
+      <!-- Password input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="loginPassword">Password</label>
+        <input
+          type="password"
+          id="loginPassword"
+          class="form-control"
+          placeholder="Enter Your Password"
+          required
+          ngModel
+          name="password"
+          #userPassword="ngModel"
+          required
+        />
+        <div *ngIf="userPassword.invalid && userPassword.touched" class="form-text text-danger fs-6">
+          Password is a required field.
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-6 d-flex justify-content-start">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="flexCheckIndeterminate"
+              ngModel
+              name="rememberMe"
+              #rememberMe="ngModel"
+              name="rememberMe"
+            />
+            <label class="form-check-label" for="flexCheckIndeterminate">
+              Remember Me
+            </label>
+          </div>
+        </div>
+        <div class="forget--password col-md-6 d-flex justify-content-center">
+          <a href="#!">Forgot password?</a>
+        </div>
+      </div>
+
+      <div class="submit--btn">
+        <button type="submit" class="btn w-100 submit--btn btn-primary
+        btn-block mb-4" [disabled]="loginForm.invalid"> Sign In</button>
+      </div>
+
+      <div class="text-center">
+        <p>Not a member? <a [routerLink]="'/auth/register'">Register</a></p>
+      </div>
+    </form>
+  </div>
 </div>

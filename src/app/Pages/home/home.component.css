@@ -16,6 +16,7 @@
     position: relative;
 
     .hero--content {
+      width: 100%;
       position: absolute;
       top: 50%;
       left: 55%;
@@ -27,8 +28,7 @@
       flex-direction: column;
       gap: 1rem;
       .hero--text {
-        width: 80%;
-
+        width: 30%;
         h1 {
           padding-top: 1rem;
           text-transform: uppercase;
@@ -39,16 +39,17 @@
         }
       }
       .hero--paragraph {
-        width: 80%;
+        width: 30%;
         p {
           font-size: 20px;
         }
       }
       .hero--btns {
+
         .button {
           font-weight: 500;
           display: inline-block;
-          padding: 10px 20px;
+          padding: .75rem 3rem;
           font-size: 16px;
           color: #fff;
           background-color: var(--primary-color);
@@ -84,4 +85,100 @@
       }
     }
   }
+}
+
+
+/*   ############### Media Query ################3 */
+@media (max-width: 1200px) {
+  .hero--content {
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero--text h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero--paragraph p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero--content{
+    .hero--text {
+  width: 90% !important;
+   h1 {
+    width: 100% !important;
+  font-size: 1rem;
+}
+}
+}
+
+.hero--paragraph
+{
+  width: 90% !important;
+
+  p {
+  width: 100% !important;
+  font-size: 16px ;
+}
+}
+}
+
+@media (max-width: 768px) {
+  .hero--content{
+    .hero--text {
+  width: 90% !important;
+   h1 {
+    width: 100% !important;
+  font-size: 1rem;
+}
+}
+}
+
+.hero--paragraph
+{
+  width: 90% !important;
+
+  p {
+  width: 100% !important;
+  font-size: 16px ;
+}
+}
+}
+
+@media (max-width: 576px) {
+  .hero--content{
+      .hero--text {
+    width: 90% !important;
+     h1 {
+      width: 100% !important;
+    font-size: 3rem !important;
+  }
+  }
+  }
+
+
+
+  .hero--paragraph
+  {
+    width: 90% !important;
+
+    p {
+    width: 100% !important;
+    font-size: 16px ;
+  }
+}
+.hero--btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  .button {
+    width: 70%;
+  }
+}
+
 }
