@@ -5,6 +5,9 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
   providedIn: 'root'
 })
 export class ValidateService {
+  static passwordMatchValidator(arg0: string, arg1: string): any {
+    throw new Error('Method not implemented.');
+  }
 
   constructor() { }
   passwordMatchValidator(

@@ -87,6 +87,7 @@
   font-weight: 500;
   position: relative;
   font-size: 15px;
+  text-transform: uppercase;
   /* &:hover {
     color: var(--primary-color);
   } */
@@ -148,9 +149,11 @@
   position: relative;
   display: inline-block;
   overflow: hidden;
+
 }
 
 .profile-icon {
+  cursor: pointer;
   width: 60px;
   height: 60px;
   object-fit: cover;
@@ -192,9 +195,9 @@
   }
 }
 .sign-in-text {
-  padding: 0 8px;
-  font-weight: 600;
-  color: #007bff;
+  padding: 0 4px;
+  font-weight: 800;
+  color: var(--background-color);
   text-decoration: none;
   transition: color 0.3s ease;
 }
@@ -254,10 +257,14 @@
 
  .dropdown-menu {
   min-width: 150px;
+  border: 1px solid rgba(0, 0, 0, 0.103);
+  border-radius: 20px;
 }
 
 .dropdown-item {
   cursor: pointer;
+  border-radius: 15px;
+
 }
 
 .dropdown-item:hover {

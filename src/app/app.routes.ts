@@ -13,16 +13,20 @@ import { RequestsDashboardComponent } from './Pages/subs-dashboard/requests-dash
 import { WelcomeDashboardComponent } from './Pages/subs-dashboard/welcome-dashboard/welcome-dashboard.component';
 import { AuthLayoutComponent } from './Layouts/auth-layout/auth-layout.component';
 import { RegisterComponent } from './Pages/auth/register/register.component';
+import { AdminGuard } from './Core/guards/adminGuard/admin.guard';
+import { AuthGuard } from './Core/guards/authGuard/auth.guard';
 
 export const routes: Routes = [
   {
     path: 'admin-login',
     component: AdminLoginComponent,
     title: 'Bistro Bliss | Admin-Login',
+
   },
   {
     path: 'admin',
     component: AdminLayoutComponent,
+    // canActivate: [AdminGuard],
     children: [
       {
         path: '',
@@ -59,10 +63,11 @@ export const routes: Routes = [
         path: 'auth',
         component: AuthLayoutComponent,
         title: 'Bistro Bliss | Authentication',
+
         children: [
           {path : '' , component: LoginComponent   },
-          { path: 'login', component: LoginComponent },
-          { path: 'register', component: RegisterComponent },
+          { path: 'login', component: LoginComponent  },
+          { path: 'register', component: RegisterComponent  },
         ],
       },
 
@@ -70,6 +75,7 @@ export const routes: Routes = [
         path: 'profile',
         component: ProfileComponent,
         title: 'Bistro Bliss | Profile',
+        canActivate: [AuthGuard],
       },
 
       { path: '**', component: NotFoundComponent },

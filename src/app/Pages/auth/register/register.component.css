@@ -114,6 +114,33 @@ h2 {
   }
 }
 
+.required-indicator{
+  color: var(--primary-color);
+  padding-left: 4px ;
+  font-size: 15px;
+}
+.error--message {
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: rgba(255, 0, 0, 0.1);
+  border-left: 4px solid var(--primary-color);
+  color: var(--secondary-color);
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  transform: translateY(-10px);
+}
+
+
+.error--message.show {
+  opacity: 1;
+  display: block;
+  transform: translateY(0);
+}
+
+
 /* Media Query */
 @media (max-width: 992px) {
   .tab-content {

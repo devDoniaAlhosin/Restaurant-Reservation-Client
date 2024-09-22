@@ -5,27 +5,24 @@
     <div class="content--container container">
       <div class="contact--container d-flex gap-4">
         <div class="contact-phone d-flex gap-2">
-          <fa-icon [icon]="faPhone"> </fa-icon>
-          <span class="fs-6 fw-light">(414) 857 - 0107 </span>
+          <fa-icon [icon]="faPhone"></fa-icon>
+          <span class="fs-6 fw-light">(414) 857 - 0107</span>
         </div>
-        <div class="contact-phone d-flex gap-2">
-          <fa-icon [icon]="faEnvelope"> </fa-icon>
+        <div class="contact-email d-flex gap-2">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
           <span class="fs-6 fw-light">yummy&#64;bistrobliss</span>
         </div>
       </div>
       <div class="social--container">
-        <fa-icon [icon]="faFacebook"> </fa-icon>
-        <fa-icon [icon]="faInstagram"> </fa-icon>
-        <fa-icon [icon]="faWhatsapp"> </fa-icon>
-        <fa-icon [icon]="faTwitter"> </fa-icon>
+        <fa-icon [icon]="faFacebook"></fa-icon>
+        <fa-icon [icon]="faInstagram"></fa-icon>
+        <fa-icon [icon]="faWhatsapp"></fa-icon>
+        <fa-icon [icon]="faTwitter"></fa-icon>
       </div>
     </div>
   </div>
 
-  <nav
-    id="navbar "
-    class="sticky-top navbar navbar-expand-lg sticky-top flex-column py-3"
-  >
+  <nav id="navbar" class="sticky-top navbar navbar-expand-lg py-3">
     <div class="container p-1">
       <div class="container--logo">
         <a class="navbar-brand me-auto logos-link" routerLink="/">
@@ -34,12 +31,7 @@
         <h2 class="logo-text">Bistro Bliss</h2>
       </div>
 
-      <div
-        class="offcanvas offcanvas-end"
-        tabindex="-1"
-        id="offcanvasNavbar"
-        aria-labelledby="offcanvasNavbarLabel"
-      >
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
           <div class="offcanvas-title" id="offcanvasNavbarLabel">
             <a class="navbar-brand me-auto logos-link" routerLink="/">
@@ -47,97 +39,41 @@
             </a>
             <h2 class="logo-text pt-3">Bistro Bliss</h2>
           </div>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-          <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" routerLink="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" routerLink="/"
-                >About Us</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" routerLink="/">Menu</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" routerLink="/"
-                >My Bookings</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" routerLink="/"
-                >Contact Us</a
-              >
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" aria-current="page" routerLink="/"
-              >Book A Table </a
-            >
-          </li>
+          <ul class="navbar-nav justify-content-center flex-grow-1 pe-3 ">
+            <li class="nav-item"><a class="nav-link" routerLink="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/">About Us</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/">Menu</a></li>
+            <li class="nav-item"><a class="nav-link" *ngIf="isLoggedIn" routerLink="/">My Bookings</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/">Contact Us</a></li>
+            <li class="nav-item"><a class="nav-link" *ngIf="isLoggedIn" routerLink="/">Reservation</a></li>
           </ul>
           <div class="side--nav d-flex align-items-center gap-4">
-
-              <div class="toggle-btn-container">
-
-                <button class="btn-left" [routerLink]="'auth/login'">
-                  Login
-                </button>
-
-
-                <button class="btn-right" [routerLink]="'/admin-login'">
-                  Admin
-                </button>
-              </div>
-              <!-- <button class="btn--book-table">
-                <a
-                  routerLink="/"
-                  class="contact--button position-relative"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Book A Table
-                </a>
-              </button> -->
-
-            <!-- <div class="profile-container d-flex align-items-center order-lg-2 order-1">
+            <div class="toggle-btn-container" *ngIf="!isLoggedIn">
+              <button class="btn-left" [routerLink]="'auth/login'">Login</button>
+              <button class="btn-right" [routerLink]="'/admin-login'">Admin</button>
+            </div>
+            <div class="profile-container d-flex align-items-center order-lg-2 order-1" *ngIf="isLoggedIn">
               <div class="profile-icon-container">
-                <img src="assets/img/user-avatar.png" alt="Profile Icon" class="rounded-circle profile-icon" />
+                  <img [src]="user?.image || 'assets/img/user-avatar.png'" alt="Profile Icon" class="rounded-circle profile-icon" />
               </div>
               <div class="dropdown">
-                <a class="sign-in-text dropdown-toggle" href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                  Sign In
+                <a class="sign-in-text dropdown-toggle text-uppercase" href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+               <strong class="text-body-tertiary" > Hello!    </strong>{{ user?.username | slice:0:12 }}
                 </a>
-
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                   <li><a class="dropdown-item" [routerLink]="'/profile'">Profile</a></li>
                   <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
                 </ul>
               </div>
-            </div> -->
-
-
-
-
+            </div>
           </div>
         </div>
       </div>
 
-      <button
-        class="navbar-toggler pe-0"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasNavbar"
-        aria-controls="offcanvasNavbar"
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>

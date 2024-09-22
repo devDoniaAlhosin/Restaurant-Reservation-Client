@@ -1,7 +1,9 @@
+import { AuthService } from './../../../Core/auth/auth.service';
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule, NgForm, ValidationErrors } from '@angular/forms';
 import { NgIf } from '@angular/common';
+
 @Component({
   selector: 'app-admin-login',
   standalone: true,
@@ -11,7 +13,11 @@ import { NgIf } from '@angular/common';
 })
 export class AdminLoginComponent {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router , authService : AuthService ) {
+    if(authService.isLoggedIn()){
+      this.router.navigate(['/']);
+    }
+  }
 
   SendLoginData(loginForm: NgForm){
     if (loginForm.valid) {

@@ -1,4 +1,6 @@
-<section class="hero--Section">
+
+<!-- Hero Section -->
+<section class="hero--Section" >
   <div class="hero--container">
     <div class="hero--content">
       <div class="hero--text">
@@ -21,3 +23,192 @@
     </div>
   </div>
 </section>
+
+
+<!-- Browse Our Menu -->
+<section class="Browse--Menu " appScrollAnimation>
+  <h1>Browse Our Menu </h1>
+  <div class="menu--container container d-flex flex-wrap ">
+    <div class="card service-item" >
+      <div class="icon-wrapper">
+        <fa-icon [icon]="faMugSaucer" class="menu-icon"></fa-icon>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">BreakFast</h5>
+        <p class="card-text">
+          In the new era of technology we look in the future with certainty and
+          pride for our life.
+        </p>
+        <a [routerLink]="'/menu'" class="">Explore Menu</a>
+      </div>
+    </div>
+    <div class="card service-item" style="width: 18rem;">
+      <div class="icon-wrapper">
+        <fa-icon [icon]="faUtensils" class="menu-icon"></fa-icon>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Main Dishes</h5>
+        <p class="card-text">
+          In the new era of technology we look in the future with certainty and
+          pride for our life.
+        </p>
+        <a [routerLink]="'/menu'" class="">Explore Menu</a>
+      </div>
+    </div>
+    <div class="card service-item" style="width: 18rem;">
+      <div class="icon-wrapper">
+        <fa-icon [icon]="faGlassWater" class="menu-icon"></fa-icon>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Drinks</h5>
+        <p class="card-text">
+          In the new era of technology we look in the future with certainty and
+          pride for our life.
+        </p>
+        <a [routerLink]="'/menu'" class="explore--anchor">Explore Menu</a>
+      </div>
+    </div>
+    <div class="card service-item"  style="width: 18rem;">
+      <div class="icon-wrapper">
+        <fa-icon [icon]="faStroopwafel" class="menu-icon"></fa-icon>
+      </div>
+      <div class="card-body ">
+        <h5 class="card-title">Desserts</h5>
+        <p class="card-text">
+          In the new era of technology we look in the future with certainty and
+          pride for our life.
+        </p>
+        <a [routerLink]="'/menu'" class="">Explore Menu</a>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+
+<!-- Healthy  -->
+ <section class="healthy" appScrollAnimation>
+ <div class="container my-5 ">
+  <div class="row align-items-center service-item" >
+    <div class="col-lg-6">
+      <div class="position-relative">
+
+        <img src="./../../../assets/img/healthy.png" class="img-fluid rounded shadow-sm" alt="Food Image">
+
+        <div class="card position-absolute  translate-middle-x translate-middle-y shadow" style="width: 300px; padding: 1.5rem;">
+          <h5 class="card-title mb-4">Come and visit us</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2 ">
+             <fa-icon [icon]="faPhone">  </fa-icon>
+             <span>(414) 857 – 0107  </span>
+            </li>
+            <li class="mb-2">
+              <fa-icon [icon]="faEnvelope" > </fa-icon>
+                <span>    happytummyrestaurant.com        </span>
+            </li>
+            <li>
+              <fa-icon [icon]="faMapMarkedAlt">  </fa-icon>
+              <span> 837 W. Marshall Lane, Marshalltown, IA 50158, Los Angeles  </span>
+
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="right--side col-lg-6">
+      <h1 class="display-4 fw-bold">We provide healthy food for your family.</h1>
+      <p class="mt-4">Our story began with a vision to create a unique dining experience that merges fine dining, exceptional service, and a vibrant ambiance. Rooted in the city's rich culinary culture, we aim to honor our local roots while infusing a global palate.</p>
+      <p>At our place, we believe that dining is not just about food, but also about the overall experience. Our staff, renowned for their warmth and dedication, strives to make every visit an unforgettable event.</p>
+      <a [routerLink]="'/about'" class=" about--us--btn  ">More About Us</a>
+    </div>
+  </div>
+</div>
+ </section>
+
+
+ <!--  Events  -->
+<section class="services-section" appScrollAnimation>
+  <div class="container ">
+    <h1 class="">We also offer unique services for your events</h1>
+    <div class="row">
+      <div class="col-md-3" *ngFor="let service of services">
+        <div class="service-item">
+          <img [src]="service.image" [alt]="service.title">
+          <div class="service-info">
+            <h5 >{{ service.title }}</h5>
+            <p>{{ service.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Food Delivery  -->
+<section class="food-delivery " appScrollAnimation>
+<div class="container ">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row food-images ">
+        <div class="col-md-6 mb-3">
+          <img src="assets/img/chef.png" alt="Chef preparing food" class="img-fluid grid-image">
+        </div>
+        <div class="row flex-column col-md-6">
+              <div class="col-md-6 mb-3">
+          <img src="assets/img/dish1.png" alt="Delicious shrimp dish" class="img-fluid grid-image">
+        </div>
+        <div class="col-md-6">
+          <img src="assets/img/dish2.png" alt="Grilled food" class="img-fluid grid-image">
+        </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="col-md-6 food-details d-flex flex-column service-item  justify-content-center">
+      <h1>Fastest Food Delivery in City</h1>
+      <p>
+        Our visual designer lets you quickly and easily create custom apps for both mobile and desktop.
+      </p>
+      <ul class="list-unstyled">
+        <li><fa-icon [icon]="faClock"></fa-icon> Delivery within 30 minutes</li>
+        <li><fa-icon [icon]="faPercent"></fa-icon> Best Offer & Prices</li>
+        <li><fa-icon [icon]="faCartShopping"></fa-icon> Online Services Available</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<!--  Testimonials  -->
+
+<div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active" *ngFor="let testimonial of testimonials; let i = index">
+      <div class="testimonial-card ">
+        <h3 class="testimonial-title">{{ testimonial.title }}</h3>
+        <p>{{ testimonial.content }}</p>
+        <div class="testimonial-author">
+          <img [src]="testimonial.image" alt="Author Image" class=" author-image">
+          <div class=" ">
+           <h4 class="p-0" >{{ testimonial.author }}</h4>
+          <span>{{ testimonial.location }}</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev " type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>

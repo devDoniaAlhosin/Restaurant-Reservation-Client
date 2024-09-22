@@ -1,11 +1,10 @@
 <div class="container-fluid">
   <div class="row">
-    <!-- Sidebar -->
     <nav id="sidebar" class="col-md-2 d-md-block bg-light sidebar position-fixed" >
       <div class="">
         <div class="sidebar-header text-center py-3">
           <img
-            src="https://via.placeholder.com/100"
+            src="assets/img/user-avatar.png"
             alt="Profile Picture"
             class="rounded-circle mb-3"
             style="width: 100px; height: 100px; object-fit: cover"
@@ -21,11 +20,11 @@
           </button>
         </div>
         <ul class="nav flex-column mt-4">
-          <!-- Dashboard Welcome  -->
+
           <li
           class="nav-item d-flex align-content-center align-items-center mb-2"
         >
-          <fa-icon [icon]="faUser" class="me-2"></fa-icon>
+          <fa-icon [icon]="faMagnifyingGlassChart" class="me-2"></fa-icon>
           <a
             class="nav-link"
             routerLink="/admin"
@@ -35,7 +34,7 @@
             Dashboard
           </a>
         </li>
-          <!-- Users Link -->
+
           <li
             class="nav-item d-flex align-content-center align-items-center mb-2"
           >
@@ -49,7 +48,7 @@
             </a>
           </li>
 
-          <!-- Menu Link -->
+
           <li
             class="nav-item d-flex align-content-center align-items-center mb-2"
           >
@@ -63,7 +62,7 @@
             </a>
           </li>
 
-          <!-- Requests Link -->
+
           <li class="nav-item d-flex align-content-center align-items-center">
             <fa-icon [icon]="faCodePullRequest" class="me-2"></fa-icon>
             <a
@@ -78,14 +77,13 @@
       </div>
     </nav>
 
-    <!-- Main Content -->
     <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-4">
       <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
       >
         <h1 class="h2">Dashboard</h1>
       </div>
-      <div class="row d-flex">
+      <div class="row d-flex ">
         <router-outlet></router-outlet>
       </div>
     </main>

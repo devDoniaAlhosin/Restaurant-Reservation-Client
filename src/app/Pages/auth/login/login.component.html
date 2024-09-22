@@ -24,19 +24,24 @@
         <p class="text-center or-separator">or</p>
       </div>
 
-      <!-- Email input -->
-      <div class="form-outline mb-4">
-        <label class="form-label" for="loginName">Username </label>
+       <!-- Error Message -->
+       <div *ngIf="errorMessage" class="alert alert-danger error--message text-center" [ngClass]="{'show': errorVisible}">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Email | Username  input -->
+      <div class="form-outline mb-4 mt-2">
+        <label class="form-label" for="loginName">Username or Email  </label>
         <input
           type="text"
           id="loginName"
           class="form-control"
-          placeholder="Enter Your Username"
+          placeholder="Enter Your Username or Email "
           required
           ngModel
           #username="ngModel"
           minlength="4"
-          pattern="^[a-zA-Z0-9 ]+$"
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|^[a-zA-Z0-9 ]{4,}$"
           name="username"
         />
         <div
@@ -48,14 +53,14 @@
             username.hasError('required') && !username.hasError('minlength')
           "
         >
-          Username Is Required Field
+        Username or Email is a required field.
         </div>
         <div
           *ngIf="
             username.hasError('minlength') && !username.hasError('required')
           "
         >
-          Username Should Contain More than 4 Characters
+        Username or Email should contain more than 4 characters.
         </div>
         <div
           *ngIf="
@@ -64,7 +69,7 @@
             !username.hasError('minlength')
           "
         >
-          Username Can Only Contain Letters and Numbers
+        Please enter a valid Username (only letters and numbers) or Email.
         </div>
       </div>
       </div>

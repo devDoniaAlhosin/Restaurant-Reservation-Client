@@ -14,12 +14,15 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
+import { UserService } from '../../../Core/services/userService/user.service';
+import { AuthService } from '../../../Core/auth/auth.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink , FontAwesomeModule , NgIf , FormsModule, ReactiveFormsModule],
+  imports: [RouterLink , FontAwesomeModule , NgIf , FormsModule, ReactiveFormsModule , NgClass],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -31,10 +34,28 @@ export class RegisterComponent {
  registerForm: FormGroup;
  selectedFile: File | null = null;
  errorMessage: string | null = null;
-  constructor(public router: Router,
+  user: any = null;
+  isLoggedIn: boolean = false;
+  private unsubscribe$ = new Subject<void>();
+  errorVisible = false;
+
+
+
+  constructor(
+    public router: Router,
     private fb: FormBuilder,
     private ValidateService: ValidateService,
+    private authService: AuthService,
+    private userService :UserService
     ) {
+      this.isLoggedIn = this.authService.isLoggedIn();
+
+      if (this.isLoggedIn) {
+        this.user = this.authService.getUser();
+        this.router.navigate(['/']);
+      }
+
+
       this.registerForm = this.fb.group(
         {
           email: ['', [Validators.required, Validators.email]],
@@ -44,9 +65,11 @@ export class RegisterComponent {
             [Validators.required, ValidateService.strongPasswordValidator()],
           ],
           confirmPassword: ['', [Validators.required]],
-          profileImage: [null],
-          address:['' , [Validators.required, Validators.minLength(5) ,Validators.maxLength(100) ]],
-          phoneNumber:['' , [Validators.required , Validators.pattern(/^\+?[0-9\s\-]{7,15}$/)]]
+          profileImage: ['' , [Validators.required]],
+          address:['' , [Validators.minLength(5) ,Validators.maxLength(100) ]],
+          phoneNumber:['' , [Validators.required ,Validators.pattern(/^(\+20[0-9]{10}|01[012][0-9]{8})$/)
+            // +201061642356 +201112345678  01298765432
+          ]]
         },
         {
           validator: ValidateService.passwordMatchValidator(
@@ -55,14 +78,18 @@ export class RegisterComponent {
           ),
         }
       );
+
+
     }
 
     onFileSelected(event: Event): void {
       const input = event.target as HTMLInputElement;
       if (input.files) {
         this.selectedFile = input.files[0];
+        this.registerForm.get('profileImage')?.setValue(this.selectedFile);
       }
     }
+
 
     onSubmit() {
       if (this.registerForm.valid) {
@@ -75,6 +102,25 @@ export class RegisterComponent {
         if (this.selectedFile) {
           formData.append('image', this.selectedFile, this.selectedFile.name);
         }
+
+        this.authService.register(formData).subscribe(response => {
+          this.userService.setUser(response.user);
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('user', JSON.stringify(response.user));
+          this.router.navigate(['/profile']);
+        }, error => {
+          console.error('Registration failed', error);
+          this.errorMessage = 'Registration failed. Please try again.';
+          setTimeout(() => {
+            this.errorVisible = true;
+          }, 50);
+          setTimeout(() => {
+            this.errorVisible = false;
+            this.errorMessage = null;
+          }, 10000);
+        });
+
+
       }
     }
 }

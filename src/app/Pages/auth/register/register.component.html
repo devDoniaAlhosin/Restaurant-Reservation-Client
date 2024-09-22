@@ -27,6 +27,12 @@
         <p class="text-center or-separator">or</p>
       </div>
 
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="alert alert-danger error--message text-center" [ngClass]="{'show': errorVisible}">
+          {{ errorMessage }}
+        </div>
+
+
       <!-- Email input -->
       <div class="form-outline mb-4">
         <label class="form-label" for="registerEmail">Email <span class="required-indicator">*</span></label>
@@ -118,7 +124,7 @@
 
       <!-- Address input -->
       <div class="form-outline mb-4">
-        <label class="form-label" for="address"> Address<span class="required-indicator">*</span> </label>
+        <label class="form-label" for="address"> Address (optional) </label>
         <input type="text" id="address" class="form-control"    placeholder="Enter your address" formControlName="address" required  />
         <div
         *ngIf="
@@ -127,13 +133,10 @@
         "
         class="form-text text-danger fs-6"
       >
-        <div *ngIf="registerForm.get('address')?.hasError('required')">
-          Address is required.
-        </div>
         <div
           *ngIf="registerForm.get('address')?.hasError('minlength')"
         >
-        Address can't be longer than 100 characters.
+        Address can't be smaller than 5 characters.
         </div>
         <div
         *ngIf="registerForm.get('address')?.hasError('maxlength')"
@@ -145,11 +148,11 @@
 
       <!-- Phone Number input -->
       <div class="form-outline mb-4">
-        <label class="form-label" for="phoneNumber">  Phone Number<span class="required-indicator">*</span> </label>
+        <label class="form-label" for="phoneNumber"> Phone Number<span class="required-indicator">*</span> </label>
         <input type="tel" id="phoneNumber"
         formControlName="phoneNumber"
         class="form-control"
-        placeholder="(e.g., +1234567890)."
+        placeholder="(e.g.,+201061642466 , 01112345678)."
 
          required />
          <div
