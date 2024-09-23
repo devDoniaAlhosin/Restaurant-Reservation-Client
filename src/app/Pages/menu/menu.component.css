@@ -30,14 +30,14 @@
       transition: .3s ease all;
       outline: none;
       &:hover{
-        background-color: #ad343e;
+        background-color: var(--primary-color);
         color: white;
-        border: 1px solid #ad343e;
+        border: 1px solid var(--primary-color);
       }
       &.active {
-        background-color: #ad343e; /* Same as hover color */
+        background-color: var(--primary-color); /* Same as hover color */
         color: white;
-        border: 1px solid #ad343e; /* Optional to match hover style */
+        border: 1px solid var(--primary-color); /* Optional to match hover style */
       }
     }
   }
@@ -60,7 +60,7 @@
         font-weight: 700;
 
         .card-price{
-          color: #AD343E;
+          color: var(--primary-color);
           line-height: 30px;
           font-size: 24px;
         }
@@ -96,6 +96,9 @@
     line-height: 60.5px;
     font-weight: 600;
     padding: 7rem 0;
+    .tx{
+      font-family: "Playfair Display", serif ;
+    }
   }
 
   .methods{

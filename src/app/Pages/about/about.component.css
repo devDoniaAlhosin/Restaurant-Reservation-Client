@@ -1,0 +1,322 @@
+
+.provide {
+  padding-top: 5rem;
+  .image{
+    background-image: url("../../../../src/assets/img/image_about-1.png");
+    border-radius: 12px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 600px;
+    height: 566px;
+    margin-right:100px;
+  }
+
+
+  .text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h1 {
+      font-family: "Playfair Display", serif ;
+      font-size: 55px;
+      font-weight: 500;
+      line-height: 60.5px;
+    }
+
+
+  }
+
+  .visitUs{
+    background-color: #474747;
+    color: #F9F9F7;
+    border-radius: 12px;
+    padding: 30px 40px 20px 50px ;
+    text-align: start;
+    width: 411px;
+    height: 321px;
+
+    position: relative;
+    left: 15rem;
+    bottom:17rem;
+
+    h3{
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 30px;
+      color: #FFFFFF;
+      padding-bottom: 20px;
+    }
+    p{
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      padding-bottom: 10px;
+    }
+    .text-1{
+      font-weight: 18px;
+      font-weight: 500px;
+      line-height: 28px;
+    }
+    .bx{
+      font-size: 28px;
+      position: relative;
+      top: 5px;
+      right: 5px;
+    }
+  }
+}
+
+
+.features{
+  margin-top: -10rem;   /*couldn't figure from where the extra space is comibg from*/
+  width: 100%;
+  .video{
+    position: relative;
+    width: 100%;
+    video{
+      width: 100%;
+    }
+
+    .overlay{
+      position: absolute;  /* Make overlay cover the entire container */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 89.3%;
+      background-color: rgba(0, 0, 0, .5); /* Adjust opacity as needed */
+      z-index: 1; /* Bring overlay on top of video */
+    }
+  }
+
+  .play-pause-btn {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFFFFF;
+    border: none;
+    width: 106px;
+    height: 106px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .bx{
+    color: var(--primary-color);
+    text-align: center;
+    font-size: 45px;
+  }
+  .bx-play{
+    position: relative;
+    left: 2px;
+  }
+
+  .video-text{
+    font-family: "Playfair Display", serif ;
+    position: relative;
+    bottom: 35rem;
+    left: 35%;
+    width: 600px;
+    font-size: 55px;
+    line-height: 60.5px;
+    font-weight: 500;
+    text-align: center;
+    color: #FFFFFF;
+    z-index: 1;
+
+  }
+
+  .icons{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: -5rem;
+    .icon{
+      display: flex;
+      margin-left: 4rem;
+      img{
+        width: 48px;
+        height: 48px;
+        margin-right: 30px;
+      }
+      .text{
+        .big{
+          font-size: 20px;
+          font-weight: 700;
+          line-height: 26px;
+          color: #2C2F24;
+        }
+        .small{
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 24px;
+          color: #414536;
+        }
+      }
+    }
+  }
+}
+
+
+.information{
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  padding-top:8rem;
+  padding-bottom:8rem;
+  background-color: #F9F9F7;
+
+  .row{
+    gap: 5rem;
+  }
+  .info{
+    .text{
+      width: 85%;
+      h1{
+        font-family: "Playfair Display", serif ;
+        font-size: 40px;
+        font-weight: 600;
+        line-height: 60.5px;
+      }
+      p{
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        color: #414536;
+      }
+    }
+
+    .cards{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      & > *{
+        margin-top: 3rem;
+        width: 293px;
+        height: 174px;
+        border: 1px solid #DBDFD0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #FFFFFF;
+        border-radius: 12px;
+        margin-bottom: 20px;
+
+        h1{
+          font-size: 55px;
+          font-family: "Playfair Display", serif ;
+          line-height: 60.5px;
+          font-weight: 500px;
+        }
+        p{
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 28px;
+          color: #414536;
+        }
+      }
+    }
+
+  }
+
+  .image{
+    background-image: url("../../../../src/assets/img/kitchen.avif");
+    border-radius: 12px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* width: 600px;
+    height: 566px; */
+  }
+}
+
+
+
+
+.opinions{
+  padding-top:3rem;
+  padding-bottom:5rem;
+  margin-bottom: 5rem;
+  h1{
+    text-align: center;
+    font-family: "Playfair Display", serif ;
+    font-size: 55px;
+    font-weight: 500;
+    line-height: 60.5px;
+    margin-bottom: 5rem;
+  }
+
+  .cards{
+
+    .row{
+      gap: 2rem;
+
+    .card{
+      width: 418px;
+      height: 410px;
+      padding: 30px;
+      border: none;
+      border-radius: 10px;
+      background-color: #F9F9F7;
+      h3{
+        color: var(--primary-color);
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 30px;
+      }
+      p{
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 28px;
+      }
+
+      span{
+        width:346px;
+        height: 1px;
+        background-color: #DBDFD0;
+        margin-top: 20px;
+        margin-bottom: 30px;
+      }
+
+      .author{
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        img{
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
+        }
+        .text{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin-left: 20px;
+          padding-top: 10px;
+        }
+        .name {
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 24px;
+          color: #2C2F24;
+
+        }
+
+        .location{
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 24px;
+          color: #414536;
+          margin-top: -8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+
