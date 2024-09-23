@@ -72,13 +72,12 @@ export const routes: Routes = [
           { path: 'register', component: RegisterComponent  },
         ],
       },
-
       {
         path: 'profile',
         component: ProfileComponent,
         title: 'Bistro Bliss | Profile',
         canActivate: [AuthGuard],
-        data: { role: 'user' }
+
       },
 
       { path: '**', component: NotFoundComponent },

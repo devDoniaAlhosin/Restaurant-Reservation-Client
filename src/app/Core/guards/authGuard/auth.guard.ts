@@ -8,6 +8,7 @@ import { AuthService } from '../../auth/auth.service';
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
   canActivate(): boolean {
+    console.log('Checking authentication...');
     if (this.authService.isLoggedIn()) {
       const userRole = this.authService.getUserRole();
       if (userRole === 'admin') {
@@ -15,14 +16,11 @@ export class AuthGuard implements CanActivate {
         return false;
       }
       return true;
-    } else {
-      this.router.navigate(['/auth']);
-    return false;
     }
 
-
+    this.router.navigate(['/auth/login']);
+    return false;
   }
 
 
-
-}
+  }
