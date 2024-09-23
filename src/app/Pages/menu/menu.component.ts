@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../Core/services/menuService/menu.service';
 import { Menu } from '../../Models/menu.model';
-import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-menu',
   standalone: true,

@@ -59,7 +59,7 @@ export class MenuDashboardComponent {
         } else {
           // Create new author
           this.menuService.createMenu(result).subscribe(() => {
-            this.getMenu(this.rows, 0); // Refresh authors list
+            this.getMenu(this.rows, 0);
           });
         }
       }
