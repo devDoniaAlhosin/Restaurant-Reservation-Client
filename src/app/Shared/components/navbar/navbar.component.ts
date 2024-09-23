@@ -40,7 +40,6 @@ export class NavbarComponent implements OnInit {
     this.userService.getUser().subscribe(user => {
         this.user = user;
         this.isLoggedIn = !!user;
-
     });
     this.isLoggedIn = this.authService.isLoggedIn();
     if (this.isLoggedIn) {

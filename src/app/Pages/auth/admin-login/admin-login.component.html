@@ -1,40 +1,74 @@
-<div class="login-page ">
+<div class="login-page">
   <div class="login-box">
     <div class="login-header text-center">
       <img
         src="assets/img/japanese-food.svg"
         alt="Bistro Bliss Logo"
-        class="logo mb-4 "
+        class="logo mb-4"
       />
-      <h2>Dashboard  Login</h2>
+      <h2>Admin Dashboard Login</h2>
     </div>
-    <form>
+
+    <form #loginForm="ngForm" (ngSubmit)="SendAdminLoginData(loginForm)">
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="alert alert-danger error--message text-center" [ngClass]="{'show': errorVisible}">
+        {{ errorMessage }}
+      </div>
+
+
       <div class="form-floating mb-3 py-6">
         <input
           type="text"
-          class=" form-control"
-          id="floatingUsername"
+          class="form-control"
+          id="floatingAdminUsername"
           placeholder="Username"
+          ngModel
+          #adminUsername="ngModel"
+          name="adminUsername"
+          minlength="4"
           required
         />
-        <label for=" my-6  floatingUsername">Username</label>
+        <label for="floatingAdminUsername"> Username</label>
+
+
+        <div *ngIf="adminUsername.invalid && adminUsername.touched" class="form-text text-danger fs-6">
+          <div *ngIf="adminUsername.hasError('required') && !adminUsername.hasError('minlength')">
+            Admin Username is a required field.
+          </div>
+          <div *ngIf="adminUsername.hasError('minlength') && !adminUsername.hasError('required')">
+            Admin Username should contain more than 4 characters.
+          </div>
+          <div *ngIf="!adminUsername.hasError('required') && !adminUsername.hasError('minlength')">
+            Please enter a valid Admin Username.
+          </div>
+        </div>
       </div>
+
+
       <div class="form-group mb-3">
         <input
           type="password"
           class="form-control"
           placeholder="Password"
+          ngModel
+          name="adminPassword"
+          #adminPassword="ngModel"
           required
         />
+
+
+        <div *ngIf="adminPassword.invalid && adminPassword.touched" class="form-text text-danger fs-6">
+          Admin Password is a required field.
+        </div>
       </div>
-      <button type="submit" class="btn btn-primary btn-block">
-        Login
+
+
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid">
+        Admin Login
       </button>
 
-      <a
-        [routerLink]="'/'"
-        class="mt-2 btn website--link  w-100 text-center"
-      >
+
+      <a [routerLink]="'/'" class="mt-2 btn website--link w-100 text-center">
         Back to the website
       </a>
     </form>

@@ -26,7 +26,8 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    // canActivate: [AdminGuard],
+    canActivate: [AdminGuard],
+    data: { role: 'admin' },
     children: [
       {
         path: '',
@@ -53,6 +54,7 @@ export const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
+    // canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -76,6 +78,7 @@ export const routes: Routes = [
         component: ProfileComponent,
         title: 'Bistro Bliss | Profile',
         canActivate: [AuthGuard],
+        data: { role: 'user' }
       },
 
       { path: '**', component: NotFoundComponent },

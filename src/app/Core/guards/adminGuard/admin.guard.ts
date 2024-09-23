@@ -11,6 +11,7 @@ export class AdminGuard implements CanActivate {
 
   canActivate(): boolean {
     const user = this.authService.getUser();
+
     if (user && user.role === 'admin') {
       return true;
     } else {
@@ -18,4 +19,7 @@ export class AdminGuard implements CanActivate {
       return false;
     }
   }
+
+
 }
+

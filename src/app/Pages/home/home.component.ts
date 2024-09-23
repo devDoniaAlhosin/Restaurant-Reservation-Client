@@ -91,7 +91,7 @@ testimonials = [
   }
 ];
 
-testimonialGroups = [];
+
 
 
 ngOnInit(): void {

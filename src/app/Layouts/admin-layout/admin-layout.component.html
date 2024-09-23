@@ -1,91 +1,72 @@
-<div class="container-fluid">
-  <div class="row">
-    <nav id="sidebar" class="col-md-2 d-md-block bg-light sidebar position-fixed" >
-      <div class="">
-        <div class="sidebar-header text-center py-3">
-          <img
-            src="assets/img/user-avatar.png"
-            alt="Profile Picture"
-            class="rounded-circle mb-3"
-            style="width: 100px; height: 100px; object-fit: cover"
-          />
-
-          <p class="mb-2">Hello, <strong>Admin</strong></p>
-          <button class="btn btn-danger">
-            <a
-              [routerLink]="'/admin-login'"
-              class="text-light text-decoration-none"
-              >Logout</a
-            >
-          </button>
-        </div>
-        <ul class="nav flex-column mt-4">
-
-          <li
-          class="nav-item d-flex align-content-center align-items-center mb-2"
-        >
-          <fa-icon [icon]="faMagnifyingGlassChart" class="me-2"></fa-icon>
-          <a
-            class="nav-link"
-            routerLink="/admin"
-            routerLinkActive="active-link"
-
-          >
-            Dashboard
-          </a>
-        </li>
-
-          <li
-            class="nav-item d-flex align-content-center align-items-center mb-2"
-          >
-            <fa-icon [icon]="faUser" class="me-2"></fa-icon>
-            <a
-              class="nav-link"
-              routerLink="/admin/users-dashboard"
-              routerLinkActive="active-link"
-            >
-              Users
-            </a>
-          </li>
-
-
-          <li
-            class="nav-item d-flex align-content-center align-items-center mb-2"
-          >
-            <fa-icon [icon]="faBowlFood" class="me-2"></fa-icon>
-            <a
-              class="nav-link"
-              routerLink="/admin/menu-dashboard"
-              routerLinkActive="active-link"
-            >
-              Menu
-            </a>
-          </li>
-
-
-          <li class="nav-item d-flex align-content-center align-items-center">
-            <fa-icon [icon]="faCodePullRequest" class="me-2"></fa-icon>
-            <a
-              class="nav-link"
-              routerLink="/admin/requests-dashboard"
-              routerLinkActive="active-link"
-            >
-              Requests
-            </a>
-          </li>
-        </ul>
+<div class="wrapper">
+  <aside id="sidebar" [ngClass]="{ 'expand': isExpanded }">
+    <div class="d-flex">
+      <button class="toggle-btn" type="button" (click)="toggleSidebar()">
+        <fa-icon class="text-white fs-3" [icon]="faGripVertical"></fa-icon>
+      </button>
+      <div class="sidebar-logo">
+        <a [routerLink]="'/admin'">BistroBliss</a>
       </div>
-    </nav>
+    </div>
 
-    <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-4">
-      <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-      >
+    <ul class="sidebar-nav">
+      <li class="sidebar-item">
+        <a class="sidebar-link">
+          <fa-icon [icon]="faMagnifyingGlassChart" class="me-3"></fa-icon>
+          <span><a class="nav-link" [routerLink]="'/admin'" routerLinkActive="active-link">Dashboard</a></span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a class="sidebar-link">
+          <fa-icon [icon]="faUser" class="me-3"></fa-icon>
+          <span><a class="nav-link" [routerLink]="'/admin/users-dashboard'" routerLinkActive="active-link">Users</a></span>
+
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a class="sidebar-link" >
+          <fa-icon [icon]="faBowlFood" class="me-3"></fa-icon>
+          <span><a class="nav-link" [routerLink]="'/admin/menu-dashboard'" routerLinkActive="active-link">Menu</a></span>
+        </a>
+
+      </li>
+      <li class="sidebar-item">
+        <a class="sidebar-link  " >
+          <fa-icon [icon]="faCodePullRequest" class="me-3"></fa-icon>
+          <span><a class="nav-link"   [routerLink]="'/admin/requests-dashboard'" routerLinkActive="active-link">Booking</a></span>
+        </a>
+
+      </li>
+  </ul>
+
+    <div class="sidebar-footer" >
+      <a class="sidebar-link" href="#" (click)="logout($event)">
+       <fa-icon [icon]="faRightFromBracket"></fa-icon>
+       <span>Logout</span>
+      </a>
+    </div>
+  </aside>
+  <div class="main p-3">
+    <div class="navbar-custom d-flex justify-content-between align-items-center p-3 mb-3">
+      <div class="navbar-left">
         <h1 class="h2">Dashboard</h1>
       </div>
-      <div class="row d-flex ">
-        <router-outlet></router-outlet>
+
+      <div class="navbar-right d-flex align-items-center">
+        <span class="admin-name me-3">{{ user?.username | slice:0:12 }}</span>
+        <div class="profile-image-wrapper ">
+          <img
+          [src]="user?.image || 'assets/img/user-avatar.png'"
+          alt="Profile Picture"
+          class="rounded-circle mb-3 align-content-lg-center"
+          style="width: 100%; height: 100%; object-fit: cover "
+        />
+        </div>
       </div>
-    </main>
+    </div>
+    <div class="row d-flex border-1">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
+

@@ -39,7 +39,18 @@ export class LoginComponent {
 
       this.AuthService.login(loginData.login, loginData.password).subscribe(
         (response: any) => {
-          // console.log('Login Response:', response);
+          console.log('Login Response:', response);
+          if (response.user.role !== 'user') {
+            this.errorMessage = "Unauthorized action.";
+            this.errorVisible = true;
+            setTimeout(() => {
+              this.errorVisible = false;
+              this.errorMessage = null;
+            }, 10000);
+            return;
+          }
+
+
           if (loginForm.value.rememberMe) {
             sessionStorage.setItem('token', response.token);
           }else{loginData
@@ -55,7 +66,7 @@ export class LoginComponent {
           setTimeout(() => {
             this.errorVisible = true;
           }, 50);
-          this.errorMessage = "Your Credentials are incorrect";
+          this.errorMessage = ` Your Credentials are incorrect`;
           setTimeout(() => {
             this.errorVisible = false;
             this.errorMessage = null;

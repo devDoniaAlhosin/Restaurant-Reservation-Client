@@ -210,7 +210,6 @@
     color: var(--white-color);
     left: 22rem !important;
     bottom: -7rem !important;
-
     .list-unstyled{
       display: flex;
       align-items: flex-start;
@@ -299,11 +298,11 @@
      width: 40%;
     }
     .service-item {
-      margin-bottom: 30px;
+      /* margin-bottom: 30px; */
       position: relative;
       overflow: hidden;
-      border-radius: 10px;
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      /* border-radius: 10px; */
+      /* box-shadow: 0 8px 8px rgba(0, 0, 0, 0.062); */
       transition: transform 0.3s ease;
     }
     .service-item img {
@@ -341,12 +340,10 @@
 
 
 
-
-    /*  Food Delivery   */
+ /*  Food Delivery   */
 
 .food-delivery {
-  margin-top: 50px;
-  padding: 4rem 0;
+  padding: 5rem 0;
   background-color: var(--white-color);
   border-radius: 8px;
   border: 0;
@@ -354,21 +351,34 @@
 }
 
 
+.food-images {
+  overflow: hidden;
+}
+
+
+.hover-zoom {
+  transition: transform 0.4s ease-in-out;
+}
+
+.hover-zoom:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+
 .food-images img {
   width: 100%;
   height: auto;
   border-radius: 8px;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.4s ease-in-out;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   object-fit: cover;
 }
-.food-images img:hover {
-  transform: scale(1.05);
-}
+
+
 .grid-image {
   opacity: 0;
   animation: slideIn 0.5s forwards;
-  object-fit: cover;
 }
 
 .grid-image:nth-child(1) {
@@ -383,9 +393,12 @@
   animation-delay: 0.3s;
 }
 
+
 .food-details {
-  padding:  0 2rem !important;
+  margin-bottom: 0px !important;
+  padding: 0 2rem !important;
 }
+
 .food-details h1 {
   font-size: 2.5rem;
   color: #333;
@@ -407,6 +420,7 @@
   font-weight: 600;
 }
 
+
 .food-details ul li fa-icon {
   margin-right: 1rem;
   color: var(--white-color);
@@ -416,9 +430,7 @@
   text-align: center;
   border-radius: 50%;
   padding-top: 7px;
-
 }
-
 
 @keyframes slideIn {
   0% {
@@ -431,63 +443,149 @@
   }
 }
 
+
+
 /*  Testimonial  */
 .carousel{
   padding: 5rem 0;
   width: 100%;
 }
-.testimonial-card {
+.carousel-inner {
+  padding: 2rem 0;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-  text-align: center;
-  padding: 3rem  2rem ;
-  background-color: var(--white-color);
-  border-radius: 10px;
-  margin: 20px auto;
-  max-width: 500px;
-  p{
-    text-align: start;
-    width: 100%;
+.testimonial-card {
+  position: relative;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  transition: transform 0.3s ease;
+  border: 2px solid var(--primary-color);
+  .testimonial-title{
+    font-size: 1.5rem;
+    color: var(--primary-color);
+  }
+  h4{
+    color: var(--primary-color);
+    text-transform: uppercase;
+
   }
 }
 
-.testimonial-title {
-  font-size: 1.5rem;
-  text-align: start;
-  color: #b91d1d;
+.testimonial-card:hover {
+  transform: translateY(-10px);
+}
+
+.testimonial-card::before {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border-width: 15px 15px 0;
+  border-style: solid;
+  border-color: var(--primary-color) transparent transparent transparent;
+}
+
+.testimonial-card::after {
+  content: "";
+  position: absolute;
+  bottom: -13px;
+  left: 21px;
+  width: 0;
+  height: 0;
+  border-width: 13px 13px 0;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
 }
 
 .testimonial-author {
-  border-top: 1px solid var(--black-color);
-  padding: 2rem 0 ;
+  border-top: 1px solid #ddd;
+  padding: 1rem 0;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 10px;
-  .text-contents{
-     p{
-    padding-bottom: 0 !important;
-      }
-  }
-
 }
 
 .author-image {
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  margin-right: 20px;
+  margin-right: 15px;
+  border: 2px solid var(--background-color);
 }
 
-.carousel-control-prev-icon, .carousel-control-next-icon {
-  background-color: black;
-  border-radius: 50%;
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* .carousel-item {
-  transition: transform 0.5s ease-in-out;
-} */
+
+.custom-indicators button {
+  width: 50px;
+  height: 12px;
+  border-radius: 0;
+  background-color: #ddd;
+  margin: 0 5px;
+  transition: background-color 0.3s;
+}
+
+.custom-indicators button.active {
+  background-color: var(--primary-color);
+}
+
+.custom-indicators button:hover {
+  background-color: #3498db5b;
+}
 
 
+.carousel-item {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 0 !important;
+  transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+}
+
+.carousel-item.active {
+  opacity: 1;
+}
+
+.carousel-item-next.carousel-item-left, .carousel-item-prev.carousel-item-right {
+  opacity: 0.5;
+}
+/* Carsual Media   */
+@media (max-width: 991px) {
+  .carousel-item {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .col-lg-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .carousel-item {
+    display: block;
+  }
+
+  .col-md-6, .col-lg-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
 
 /*   ############### Media Query ################3 */
 @media (max-width: 1200px) {
@@ -515,7 +613,6 @@
 }
 }
 }
-
 .hero--paragraph
 {
   width: 90% !important;
@@ -538,10 +635,33 @@
   }
 
 
-}
 
 }
+  /* Healthy */
+  .healthy{
+    .card{
+      width: 90%;
+      left: 10rem !important;
+      bottom: -7rem !important;
+    }
+  .right--side{
+    width: 90%;
+    padding: 3rem ;
+    h1{
+      font-size: 2rem;
+    }
+  }
+  }
 
+  .services-section{
+    h1{
+      width: 100%;
+    }
+
+  }
+
+}
+/* Events */
 @media (max-width: 768px) {
   .hero--content{
     .hero--text {
@@ -552,7 +672,6 @@
 }
 }
 }
-
 .hero--paragraph
 {
   width: 90% !important;
@@ -577,8 +696,30 @@
 
 
 }
+/*  Food Delivery  */
 
+.food-delivery {
+  .food--deleivery--conrainer{
+    width: 90%;
+
+    .food--deleivery--conrainer{
+      gap: 1rem !important;
+
+      }
+
+    }
+  }
+
+  .food-details{
+    order: 1;
+    margin-top: 2rem;
+    h1{
+      font-size: 35px;
+    }
+  }
 }
+
+
 
 @media (max-width: 576px) {
   .hero--content{
@@ -590,9 +731,6 @@
   }
   }
   }
-
-
-
   .hero--paragraph
   {
     width: 90% !important;
@@ -630,7 +768,22 @@
 
 
 }
+/* Healthy */
+/* .healthy{
+  .card{
+    width: 90%;
+    left: 10rem !important;
+    bottom: -7rem !important;
+  }
+.right--side{
+  width: 90%;
+  padding: 3rem ;
+  h1{
+    font-size: 2rem;
+  }
 
+}
+} */
 
 
 }

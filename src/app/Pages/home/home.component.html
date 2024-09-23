@@ -28,7 +28,7 @@
 <!-- Browse Our Menu -->
 <section class="Browse--Menu " appScrollAnimation>
   <h1>Browse Our Menu </h1>
-  <div class="menu--container container d-flex flex-wrap ">
+  <div class="menu--container container d-flex flex-wrap service-item ">
     <div class="card service-item" >
       <div class="icon-wrapper">
         <fa-icon [icon]="faMugSaucer" class="menu-icon"></fa-icon>
@@ -93,9 +93,7 @@
   <div class="row align-items-center service-item" >
     <div class="col-lg-6">
       <div class="position-relative">
-
         <img src="./../../../assets/img/healthy.png" class="img-fluid rounded shadow-sm" alt="Food Image">
-
         <div class="card position-absolute  translate-middle-x translate-middle-y shadow" style="width: 300px; padding: 1.5rem;">
           <h5 class="card-title mb-4">Come and visit us</h5>
           <ul class="list-unstyled">
@@ -110,13 +108,12 @@
             <li>
               <fa-icon [icon]="faMapMarkedAlt">  </fa-icon>
               <span> 837 W. Marshall Lane, Marshalltown, IA 50158, Los Angeles  </span>
-
             </li>
           </ul>
         </div>
       </div>
     </div>
-    <div class="right--side col-lg-6">
+    <div class="right--side col-lg-6 ">
       <h1 class="display-4 fw-bold">We provide healthy food for your family.</h1>
       <p class="mt-4">Our story began with a vision to create a unique dining experience that merges fine dining, exceptional service, and a vibrant ambiance. Rooted in the city's rich culinary culture, we aim to honor our local roots while infusing a global palate.</p>
       <p>At our place, we believe that dining is not just about food, but also about the overall experience. Our staff, renowned for their warmth and dedication, strives to make every visit an unforgettable event.</p>
@@ -132,7 +129,7 @@
   <div class="container ">
     <h1 class="">We also offer unique services for your events</h1>
     <div class="row">
-      <div class="col-md-3" *ngFor="let service of services">
+      <div class="col-lg-3 col-md-6 col-sm-12 mb-4" *ngFor="let service of services">
         <div class="service-item">
           <img [src]="service.image" [alt]="service.title">
           <div class="service-info">
@@ -148,28 +145,26 @@
 
 <!-- Food Delivery  -->
 <section class="food-delivery " appScrollAnimation>
-<div class="container ">
-  <div class="row">
-    <div class="col-md-6">
+<div class="container food--deleivery--conrainer">
+  <div class="row ">
+    <div class="col-md-6 ">
       <div class="row food-images ">
-        <div class="col-md-6 mb-3">
-          <img src="assets/img/chef.png" alt="Chef preparing food" class="img-fluid grid-image">
+        <div class="col-lg-6 col-md-12 mb-3 align-content-lg-center " >
+          <img src="assets/img/chef.png" alt="Chef preparing food" class="img-fluid grid-image hover-zoom">
         </div>
-        <div class="row flex-column col-md-6">
-              <div class="col-md-6 mb-3">
-          <img src="assets/img/dish1.png" alt="Delicious shrimp dish" class="img-fluid grid-image">
-        </div>
-        <div class="col-md-6">
-          <img src="assets/img/dish2.png" alt="Grilled food" class="img-fluid grid-image">
-        </div>
+        <div class="row col-lg-6  row-cols-md-2 row-cols-lg-1 ">
+          <div class="col-md-6 mb-3  col-lg-12 " >
+            <img src="assets/img/dish1.png" alt="Delicious shrimp dish" class="img-fluid grid-image hover-zoom">
+          </div>
+          <div class="col-md-6 col-lg-3 col-lg-12">
+            <img src="assets/img/dish2.png" alt="Grilled food" class="img-fluid grid-image hover-zoom">
+          </div>
         </div>
 
       </div>
     </div>
-
-
-    <div class="col-md-6 food-details d-flex flex-column service-item  justify-content-center">
-      <h1>Fastest Food Delivery in City</h1>
+    <div class="col-md-6 food-details d-flex flex-column service-item  justify-content-center order-sm-2 ">
+      <h1 class="">Fastest Food Delivery in City</h1>
       <p>
         Our visual designer lets you quickly and easily create custom apps for both mobile and desktop.
       </p>
@@ -185,30 +180,54 @@
 
 
 <!--  Testimonials  -->
+<section id="carouselExampleIndicators bg-body-secondary " class="carousel slide  " >
+  <div class="carousel-indicators custom-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+  </div>
 
-<div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active" *ngFor="let testimonial of testimonials; let i = index">
-      <div class="testimonial-card ">
-        <h3 class="testimonial-title">{{ testimonial.title }}</h3>
-        <p>{{ testimonial.content }}</p>
-        <div class="testimonial-author">
-          <img [src]="testimonial.image" alt="Author Image" class=" author-image">
-          <div class=" ">
-           <h4 class="p-0" >{{ testimonial.author }}</h4>
-          <span>{{ testimonial.location }}</span>
+  <div class="carousel-inner container ">
+    <div class="carousel-item row active justify-content-center ">
+      <div class="col-lg-4 col-md-6 col-sm-12 ">
+        <div class="testimonial-card">
+          <h3 class="testimonial-title">{{ testimonials[0].title }}</h3>
+          <p>{{ testimonials[0].content }}</p>
+          <div class="testimonial-author">
+            <img [src]="testimonials[0].image" alt="Author Image" class="author-image">
+            <div>
+              <h4>{{ testimonials[0].author }}</h4>
+              <span>{{ testimonials[0].location }}</span>
+            </div>
           </div>
-
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="testimonial-card">
+          <h3 class="testimonial-title">{{ testimonials[1].title }}</h3>
+          <p>{{ testimonials[1].content }}</p>
+          <div class="testimonial-author">
+            <img [src]="testimonials[1].image" alt="Author Image" class="author-image">
+            <div>
+              <h4>{{ testimonials[1].author }}</h4>
+              <span>{{ testimonials[1].location }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 d-none d-md-block">
+        <div class="testimonial-card">
+          <h3 class="testimonial-title">{{ testimonials[2].title }}</h3>
+          <p>{{ testimonials[2].content }}</p>
+          <div class="testimonial-author">
+            <img [src]="testimonials[2].image" alt="Author Image" class="author-image">
+            <div>
+              <h4>{{ testimonials[2].author }}</h4>
+              <span>{{ testimonials[2].location }}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
   </div>
-  <button class="carousel-control-prev " type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+</section>
