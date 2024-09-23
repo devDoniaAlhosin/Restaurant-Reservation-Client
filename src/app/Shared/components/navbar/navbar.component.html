@@ -64,9 +64,20 @@
                <strong class="text-body-tertiary" > Hello!    </strong>{{ user?.username | slice:0:12 }}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <li><a class="dropdown-item" [routerLink]="'/profile'">Profile</a></li>
-                  <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+                  <li>
+                    <a class="dropdown-item" [routerLink]="'/profile'">
+
+                        <img [src]="user?.image || 'assets/img/user-avatar.png'" alt="Profile Icon" class="rounded-circle profile-icon2 me-2" />
+             Profile
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item " (click)="logout()">
+                      <fa-icon class="me-3" [icon]="faRightFromBracket"></fa-icon> Logout
+                    </a>
+                  </li>
                 </ul>
+
               </div>
             </div>
           </div>

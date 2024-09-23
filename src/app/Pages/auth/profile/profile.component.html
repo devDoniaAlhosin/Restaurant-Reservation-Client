@@ -1,1 +1,122 @@
-<p>profile works!</p>
+<div class="container mt-5 mb-5">
+  <div class="profile-container p-4 bg-white rounded shadow-none">
+    <div class="profile-header d-flex align-items-center mb-4">
+      <img src="assets/img/user-avatar.png" alt="Profile Picture" class="profile-pic rounded-circle border me-4">
+      <div class="profile-info">
+        <div class="profile-card">
+          <h1 class="title" id="username" >Username</h1>
+          <p class="text-muted" id="email"><fa-icon [icon]="faEnvelope"></fa-icon> userexample.com</p>
+          <p class="text-muted" id="phone"><fa-icon [icon]="faPhone"></fa-icon> (123) 456-7890</p>
+          <p class="text-muted" id="address"><fa-icon [icon]="faAddressCard"></fa-icon> 123 Bistro St, Food City</p>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="bookings-section">
+      <h2 class="h4">Your Bookings</h2>
+      <div class="row mt-3">
+        <div class="col-md-4">
+          <div class="booking-card confirmed">
+            <div class="card-body">
+              <h5 class="card-title">Booking on 2024-01-01</h5>
+              <p class="card-text">Time: 7:00 PM</p>
+              <p class="card-text">Guests: 4</p>
+              <span class="status">Confirmed</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="booking-card cancelled">
+            <div class="card-body">
+              <h5 class="card-title">Booking on 2024-02-15</h5>
+              <p class="card-text">Time: 6:30 PM</p>
+              <p class="card-text">Guests: 2</p>
+              <span class="status">Cancelled</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="booking-card pending">
+            <div class="card-body">
+              <h5 class="card-title">Booking on 2024-03-10</h5>
+              <p class="card-text">Time: 5:00 PM</p>
+              <p class="card-text">Guests: 3</p>
+              <span class="status">Pending</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <!-- Edit Profile Modal -->
+ <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form enctype="multipart/form-data" [formGroup]="editProfileForm" (ngSubmit)="saveChanges()">
+          <div class="mb-3 position-relative">
+            <label for="usernameInput" class="form-label">Username</label>
+            <input type="text" class="form-control" id="usernameInput" formControlName="username">
+            <fa-icon [icon]="faExclamationCircle" class="text-danger position-absolute" *ngIf="editProfileForm.get('username')?.touched && editProfileForm.get('username')?.invalid" style="right: 10px; top: 38px;"></fa-icon>
+            <div *ngIf="editProfileForm.get('username')?.invalid && editProfileForm.get('username')?.touched" class="text-danger">
+              <small *ngIf="editProfileForm.get('username')?.hasError('required')">Username is required.</small>
+              <small *ngIf="editProfileForm.get('username')?.hasError('minlength')">Username must be at least 4 characters.</small>
+            </div>
+          </div>
+          <div class="mb-3 position-relative">
+            <label for="emailInput" class="form-label">Email</label>
+            <input type="email" class="form-control" id="emailInput" formControlName="email">
+            <fa-icon [icon]="faExclamationCircle" class="text-danger position-absolute" *ngIf="editProfileForm.get('email')?.invalid && editProfileForm.get('email')?.touched" style="right: 10px; top: 38px;"></fa-icon>
+            <div *ngIf="editProfileForm.get('email')?.invalid && editProfileForm.get('email')?.touched" class="text-danger">
+              <small *ngIf="editProfileForm.get('email')?.hasError('required')">Email is required.</small>
+              <small *ngIf="editProfileForm.get('email')?.hasError('email')">Please enter a valid email address.</small>
+            </div>
+          </div>
+          <div class="mb-3 position-relative">
+            <label for="phoneInput" class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" id="phoneInput" formControlName="phone">
+            <fa-icon [icon]="faExclamationCircle" class="text-danger position-absolute" *ngIf="editProfileForm.get('phone')?.invalid && editProfileForm.get('phone')?.touched" style="right: 10px; top: 38px;"></fa-icon>
+          </div>
+          <div class="mb-3 position-relative">
+            <label for="addressInput" class="form-label">Address</label>
+            <input type="text" class="form-control" id="addressInput" formControlName="address">
+            <fa-icon [icon]="faExclamationCircle" class="text-danger position-absolute" *ngIf="editProfileForm.get('address')?.invalid && editProfileForm.get('address')?.touched" style="right: 10px; top: 38px;"></fa-icon>
+            <div *ngIf="editProfileForm.get('address')?.invalid && editProfileForm.get('address')?.touched" class="text-danger">
+              <small *ngIf="editProfileForm.get('address')?.hasError('minlength')">Address must be at least 5 characters.</small>
+              <small *ngIf="editProfileForm.get('address')?.hasError('maxlength')">Address must be at most 100 characters.</small>
+            </div>
+          </div>
+          <div class="mb-3 position-relative">
+            <label for="passwordInput" class="form-label">Password</label>
+            <input type="password" class="form-control" id="passwordInput" formControlName="password">
+            <fa-icon [icon]="faExclamationCircle" class="text-danger position-absolute" *ngIf="editProfileForm.get('password')?.invalid && editProfileForm.get('password')?.touched" style="right: 10px; top: 38px;"></fa-icon>
+            <div *ngIf="editProfileForm.get('password')?.invalid && editProfileForm.get('password')?.touched" class="text-danger">
+              <small *ngIf="editProfileForm.get('password')?.hasError('required')">Password is required.</small>
+              <small *ngIf="editProfileForm.get('password')?.hasError('minlength')">Password must be at least 6 characters.</small>
+          </div>
+          </div>
+          <div class="mb-3">
+            <label for="imageInput" class="form-label">Profile Image</label>
+            <input type="file" class="form-control" id="imageInput" formControlName="image" accept="image/*">
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</div>

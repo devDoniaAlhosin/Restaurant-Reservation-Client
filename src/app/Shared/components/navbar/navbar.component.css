@@ -122,6 +122,7 @@
 .dropdown-item {
   transition: 0.3s all ease;
   color: var(--text);
+  cursor: pointer;
   &:hover {
     background-color: var(--primary-color);
   }
@@ -254,23 +255,39 @@
 }
  */
 
-
  .dropdown-menu {
   min-width: 150px;
   border: 1px solid rgba(0, 0, 0, 0.103);
-  border-radius: 20px;
+  overflow: hidden;
+  padding: 1rem 0;
 }
 
 .dropdown-item {
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
   border-radius: 15px;
+  text-decoration: none;
+  color: #333;
+}
 
+.dropdown-item i {
+  margin-right: 10px;
 }
 
 .dropdown-item:hover {
   background-color: var(--primary-color);
-   color: white !important;
+  color: white !important;
 }
+.profile-icon2{
+ cursor: pointer;
+    width: 27px;
+    height: 23px;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
 
 /* Toggle Btn */
 .toggle-btn-container {

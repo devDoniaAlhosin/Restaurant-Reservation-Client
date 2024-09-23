@@ -8,8 +8,9 @@ import {
   faFacebook,
   faTwitter,
   faInstagram,
+
 } from '@fortawesome/free-brands-svg-icons';
-import { faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faPhone, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { UserService } from '../../../Core/services/userService/user.service';
 import { Subject } from 'rxjs';
@@ -28,6 +29,8 @@ export class NavbarComponent implements OnInit {
   faTwitter = faTwitter;
   faInstagram = faInstagram;
   faEnvelope = faEnvelope;
+  faRightFromBracket=faRightFromBracket
+
   user: any = null;
   isLoggedIn: boolean = false;
   private unsubscribe$ = new Subject<void>();
