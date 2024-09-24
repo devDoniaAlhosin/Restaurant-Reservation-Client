@@ -1,6 +1,7 @@
-import { NgFor } from '@angular/common';
+import { AuthService } from './../../Core/auth/auth.service';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ScrollAnimationDirective } from '../../Shared/directives/scrollAnimation/scroll-animation.directive';
 import {
@@ -26,7 +27,7 @@ import {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, FontAwesomeModule , NgFor,ScrollAnimationDirective],
+  imports: [RouterLink, FontAwesomeModule , NgIf ,  NgFor,ScrollAnimationDirective],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -53,45 +54,49 @@ export class HomeComponent {
       image: 'assets/img/events.png'
     }
   ];
+  testimonials = [
+    {
+      title: "The best restaurant",
+      content: "Last night, we dined at place and were simply blown away. From the moment we stepped in, we were enveloped in an inviting atmosphere and greeted with warm smiles.",
+      author: "Sophie Robson",
+      location: "Los Angeles, CA",
+      image: "../../../assets/img/p1.png"
+    },
+    {
+      title: "Simply delicious",
+      content: "Place exceeded my expectations on all fronts. The ambiance was cozy and relaxed, making it a perfect venue for our anniversary dinner. Each dish was prepared and beautifully presented.",
+      author: "Matt Cannon",
+      location: "San Diego, CA",
+      image: "../../../assets/img/p2.png"
+    },
+    {
+      title: "One of a kind restaurant",
+      content: "Place exceeded my expectations on all fronts. The ambiance was cozy and relaxed, making it a perfect venue for our anniversary dinner. Each dish was prepared and beautifully presented.",
+      author: "Andy Smith",
+      location: "San Francisco, CA",
+    image: "../../../assets/img/p3.png"
+    }
+  ];
   faMugSaucer=faMugSaucer;
   faUtensils=faUtensils;
   faMugHot=faMugHot;
   faGlassWater =faGlassWater;
   faStroopwafel=faStroopwafel;
   faPhone=faPhone;
-faLocationDot=faLocationDot;
-faMessage=faMessage;
-faEnvelope=faEnvelope;
-faMapMarkedAlt=faMapMarkedAlt;
-faClock=faClock
-faCartShopping=faCartShopping
-faPercent=faPercent
+  faLocationDot=faLocationDot;
+  faMessage=faMessage;
+  faEnvelope=faEnvelope;
+  faMapMarkedAlt=faMapMarkedAlt;
+  faClock=faClock
+  faCartShopping=faCartShopping
+  faPercent=faPercent
+  isLoggedin:boolean = false;
 
-testimonials = [
-  {
-    title: "The best restaurant",
-    content: "Last night, we dined at place and were simply blown away. From the moment we stepped in, we were enveloped in an inviting atmosphere and greeted with warm smiles.",
-    author: "Sophie Robson",
-    location: "Los Angeles, CA",
-    image: "../../../assets/img/p1.png"
-  },
-  {
-    title: "Simply delicious",
-    content: "Place exceeded my expectations on all fronts. The ambiance was cozy and relaxed, making it a perfect venue for our anniversary dinner. Each dish was prepared and beautifully presented.",
-    author: "Matt Cannon",
-    location: "San Diego, CA",
-    image: "../../../assets/img/p2.png"
-  },
-  {
-    title: "One of a kind restaurant",
-    content: "Place exceeded my expectations on all fronts. The ambiance was cozy and relaxed, making it a perfect venue for our anniversary dinner. Each dish was prepared and beautifully presented.",
-    author: "Andy Smith",
-    location: "San Francisco, CA",
-   image: "../../../assets/img/p3.png"
+
+
+  constructor( private authService : AuthService ,  private router: Router ){
+    this.isLoggedin =  this.authService.isLoggedIn();
   }
-];
-
-
 
 
 ngOnInit(): void {
@@ -114,5 +119,6 @@ showItems(): void {
     }
   });
 }
+
 
 }

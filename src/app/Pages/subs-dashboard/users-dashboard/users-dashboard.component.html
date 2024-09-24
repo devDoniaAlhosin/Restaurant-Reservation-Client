@@ -4,12 +4,13 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Users List</h5>
+          <h5 class="card-title">Users Manegment</h5>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
                   <th scope="col">#</th>
+                  <th scope="col">Profile Image</th>
                   <th scope="col">Full Name</th>
                   <th scope="col">Email</th>
                   <th scope="col">Phone</th>
@@ -20,24 +21,26 @@
               <tbody>
                 <tr>
                   <th scope="row">1</th>
+                  <td><img src="https://via.placeholder.com/50" class="rounded-circle" alt="Profile Image"></td>
                   <td>John Doe</td>
-                  <td>john.doeexample.com</td>
+                  <td>john.doexample.com</td>
                   <td>+123 456 7890</td>
                   <td>123 Main Street, City, Country</td>
                   <td>
-                    <a href="#" class="btn btn-primary btn-sm me-2">Edit</a>
-                    <a href="#" class="btn btn-danger btn-sm me-2">Delete</a>
+                    <button class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editUserModal" onclick="populateModal('John Doe', 'john.doe@example.com', '+123 456 7890', '123 Main Street, City, Country')">Edit</button>
+                    <button class="btn btn-danger btn-sm">Delete</button>
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">2</th>
+                  <td><img src="https://via.placeholder.com/50" class="rounded-circle" alt="Profile Image"></td>
                   <td>Jane Smith</td>
-                  <td>jane.smithexample.com</td>
+                  <td>jane.smithxample.com</td>
                   <td>+987 654 3210</td>
                   <td>456 Oak Avenue, City, Country</td>
-                  <td class="d-flex gap-2">
-                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                  <td>
+                    <button class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editUserModal" onclick="populateModal('Jane Smith', 'jane.smith@example.com', '+987 654 3210', '456 Oak Avenue, City, Country')">Edit</button>
+                    <button class="btn btn-danger btn-sm">Delete</button>
                   </td>
                 </tr>
                 <!-- Add more rows for additional users -->
@@ -45,6 +48,39 @@
             </table>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit User Modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editUserForm">
+          <div class="mb-3">
+            <label for="fullName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="fullName" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="tel" class="form-control" id="phone" required>
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <textarea class="form-control" id="address" rows="2" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-success">Update User</button>
+        </form>
       </div>
     </div>
   </div>

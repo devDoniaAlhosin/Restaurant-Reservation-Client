@@ -92,9 +92,10 @@
     color: var(--primary-color);
   } */
   &.active {
-    color: var(--text-color);
+    color: var(--primary-color);
   }
 }
+
 .side--nav {
   .btn--book-table {
     padding: 0.5rem 1.5rem;
@@ -217,43 +218,6 @@
 
 }
 
-/* .profile-container {
-  padding:  3px 10px;
-  background-color: #f8f9fa;
-  border-radius: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
-}
-
-.profile-icon {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  padding: 5px 5px;
-  border-radius: 50%;
-}
-
-.sign-in-text {
-  font-weight: 600;
-  color: #007bff;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.profile-container {
-  a{
-    transition: all .1s ease-in-out;
-
-    &:hover{
-      padding-bottom: 3px;
-      color: var(--primary-color);
-      border-bottom: 1px solid var(--primary-color);
-    }
-
-  }
-
-}
- */
 
  .dropdown-menu {
   min-width: 150px;
@@ -325,6 +289,7 @@
   background-color: var(--black-color);
   color: var(--white-color);
 }
+
 
 
 

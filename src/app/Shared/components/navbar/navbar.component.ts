@@ -1,7 +1,7 @@
 import { AuthService } from './../../../Core/auth/auth.service';
 import { NgClass, NgIf, SlicePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faWhatsapp,
@@ -18,7 +18,7 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, FontAwesomeModule, NgIf, NgClass, SlicePipe],
+  imports: [RouterLink, RouterLinkActive, FontAwesomeModule, NgIf, NgClass, SlicePipe],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'], // Corrected from styleUrl to styleUrls
 })

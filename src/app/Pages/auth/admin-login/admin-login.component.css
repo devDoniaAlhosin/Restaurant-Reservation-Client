@@ -70,7 +70,13 @@ h2 {
     border: 1px solid var(--black-color);
   }
 }
-
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: var(--secondary-color);
+}
 
 /* Mobile Responsive */
 @media (max-width: 768px) {

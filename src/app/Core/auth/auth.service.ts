@@ -30,10 +30,22 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('user') || '{}');
   }
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token') || !!sessionStorage.getItem('token');
+    const user = !!localStorage.getItem('token') || !!sessionStorage.getItem('token');
+    return !!user;
   }
   getUserRole(): string {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user.role; //  'admin' or 'user'
   }
+
+
+  //  Update Profile
+  updateUserProfile(userData: any): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/user/update`, userData, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  }
+
 }

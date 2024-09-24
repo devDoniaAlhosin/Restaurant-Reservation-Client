@@ -30,10 +30,10 @@ export class RegisterComponent {
   faFacebook= faFacebook;
   faGoogle=faGoogle
   faGithub=faGithub
- faLinkedin=faLinkedin
- registerForm: FormGroup;
- selectedFile: File | null = null;
- errorMessage: string | null = null;
+  faLinkedin=faLinkedin
+  registerForm: FormGroup;
+  selectedFile: File | null = null;
+  errorMessage: string | null = null;
   user: any = null;
   isLoggedIn: boolean = false;
   private unsubscribe$ = new Subject<void>();

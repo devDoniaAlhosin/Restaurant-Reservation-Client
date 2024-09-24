@@ -16,9 +16,10 @@
         class="hero--btns d-flex align-content-center justify-content-center gap-2 "
       >
         <a [routerLink]="'/menu'" class="button button--primary">Go to Menu</a>
-        <a [routerLink]="'/bookings'" class="button button--outline"
-          >Book A table
+        <a [routerLink]="isLoggedin ? '/bookings' : '/auth/login'" class="button button--outline">
+          Book A Table
         </a>
+
       </div>
     </div>
   </div>

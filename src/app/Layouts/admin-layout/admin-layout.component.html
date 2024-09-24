@@ -12,27 +12,26 @@
     <ul class="sidebar-nav">
       <li class="sidebar-item">
         <a class="sidebar-link">
-          <fa-icon [icon]="faMagnifyingGlassChart" class="me-3"></fa-icon>
-          <span><a class="nav-link" [routerLink]="'/admin'" routerLinkActive="active-link">Dashboard</a></span>
+          <a class="nav-link" [routerLink]="'/admin'" routerLinkActive="active-link"> <fa-icon [icon]="faMagnifyingGlassChart" class="me-3"></fa-icon></a>
+          <span>  <a class="nav-link" [routerLink]="'/admin'" routerLinkActive="active-link"> Dashboard</a></span>
         </a>
       </li>
       <li class="sidebar-item">
         <a class="sidebar-link">
-          <fa-icon [icon]="faUser" class="me-3"></fa-icon>
-          <span><a class="nav-link" [routerLink]="'/admin/users-dashboard'" routerLinkActive="active-link">Users</a></span>
-
+          <a class="nav-link" [routerLink]="'/admin/users-dashboard'" routerLinkActive="active-link">  <fa-icon [icon]="faUser" class="me-3"></fa-icon></a>
+          <span>   <a class="nav-link" [routerLink]="'/admin/users-dashboard'" routerLinkActive="active-link"> Users</a></span>
         </a>
       </li>
       <li class="sidebar-item">
         <a class="sidebar-link" >
-          <fa-icon [icon]="faBowlFood" class="me-3"></fa-icon>
+          <a class="nav-link" [routerLink]="'/admin/menu-dashboard'" routerLinkActive="active-link"> <fa-icon [icon]="faBowlFood" class="me-3"></fa-icon></a>
           <span><a class="nav-link" [routerLink]="'/admin/menu-dashboard'" routerLinkActive="active-link">Menu</a></span>
         </a>
 
       </li>
       <li class="sidebar-item">
         <a class="sidebar-link  " >
-          <fa-icon [icon]="faCodePullRequest" class="me-3"></fa-icon>
+          <a class="nav-link"   [routerLink]="'/admin/requests-dashboard'" routerLinkActive="active-link"> <fa-icon [icon]="faCodePullRequest" class="me-3"></fa-icon></a>
           <span><a class="nav-link"   [routerLink]="'/admin/requests-dashboard'" routerLinkActive="active-link">Booking</a></span>
         </a>
 
@@ -41,7 +40,7 @@
 
     <div class="sidebar-footer" >
       <a class="sidebar-link" href="#" (click)="logout($event)">
-       <fa-icon [icon]="faRightFromBracket"></fa-icon>
+       <fa-icon [icon]="faRightFromBracket" class="me-3"></fa-icon>
        <span>Logout</span>
       </a>
     </div>

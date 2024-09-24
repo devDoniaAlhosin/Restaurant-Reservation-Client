@@ -1,122 +1,302 @@
-<div class="container mt-5 mb-5">
-  <div class="profile-container p-4 bg-white rounded shadow-none">
-    <div class="profile-header d-flex align-items-center mb-4">
-      <img src="assets/img/user-avatar.png" alt="Profile Picture" class="profile-pic rounded-circle border me-4">
-      <div class="profile-info">
-        <div class="profile-card">
-          <h1 class="title" id="username" >Username</h1>
-          <p class="text-muted" id="email"><fa-icon [icon]="faEnvelope"></fa-icon> userexample.com</p>
-          <p class="text-muted" id="phone"><fa-icon [icon]="faPhone"></fa-icon> (123) 456-7890</p>
-          <p class="text-muted" id="address"><fa-icon [icon]="faAddressCard"></fa-icon> 123 Bistro St, Food City</p>
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
-        </div>
+<section class="profile ">
+  <div class="profile-background transition "  >
+    <div class="container">
+      <div *ngIf="successMessage" class="alert alert-success  success--message" role="alert" [ngClass]="{'show': errorVisible}">
+        {{ successMessage }}
       </div>
+      <div class="profile-container p-4 bg-white rounded shadow-lg">
+        <div class="profile-header d-flex align-items-center mb-4 ">
+          <img [src]="user.image ? user.image : 'assets/img/user-avatar.png'" alt="Profile Picture" class="profile-pic rounded-circle border me-lg-4 ">
+          <div class="profile-info">
+            <h1 class="title text-uppercase" id="username">{{user.username}}</h1>
+            <p class="text-muted" id="email">
+              <fa-icon [icon]="faEnvelope" class="me-1"></fa-icon> {{user.email}}
+            </p>
+            <p class="text-muted" id="phone">
+              <fa-icon [icon]="faPhone" class="me-1"></fa-icon> {{user.phone}}
+            </p>
+            <p class="text-muted" id="address">
+              <fa-icon [icon]="faLocation" class="me-1"></fa-icon> {{user.address}}
+            </p>
+            <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#editProfileModal"   >Edit Profile</button>
+          </div>
+        </div>
 
-    </div>
 
-    <div class="bookings-section">
-      <h2 class="h4">Your Bookings</h2>
-      <div class="row mt-3">
-        <div class="col-md-4">
-          <div class="booking-card confirmed">
-            <div class="card-body">
-              <h5 class="card-title">Booking on 2024-01-01</h5>
-              <p class="card-text">Time: 7:00 PM</p>
-              <p class="card-text">Guests: 4</p>
-              <span class="status">Confirmed</span>
+        <div id="bookingSection" class="bookings-section  mt-3">
+          <h2 class="h4 d-flex justify-content-between">
+            Booking History
+            <a class="btn btn-primary" (click)="toggleCollapse()" role="button" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+              <fa-icon [icon]="isCollapsed ? faChevronUp : faChevronDown"></fa-icon>
+
+            </a>
+          </h2>
+          <div id="collapseExample" [ngClass]="{'collapse': isCollapsed}" [ngStyle]="{'max-height': isCollapsed ? '0' : '1000px', 'overflow': isCollapsed ? 'hidden' : 'visible'}" class="transition">
+            <div class="row mt-3">
+              <!--  Cards -->
+              <div class="col-md-4">
+                <div class="booking-card confirmed">
+                  <div class="card-body">
+                    <h5 class="card-title">Booking on 2024-01-01</h5>
+                    <p class="card-text">Time: 7:00 PM</p>
+                    <p class="card-text">Guests: 4</p>
+                    <span class="status badge ">Confirmed</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="booking-card pending">
+                  <div class="card-body">
+                    <h5 class="card-title">Booking on 2024-02-02</h5>
+                    <p class="card-text">Time: 3:00 PM</p>
+                    <p class="card-text">Guests: 4</p>
+                    <span class="status badge ">Pending</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="booking-card cancelled">
-            <div class="card-body">
-              <h5 class="card-title">Booking on 2024-02-15</h5>
-              <p class="card-text">Time: 6:30 PM</p>
-              <p class="card-text">Guests: 2</p>
-              <span class="status">Cancelled</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="booking-card pending">
-            <div class="card-body">
-              <h5 class="card-title">Booking on 2024-03-10</h5>
-              <p class="card-text">Time: 5:00 PM</p>
-              <p class="card-text">Guests: 3</p>
-              <span class="status">Pending</span>
-            </div>
-          </div>
-        </div>
+
+
+
+
+
+
       </div>
-    </div>
+    <!-- Edit Profile Modal -->
+      <!-- <div class="modal fade" id="editProfileModal" #editProf ileModal tabindex="-1"  aria-labelledby="editProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+              <button type="button" (click)="closeModal()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form
+              enctype="multipart/form-data"
+              [formGroup]="editProfileForm"
+              (ngSubmit)="saveChanges()"
+              >
 
 
-  </div>
+          <div *ngIf="errorMessage" class="alert alert-danger error--message text-center" [ngClass]="{'show': errorVisible}">
+            {{ errorMessage }}
+          </div>
+          <div *ngIf="successMessage" class="alert alert-success success--message text-center" [ngClass]="{'show': errorVisible}">
+            {{ successMessage }}
+          </div>
+                <div class="mb-3 position-relative">
+                  <label for="usernameInput" class="form-label">Username <span class="required-indicator ">*</span></label>
+                  <input type="text" class="form-control"   placeholder="Username" id="usernameInput" formControlName="username" required>
+                  <fa-icon [icon]="faExclamationCircle" class="text-danger position-absolute" *ngIf="editProfileForm.get('username')?.touched && editProfileForm.get('username')?.invalid" style="right: 10px; top: 38px;"></fa-icon>
+                  <div *ngIf="editProfileForm.get('username')?.invalid && editProfileForm.get('username')?.touched" class="text-danger" >
+                    <small *ngIf="editProfileForm.get('username')?.hasError('required')">Username is required.</small>
+                    <small *ngIf="editProfileForm.get('username')?.hasError('minlength')">Username must be at least 4 characters.</small>
+                  </div>
+                </div>
+                <div class="mb-3 position-relative">
+                  <label for="emailInput" class="form-label">Email  <span class="required-indicator ">*</span></label>
+                  <input type="email" class="form-control" id="emailInput" formControlName="email"   placeholder="Email Address" required>
+                  <fa-icon [icon]="faExclamationCircle" class="text-danger position-absolute" *ngIf="editProfileForm.get('email')?.invalid && editProfileForm.get('email')?.touched" style="right: 10px; top: 38px;"></fa-icon>
+                  <div *ngIf="editProfileForm.get('email')?.invalid && editProfileForm.get('email')?.touched" class="text-danger">
+                    <small *ngIf="editProfileForm.get('email')?.hasError('required')">Email is required.</small>
+                    <small *ngIf="editProfileForm.get('email')?.hasError('email')">Please enter a valid email address.</small>
+                  </div>
+                </div>
+                <div class="mb-3 position-relative">
+                  <label for="phoneInput" class="form-label">Phone Number</label>
+                  <input type="tel" class="form-control" id="phoneInput" formControlName="phone"     placeholder="(e.g.,+201061642466 , 01112345678).">
+                  <fa-icon [icon]="faExclamationCircle" class="text-danger position-absolute" *ngIf="editProfileForm.get('phone')?.invalid && editProfileForm.get('phone')?.touched" style="right: 10px; top: 38px;"></fa-icon>
+                  <div *ngIf="editProfileForm.get('phone')?.invalid && editProfileForm.get('phone')?.touched" class="text-danger" >
+                    <small *ngIf="editProfileForm.get('phone')?.hasError('pattern')"> Please enter a valid phone number (e.g., +1234567890).</small>
+                  </div>
+                </div>
+                <div class="mb-3 position-relative">
+                  <label for="addressInput" class="form-label">Address</label>
+                  <input type="text" class="form-control" id="addressInput" formControlName="address"   placeholder="Enter your address">
+                  <fa-icon [icon]="faExclamationCircle" class="text-danger position-absolute" *ngIf="editProfileForm.get('address')?.invalid && editProfileForm.get('address')?.touched" style="right: 10px; top: 38px;"></fa-icon>
+                  <div *ngIf="editProfileForm.get('address')?.invalid && editProfileForm.get('address')?.touched" class="text-danger">
+                    <small *ngIf="editProfileForm.get('address')?.hasError('minlength')">Address must be at least 5 characters.</small>
+                    <small *ngIf="editProfileForm.get('address')?.hasError('maxlength')">Address must be at most 100 characters.</small>
+                  </div>
+                </div>
+                <div class="mb-3 position-relative">
+                  <label for="oldPasswordInput" class="form-label">Password  <span class="required-indicator ">*</span></label>
+                  <input type="password" class="form-control" id="oldPasswordInput" formControlName="old_password">
+                  <fa-icon [icon]="faExclamationCircle" class="text-danger position-absolute" *ngIf="editProfileForm.get('old_password')?.invalid && editProfileForm.get('old_password')?.touched" style="right: 10px; top: 38px;"></fa-icon>
+                  <div *ngIf="editProfileForm.get('old_password')?.invalid && editProfileForm.get('old_password')?.touched" class="text-danger">
+                    <small *ngIf="editProfileForm.get('old_password')?.hasError('required')"> Password is required.</small>
+                </div>
 
-  <!-- Edit Profile Modal -->
- <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form enctype="multipart/form-data" [formGroup]="editProfileForm" (ngSubmit)="saveChanges()">
-          <div class="mb-3 position-relative">
-            <label for="usernameInput" class="form-label">Username</label>
-            <input type="text" class="form-control" id="usernameInput" formControlName="username">
-            <fa-icon [icon]="faExclamationCircle" class="text-danger position-absolute" *ngIf="editProfileForm.get('username')?.touched && editProfileForm.get('username')?.invalid" style="right: 10px; top: 38px;"></fa-icon>
-            <div *ngIf="editProfileForm.get('username')?.invalid && editProfileForm.get('username')?.touched" class="text-danger">
-              <small *ngIf="editProfileForm.get('username')?.hasError('required')">Username is required.</small>
-              <small *ngIf="editProfileForm.get('username')?.hasError('minlength')">Username must be at least 4 characters.</small>
-            </div>
-          </div>
-          <div class="mb-3 position-relative">
-            <label for="emailInput" class="form-label">Email</label>
-            <input type="email" class="form-control" id="emailInput" formControlName="email">
-            <fa-icon [icon]="faExclamationCircle" class="text-danger position-absolute" *ngIf="editProfileForm.get('email')?.invalid && editProfileForm.get('email')?.touched" style="right: 10px; top: 38px;"></fa-icon>
-            <div *ngIf="editProfileForm.get('email')?.invalid && editProfileForm.get('email')?.touched" class="text-danger">
-              <small *ngIf="editProfileForm.get('email')?.hasError('required')">Email is required.</small>
-              <small *ngIf="editProfileForm.get('email')?.hasError('email')">Please enter a valid email address.</small>
-            </div>
-          </div>
-          <div class="mb-3 position-relative">
-            <label for="phoneInput" class="form-label">Phone Number</label>
-            <input type="tel" class="form-control" id="phoneInput" formControlName="phone">
-            <fa-icon [icon]="faExclamationCircle" class="text-danger position-absolute" *ngIf="editProfileForm.get('phone')?.invalid && editProfileForm.get('phone')?.touched" style="right: 10px; top: 38px;"></fa-icon>
-          </div>
-          <div class="mb-3 position-relative">
-            <label for="addressInput" class="form-label">Address</label>
-            <input type="text" class="form-control" id="addressInput" formControlName="address">
-            <fa-icon [icon]="faExclamationCircle" class="text-danger position-absolute" *ngIf="editProfileForm.get('address')?.invalid && editProfileForm.get('address')?.touched" style="right: 10px; top: 38px;"></fa-icon>
-            <div *ngIf="editProfileForm.get('address')?.invalid && editProfileForm.get('address')?.touched" class="text-danger">
-              <small *ngIf="editProfileForm.get('address')?.hasError('minlength')">Address must be at least 5 characters.</small>
-              <small *ngIf="editProfileForm.get('address')?.hasError('maxlength')">Address must be at most 100 characters.</small>
-            </div>
-          </div>
-          <div class="mb-3 position-relative">
-            <label for="passwordInput" class="form-label">Password</label>
-            <input type="password" class="form-control" id="passwordInput" formControlName="password">
-            <fa-icon [icon]="faExclamationCircle" class="text-danger position-absolute" *ngIf="editProfileForm.get('password')?.invalid && editProfileForm.get('password')?.touched" style="right: 10px; top: 38px;"></fa-icon>
-            <div *ngIf="editProfileForm.get('password')?.invalid && editProfileForm.get('password')?.touched" class="text-danger">
-              <small *ngIf="editProfileForm.get('password')?.hasError('required')">Password is required.</small>
-              <small *ngIf="editProfileForm.get('password')?.hasError('minlength')">Password must be at least 6 characters.</small>
-          </div>
-          </div>
           <div class="mb-3">
-            <label for="imageInput" class="form-label">Profile Image</label>
-            <input type="file" class="form-control" id="imageInput" formControlName="image" accept="image/*">
+            <button class="btn btn-link p-0" type="button" data-bs-toggle="collapse" data-bs-target="#changePasswordFields" aria-expanded="false" aria-controls="changePasswordFields">
+              Change Password?
+            </button>
+
+            <div class="collapse mt-3" id="changePasswordFields">
+
+              <div class="mb-3 position-relative">
+                <label for="newPasswordInput" class="form-label">New Password</label>
+                <input type="password" class="form-control" id="newPasswordInput" formControlName="password">
+                <fa-icon [icon]="faExclamationCircle" class="text-danger position-absolute" *ngIf="editProfileForm.get('password')?.invalid && editProfileForm.get('password')?.touched" style="right: 10px; top: 38px;"></fa-icon>
+                <div *ngIf="editProfileForm.get('password')?.invalid && editProfileForm.get('password')?.touched" class="text-danger">
+                  <small *ngIf="editProfileForm.get('password')?.hasError('minlength')">Password must be at least 6 characters.</small>
+                </div>
+              </div>
+
+
+              <div class="mb-3 position-relative">
+                <label for="confirmPasswordInput" class="form-label">Password Confirmation</label>
+                <input type="password" class="form-control" id="confirmPasswordInput" formControlName="password_confirmation">
+                <small *ngIf="editProfileForm.hasError('passwordMismatch') && editProfileForm.get('password_confirmation')?.touched" class="form-text text-danger fs-6">
+                  Passwords do not match.
+                </small>
+              </div>
+            </div>
           </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+                <div class="mb-3">
+                  <label for="imageInput" class="form-label">Profile Image</label>
+                  <input type="file" class="form-control" id="imageInput" formControlName="image" accept="image/*" (change)="onFileSelected($event)" >
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary" [disabled]="editProfileForm.invalid">Save Changes</button>
+                  <button type="button" class="btn  btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+              </form>
+            </div>
+
           </div>
-        </form>
+        </div>
+      </div> -->
+
+      <div class="modal fade" id="editProfileModal"  tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form enctype="multipart/form-data" [formGroup]="editProfileForm" (ngSubmit)="saveChanges()">
+                <!-- Error and Success Messages -->
+                <div *ngIf="errorMessage" class="alert alert-danger text-center error--message" [ngClass]="{'show': errorVisible}">
+                  {{ errorMessage }}
+                </div>
+                <div *ngIf="successMessage" class="alert alert-success text-center success--message"  [ngClass]="{'show': errorVisible}">
+                  {{ successMessage }}
+                </div>
+
+                <!-- Username -->
+                <div class="mb-3">
+                  <label for="usernameInput" class="form-label">Username <span class="required-indicator">*</span></label>
+                  <div class="input-group">
+                    <span class="input-group-text"><fa-icon [icon]="faUser"></fa-icon></span>
+                    <input type="text" class="form-control" placeholder="Username" id="usernameInput" formControlName="username" required>
+                  </div>
+                  <div *ngIf="editProfileForm.get('username')?.invalid && editProfileForm.get('username')?.touched" class="text-danger">
+                    <small *ngIf="editProfileForm.get('username')?.hasError('required')">Username is required.</small>
+                    <small *ngIf="editProfileForm.get('username')?.hasError('minlength')">Username must be at least 4 characters.</small>
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                  <label for="emailInput" class="form-label">Email <span class="required-indicator">*</span></label>
+                  <div class="input-group">
+                    <span class="input-group-text"><fa-icon [icon]="faEnvelope"></fa-icon></span>
+                    <input type="email" class="form-control" id="emailInput" formControlName="email" placeholder="Email Address" required>
+                  </div>
+                  <div *ngIf="editProfileForm.get('email')?.invalid && editProfileForm.get('email')?.touched" class="text-danger">
+                    <small *ngIf="editProfileForm.get('email')?.hasError('required')">Email is required.</small>
+                    <small *ngIf="editProfileForm.get('email')?.hasError('email')">Please enter a valid email address.</small>
+                  </div>
+                </div>
+
+                <!-- Phone -->
+                <div class="mb-3">
+                  <label for="phoneInput" class="form-label">Phone Number</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><fa-icon [icon]="faPhone"></fa-icon></span>
+                    <input type="tel" class="form-control" id="phoneInput" formControlName="phone" placeholder="(e.g., +1234567890)">
+                  </div>
+                  <div *ngIf="editProfileForm.get('phone')?.invalid && editProfileForm.get('phone')?.touched" class="text-danger">
+                    <small *ngIf="editProfileForm.get('phone')?.hasError('pattern')">Please enter a valid phone number.</small>
+                  </div>
+                </div>
+
+                <!-- Address -->
+                <div class="mb-3">
+                  <label for="addressInput" class="form-label">Address</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><fa-icon [icon]="faHome"></fa-icon></span>
+                    <input type="text" class="form-control" id="addressInput" formControlName="address" placeholder="Enter your address">
+                  </div>
+                  <div *ngIf="editProfileForm.get('address')?.invalid && editProfileForm.get('address')?.touched" class="text-danger">
+                    <small *ngIf="editProfileForm.get('address')?.hasError('minlength')">Address must be at least 5 characters.</small>
+                  </div>
+                </div>
+
+
+                <div class="mb-3">
+                  <label for="oldPasswordInput" class="form-label">Current Password <span class="required-indicator">*</span></label>
+                  <div class="input-group">
+                    <span class="input-group-text"><fa-icon [icon]="faLock"></fa-icon></span>
+                    <input type="password" class="form-control" id="oldPasswordInput" formControlName="old_password" placeholder="Current Password">
+                  </div>
+                  <div *ngIf="editProfileForm.get('old_password')?.invalid && editProfileForm.get('old_password')?.touched" class="text-danger">
+                    <small>Password is required.</small>
+                  </div>
+                </div>
+
+
+                <p><a class="text-primary" data-bs-toggle="collapse" href="#passwordCollapse" role="button" aria-expanded="false" aria-controls="passwordCollapse">Change Password?</a></p>
+
+
+                <div class="collapse" id="passwordCollapse">
+                  <div class="mb-3">
+                    <label for="newPasswordInput" class="form-label">New Password</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><fa-icon [icon]="faKey"></fa-icon></span>
+                      <input type="password" class="form-control" id="newPasswordInput" formControlName="password">
+                    </div>
+                    <div *ngIf="editProfileForm.get('password')?.invalid && editProfileForm.get('password')?.touched" class="text-danger">
+                      <small *ngIf="editProfileForm.get('password')?.hasError('minlength')">Password must be at least 6 characters.</small>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="confirmPasswordInput" class="form-label">Confirm Password</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><fa-icon [icon]="faKey"></fa-icon></span>
+                      <input type="password" class="form-control" id="confirmPasswordInput" formControlName="password_confirmation">
+                    </div>
+                    <small *ngIf="editProfileForm.hasError('passwordMismatch') && editProfileForm.get('password_confirmation')?.touched" class="form-text text-danger">
+                      Passwords do not match.
+                    </small>
+                  </div>
+                </div>
+
+                <!-- Profile Image -->
+                <div class="mb-3">
+                  <label for="imageInput" class="form-label">Profile Image</label>
+                  <input type="file" class="form-control " id="imageInput" formControlName="image" accept="image/*" (change)="onFileSelected($event)">
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary" [disabled]="editProfileForm.invalid">Save Changes</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
   </div>
-</div>
+</section>
 
-</div>
+

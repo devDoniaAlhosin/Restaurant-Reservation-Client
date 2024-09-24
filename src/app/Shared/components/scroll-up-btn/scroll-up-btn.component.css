@@ -9,7 +9,7 @@
   cursor: pointer;
   display: block;
   font-size: 20px;
-  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out; /* Added transition for transform */
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .scroll-up-btn.show {

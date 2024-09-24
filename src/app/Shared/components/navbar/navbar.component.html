@@ -1,5 +1,4 @@
 <!-- Navbar -->
-
 <header>
   <div class="uppernav--container">
     <div class="content--container container">
@@ -43,12 +42,12 @@
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-center flex-grow-1 pe-3 ">
-            <li class="nav-item"><a class="nav-link" routerLink="/">Home</a></li>
-            <li class="nav-item"><a class="nav-link" routerLink="/">About Us</a></li>
-            <li class="nav-item"><a class="nav-link" routerLink="/">Menu</a></li>
-            <li class="nav-item"><a class="nav-link" *ngIf="isLoggedIn" routerLink="/">My Bookings</a></li>
-            <li class="nav-item"><a class="nav-link" routerLink="/">Contact Us</a></li>
-            <li class="nav-item"><a class="nav-link" *ngIf="isLoggedIn" routerLink="/">Reservation</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="'/'" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="'/about'" [routerLinkActive]="'active'">About Us</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="'/menu'" [routerLinkActive]="'active'">Menu</a></li>
+            <li class="nav-item"><a class="nav-link" *ngIf="isLoggedIn" [routerLink]="'/mybookings'" [routerLinkActive]="'is-active'">My Bookings</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="'/contact'" [routerLinkActive]="'active'">Contact Us</a></li>
+            <li class="nav-item"><a class="nav-link" *ngIf="isLoggedIn" [routerLinkActive]="'active'"  [routerLink]="'/bookings'">Reservation</a></li>
           </ul>
           <div class="side--nav d-flex align-items-center gap-4">
             <div class="toggle-btn-container" *ngIf="!isLoggedIn">
@@ -65,8 +64,7 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                   <li>
-                    <a class="dropdown-item" [routerLink]="'/profile'">
-
+                    <a class="dropdown-item" *ngIf="isLoggedIn" [routerLink]="'/profile'">
                         <img [src]="user?.image || 'assets/img/user-avatar.png'" alt="Profile Icon" class="rounded-circle profile-icon2 me-2" />
              Profile
                     </a>

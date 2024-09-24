@@ -15,6 +15,8 @@ import { AuthLayoutComponent } from './Layouts/auth-layout/auth-layout.component
 import { RegisterComponent } from './Pages/auth/register/register.component';
 import { AdminGuard } from './Core/guards/adminGuard/admin.guard';
 import { AuthGuard } from './Core/guards/authGuard/auth.guard';
+import { publicGuard } from './Core/guards/publicGuard/public.guard';
+
 
 export const routes: Routes = [
   {
@@ -60,12 +62,12 @@ export const routes: Routes = [
         path: '',
         component: HomeComponent,
         title: 'Bistro Bliss | Where Food Meets Passion',
+
       },
       {
         path: 'auth',
         component: AuthLayoutComponent,
         title: 'Bistro Bliss | Authentication',
-
         children: [
           {path : '' , component: LoginComponent   },
           { path: 'login', component: LoginComponent  },
@@ -77,7 +79,6 @@ export const routes: Routes = [
         component: ProfileComponent,
         title: 'Bistro Bliss | Profile',
         canActivate: [AuthGuard],
-
       },
 
       { path: '**', component: NotFoundComponent },

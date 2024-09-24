@@ -139,7 +139,13 @@ h2 {
   display: block;
   transform: translateY(0);
 }
-
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: var(--secondary-color);
+}
 
 /* Media Query */
 @media (max-width: 992px) {

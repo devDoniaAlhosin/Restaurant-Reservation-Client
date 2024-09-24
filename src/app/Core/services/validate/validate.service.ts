@@ -5,15 +5,10 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
   providedIn: 'root'
 })
 export class ValidateService {
-  static passwordMatchValidator(arg0: string, arg1: string): any {
-    throw new Error('Method not implemented.');
-  }
 
   constructor() { }
-  passwordMatchValidator(
-    password: string,
-    confirmPassword: string
-  ): ValidatorFn {
+
+  passwordMatchValidator(password: string, confirmPassword: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const passwordValue = control.get(password)?.value;
       const confirmPasswordValue = control.get(confirmPassword)?.value;
@@ -23,6 +18,8 @@ export class ValidateService {
         : { passwordMismatch: true };
     };
   }
+
+
   strongPasswordValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const password = control.value;
@@ -30,7 +27,7 @@ export class ValidateService {
       const hasUpperCase = /[A-Z]/.test(password);
       const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
       const hasNumber = /\d/.test(password);
-      const isValidLength = password.length >= 8; // Optional: Minimum length requirement
+      const isValidLength = password.length >= 8;
 
       if (hasUpperCase && hasSpecialChar && hasNumber && isValidLength) {
         return null;
