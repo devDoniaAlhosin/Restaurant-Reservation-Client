@@ -1,11 +1,13 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, AbstractControl, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { MatOption } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+
 @Component({
   selector: 'app-menu-dialog',
   standalone: true,
@@ -17,25 +19,27 @@ import { MatOption } from '@angular/material/core';
     MatDialogContent,
     MatDialogActions,
     CommonModule,
-    MatOption
+    MatSelectModule,
+    MatOptionModule
   ],
   templateUrl: './menu-dialog.component.html',
-  styleUrl: './menu-dialog.component.css'
+  styleUrls: ['./menu-dialog.component.css']
 })
 export class MenuDialogComponent {
   MenuForm: FormGroup;
-  categories: string[] = ['Beverages', 'Snacks', 'Main Course', 'Desserts'];
+  categories: string[] = ['main_dish', 'breakfast', 'drink', 'dessert'];
+
   constructor(
     private dialogRef: MatDialogRef<MenuDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder
   ) {
     this.MenuForm = this.fb.group({
-      image: [data?.image || ''],
-      name: [data?.name || ''],
-      description: [data?.description || ''],
-      price: [data?.price || ''],
-      category_name : [data?.category_name || '']
+      image: [data?.image || '', [Validators.required]],
+      name: [data?.name || '', [Validators.required, Validators.minLength(3)]],
+      description: [data?.description || '', [Validators.required]],
+      price: [data?.price || '', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
+      category_name: [data?.category_name || '', Validators.required]
     });
   }
 
@@ -47,5 +51,10 @@ export class MenuDialogComponent {
 
   onCancel(): void {
     this.dialogRef.close();
+  }
+
+
+  get f(): { [key: string]: AbstractControl } {
+    return this.MenuForm.controls;
   }
 }

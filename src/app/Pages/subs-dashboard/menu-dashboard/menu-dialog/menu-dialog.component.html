@@ -1,50 +1,67 @@
-<div class="container">
-  <h2 mat-dialog-title>{{data ? 'Update Menu' : 'Create Menu'}}</h2>
-  <form [formGroup]="MenuForm" (ngSubmit)="onSubmit()">
-    <mat-dialog-content>
-      <mat-form-field appearance="fill">
-        <mat-label>Image</mat-label>
-        <input matInput formControlName="image">
-      </mat-form-field>
-      <br>
-      <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name">
-      </mat-form-field>
-      <br>
+<div class="container py-4">
+  <h2 class="text-center mb-4">{{data ? 'Update Menu' : 'Create Menu'}}</h2>
+  <form [formGroup]="MenuForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Description</mat-label>
-        <input matInput formControlName="description">
-      </mat-form-field>
-      <br>
+    <!-- Image Field -->
+    <div class="mb-3">
+      <label for="image" class="form-label fw-bold">Image URL</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="image" formControlName="image" placeholder="Enter image URL">
+        <span class="input-group-text"><i class="bi bi-image"></i></span>
+      </div>
+      <div *ngIf="f['image'].touched && f['image'].invalid" class="text-danger">
+        Image is required.
+      </div>
+    </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Price</mat-label>
-        <input matInput formControlName="price">
-      </mat-form-field>
+    <!-- Name Field -->
+    <div class="mb-3">
+      <label for="name" class="form-label fw-bold">Menu Name</label>
+      <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter menu name">
+      <div *ngIf="f['name'].touched && f['name'].invalid" class="text-danger">
+        <small *ngIf="f['name'].errors?.['required']">Name is required.</small>
+        <small *ngIf="f['name'].errors?.['minlength']">Name must be at least 3 characters long.</small>
+      </div>
+    </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Category</mat-label>
-        <input matInput formControlName="category_name">
-      </mat-form-field>
+    <!-- Description Field -->
+    <div class="mb-3">
+      <label for="description" class="form-label fw-bold">Description</label>
+      <textarea class="form-control" id="description" rows="3" formControlName="description" placeholder="Enter description"></textarea>
+      <div *ngIf="f['description'].touched && f['description'].invalid" class="text-danger">
+        Description is required.
+      </div>
+    </div>
 
-      <!-- <mat-form-field appearance="fill">
-        <mat-label>Category</mat-label>
-        <mat-select formControlName="category_name">
-          <mat-option *ngFor="let category of categories" [value]="category">
-            {{ category }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-       -->
+    <!-- Price Field -->
+    <div class="mb-3">
+      <label for="price" class="form-label fw-bold">Price</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="price" formControlName="price" placeholder="Enter price">
+        <span class="input-group-text">$</span>
+      </div>
+      <div *ngIf="f['price'].touched && f['price'].invalid" class="text-danger">
+        <small *ngIf="f['price'].errors?.['required']">Price is required.</small>
+        <small *ngIf="f['price'].errors?.['pattern']">Price must be a valid number with up to two decimal places.</small>
+      </div>
+    </div>
 
-      <br>
-    </mat-dialog-content>
-    <mat-dialog-actions>
-      <button mat-button (click)="onCancel()">Cancel</button>
-      <button mat-button type="submit" color="primary">{{data ? 'Update' : 'Create'}}</button>
-    </mat-dialog-actions>
+    <!-- Category Field -->
+    <div class="mb-3">
+      <label for="category" class="form-label fw-bold">Category</label>
+      <select class="form-select" id="category" formControlName="category_name">
+        <option value="" disabled>Select a category</option>
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+      </select>
+      <div *ngIf="f['category_name'].touched && f['category_name'].invalid" class="text-danger">
+        Category is required.
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="d-flex justify-content-between mt-4">
+      <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="MenuForm.invalid">{{data ? 'Update' : 'Create'}}</button>
+    </div>
   </form>
 </div>
-
