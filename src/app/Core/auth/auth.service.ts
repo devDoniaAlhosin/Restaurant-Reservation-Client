@@ -7,6 +7,7 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+
   private apiUrl = 'http://localhost:8000/api';
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -24,6 +25,7 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/logout`,  {},{ headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`
   }});
+
   }
 
   getUser() {
@@ -37,8 +39,6 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user.role; //  'admin' or 'user'
   }
-
-
   //  Update Profile
   updateUserProfile(userData: any): Observable<any> {
     return this.http.patch(`${this.apiUrl}/user/update`, userData, {
@@ -47,5 +47,17 @@ export class AuthService {
       }
     });
   }
+
+
+  // Admin EndPoints
+
+getAllUsers(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/users`, {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+  });
+}
+
 
 }

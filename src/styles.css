@@ -10,7 +10,9 @@
   --white-color: #f9f9f7; /* white-color */
   --black-color: #2c2f24;
 }
-
+html{
+  scroll-behavior: smooth;
+}
 * {
   padding: 0;
   margin: 0;

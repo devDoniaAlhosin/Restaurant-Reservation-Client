@@ -1,0 +1,127 @@
+.table thead {
+  background-color: #f8f9fa;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f3f5;
+}
+
+.table img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.table td, .table th {
+  vertical-align: middle;
+}
+
+.table .actions {
+  white-space: nowrap;
+}
+
+.btn-create-user {
+  border-radius: 0;
+  border: 0;
+  background-color: var(--primary-color);
+  transition: all 0.3s ease-in-out;
+  color: var(--white-color);
+  overflow: hidden;
+  &:hover{
+    background-color: var(--white-color);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+  }
+}
+
+/*  Form Edit Styles  */
+
+.required-indicator{
+  color: red;
+}
+
+.error--message {
+  padding:.5rem 1rem ;
+  border-left: 4px solid var(--primary-color);
+  color: var(--secondary-color);
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  transform: translateY(-10px);
+}
+
+
+.error--message.show {
+  opacity: 1;
+  display: block;
+  transform: translateY(0);
+}
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: var(--secondary-color);
+}
+.success--message{
+  padding:.5rem 1rem ;
+  border-left: 4px solid green;
+  color: var(--secondary-color);
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  transform: translateY(-10px);
+}
+
+.success--message.show{
+  opacity: 1;
+  display: block;
+  transform: translateY(0);
+}
+
+
+
+
+@media (max-width: 768px) {
+  .table thead {
+    display: none;
+  }
+
+  .table, .table tbody, .table tr, .table td {
+    display: block;
+    width: 100%;
+  }
+
+  .table tr {
+    margin-bottom: 1rem;
+  }
+
+  .table td {
+    text-align: left;
+    padding-right: 50%;
+    position: relative;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-right: 1rem;
+    font-weight: bold;
+    text-align: left;
+  }
+}
+
+.admin-background{
+  background-color: var(--primary-color);
+  border-radius: 0;
+}
+.bg-user{
+  background-color: var(--text-color);
+  border-radius: 0;
+}

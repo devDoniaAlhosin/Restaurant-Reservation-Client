@@ -4,7 +4,7 @@ import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { Component, ElementRef, ViewChild , Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faExclamationCircle ,faChevronUp,faChevronDown,faUser,faHome,faLock, faLocation, faKey ,faEnvelope, faPhone, faAddressCard } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationCircle ,faChevronUp,faPencil,faTrash,faChevronDown,faUser,faHome,faLock, faLocation, faKey ,faEnvelope, faPhone, faAddressCard } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { ValidateService } from '../../../Core/services/validate/validate.service';
 @Component({
@@ -35,6 +35,8 @@ export class ProfileComponent {
   faLocation = faLocation;
   faChevronUp = faChevronUp;
   faChevronDown = faChevronDown;
+  faPencil = faPencil
+  faTrash = faTrash
 
   user: any;
   isLoggedIn: boolean = false;

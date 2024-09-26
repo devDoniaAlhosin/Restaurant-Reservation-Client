@@ -26,10 +26,11 @@ export class WelcomeDashboardComponent {
 
   ngOnInit(): void {
     this.createChart();
+    this.barChart();
   }
 
   createChart(): void {
-    const ctx = document.getElementById('myChart') as HTMLCanvasElement;
+    const ctx = document.getElementById('myChart1') as HTMLCanvasElement;
 
     if (ctx) {
       new Chart(ctx, {
@@ -56,6 +57,37 @@ export class WelcomeDashboardComponent {
           scales: {
             y: {
               beginAtZero: true,
+            }
+          }
+        }
+      });
+    } else {
+      console.error("Canvas element not found");
+    }
+  }
+  barChart(): void {
+    const ctx = document.getElementById('myChart2') as HTMLCanvasElement;
+const xValues = ["User", "Bookings"];
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Users', 'Bookings',],
+          datasets: [
+            {
+              label: 'User Registrations',
+              backgroundColor: ["#b91d47 ", "#00aba9" ],
+              // borderColor: 'rgba(220, 53, 69, 1)',
+              data: [65, 59],
+            },
+
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              // beginAtZero: true,
             }
           }
         }

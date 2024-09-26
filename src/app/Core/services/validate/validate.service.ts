@@ -6,6 +6,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 })
 export class ValidateService {
 
+
   constructor() { }
 
   passwordMatchValidator(password: string, confirmPassword: string): ValidatorFn {
@@ -18,9 +19,10 @@ export class ValidateService {
         : { passwordMismatch: true };
     };
   }
+//   password: ['', [Validators.pattern(ValidateService.strongPasswordPattern)]],
+  static strongPasswordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
 
-
-  strongPasswordValidator(): ValidatorFn {
+   strongPasswordValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const password = control.value;
 

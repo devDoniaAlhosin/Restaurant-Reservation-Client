@@ -61,7 +61,17 @@ a.sidebar-link:hover {
   background-color: rgba(255, 255, 255, .075);
   border-left: 3px solid var(--white-color);
 }
-
+.active-link{
+  background-color: rgba(255, 255, 255, .075);
+  border-left: 3px solid var(--white-color);
+  padding: .625rem 1.625rem;
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  border-left: 3px solid transparent;
+}
 #sidebar:not(.expand) a.sidebar-link span {
   display: none;
 }

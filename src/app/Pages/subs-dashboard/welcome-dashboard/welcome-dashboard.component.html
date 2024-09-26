@@ -1,56 +1,80 @@
 <div class="container">
-  <div class="col-md-12 text-center py-3">
+  <div class="col-md-12 py-3 d-flex align-items-center justify-content-start">
     <img
       src="assets/img/japanese-food.svg"
       alt="Bistro Bliss Logo"
-      style="max-width: 200px; height: 200px"
-      class="mb-4"
+      class="logo-img me-3"
     />
-    <h1 class="display-4">Welcome to the Bistro Bliss Admin Dashboard</h1>
-    <p class="lead">
-      Manage restaurant operations, update menu items, handle booking requests, and more from here.
-    </p>
+    <div>
+      <h1 class="welcome-text"><strong>Welcome!</strong> Admin</h1>
+      <p class="lead w-100 m-0">
+        Manage restaurant operations, update menu items, handle booking requests, and more from here.
+      </p>
+    </div>
   </div>
 
   <div class="row">
-    <div class="col-md-4">
-      <div class="box text-center p-4 mb-4">
-        <div class="card shadow-sm border-light rounded">
-          <div class="card-body">
-            <fa-icon [icon]="faUser" class="fas fa-user dashboard-icon mb-2"></fa-icon>
-            <h3 class="card-title">No. of Users</h3>
+    <div class="col-md-12 d-flex align-items-center mb-2 justify-content-center">
+      <div class="box text-center ">
+        <div class=" card  shadow-sm border-light rounded">
+          <div class="card-body d-flex gap-4">
+            <div class="card--icon">
+              <fa-icon [icon]="faUser" class="fas fa-user dashboard-icon mb-2"></fa-icon>
+            </div>
+            <div class="card--content d-flex flex-column">
+            <h3 class="card-title"> Registrations  </h3>
             <p class="card-text display-4">{{ userCount }}</p>
-            <a routerLink="/admin/users-dashboard" class="btn btn-primary">Go to Users</a>
+            <a [routerLink]="'/admin/users-dashboard'" class="btn btn-primary">Users </a>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="box text-center ">
+        <div class=" card  shadow-sm border-light rounded">
+          <div class="card-body d-flex gap-4">
+            <div class="card--icon">
+              <fa-icon [icon]="faCodePullRequest" class="fas fa-user dashboard-icon mb-2"></fa-icon>
+            </div>
+            <div class="card--content d-flex flex-column">
+            <h3 class="card-title"> Requests  </h3>
+            <p class="card-text display-4">{{ userCount }}</p>
+            <a routerLink="/admin/requests-dashboard" class="btn btn-primary">Requests</a>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="box text-center ">
+        <div class=" card  shadow-sm border-light rounded">
+          <div class="card-body d-flex gap-4">
+            <div class="card--icon">
+              <fa-icon [icon]="faBowlFood" class="fas fa-user dashboard-icon mb-2"></fa-icon>
+            </div>
+            <div class="card--content d-flex flex-column">
+            <h3 class="card-title">  Items   </h3>
+            <p class="card-text display-4">{{ userCount }}</p>
+            <a routerLink="/admin/menu-dashboard" class="btn btn-primary">Menu</a>
+            </div>
+
+
           </div>
         </div>
       </div>
 
-      <div class="box text-center p-4 mb-4">
-        <div class="card shadow-sm border-light rounded">
-          <div class="card-body">
-            <fa-icon [icon]="faCodePullRequest" class="fas fa-calendar-check dashboard-icon mb-2"></fa-icon>
-            <h3 class="card-title">No. of Bookings</h3>
-            <p class="card-text display-4">{{ bookingCount }}</p>
-            <a routerLink="/admin/requests-dashboard" class="btn btn-primary">Go to Bookings</a>
-          </div>
-        </div>
-      </div>
 
-      <div class="box text-center p-4 mb-4">
-        <div class="card shadow-sm border-light rounded">
-          <div class="card-body">
-            <fa-icon [icon]="faBowlFood" class="fas fa-star dashboard-icon mb-2"></fa-icon>
-            <h3 class="card-title">No. of Reviews</h3>
-            <p class="card-text display-4">{{ reviewCount }}</p>
-            <a routerLink="/admin/reviews-dashboard" class="btn btn-primary">Go to Reviews</a>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <div class="col-md-8">
-      <div class="chart-container d-flex justify-content-center">
-        <canvas id="myChart" style="width: 100%; height: auto;"></canvas>
+    <div class="col-md-12 m-auto">
+      <div class="chart-container d-flex justify-content-between align-items-center">
+        <div class="chart-wrapper">
+          <canvas id="myChart1"></canvas>
+        </div>
+        <div class="chart-wrapper-small">
+          <canvas id="myChart2"></canvas>
+        </div>
       </div>
     </div>
   </div>

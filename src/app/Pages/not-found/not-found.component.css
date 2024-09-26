@@ -32,11 +32,12 @@
 
 .container--notfound {
   width: 100%;
-  background-image: url('https://example.com/your-background-image.jpg'); /* Add your background image URL */
+  background-image: url('../../../assets//img/404.png');
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
   text-align: center;
-  padding: 80px 0;
+  padding: 0 0 2rem 0;
   color: white;
 }
 .overlay {

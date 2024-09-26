@@ -1,0 +1,74 @@
+<!--Create User Modal -->
+<div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createUserModalLabel">Create New User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="createUserForm" (ngSubmit)="createUser()">
+          <!-- Username Input Group -->
+          <div class="mb-3">
+            <label for="newUsername" class="form-label">Username</label>
+            <div class="input-group">
+              <span class="input-group-text"><fa-icon [icon]="icons.faUser"></fa-icon></span>
+              <input type="text" class="form-control" id="newUsername" required name="username">
+            </div>
+          </div>
+
+          <!-- Email Input Group -->
+          <div class="mb-3">
+            <label for="newEmail" class="form-label">Email</label>
+            <div class="input-group">
+              <span class="input-group-text">&#64;</span>
+              <input type="email" class="form-control" id="newEmail" required  name="email">
+            </div>
+          </div>
+
+          <!-- Phone Input Group -->
+          <div class="mb-3">
+            <label for="newPhone" class="form-label">Phone</label>
+            <div class="input-group">
+              <span class="input-group-text">📞</span>
+              <input type="tel" class="form-control" id="newPhone" required  name="phone">
+            </div>
+          </div>
+
+          <!-- Password Input Group -->
+          <div class="mb-3">
+            <label for="newPassword" class="form-label">Password</label>
+            <div class="input-group">
+              <span class="input-group-text">🔒</span>
+              <input type="password" class="form-control" id="newPassword" name="password">
+            </div>
+          </div>
+
+          <!-- Address Input Group -->
+          <div class="mb-3">
+            <label for="newAddress" class="form-label">Address</label>
+            <div class="input-group">
+              <span class="input-group-text">🏠</span>
+              <textarea class="form-control" id="newAddress" rows="2" required  name="address"></textarea>
+            </div>
+          </div>
+
+          <!-- Role Dropdown -->
+          <div class="mb-3">
+            <label for="newRole" class="form-label">Role</label>
+            <div class="input-group">
+              <span class="input-group-text">👤</span>
+              <select class="form-select" id="newRole" required name="role">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-success">Create User</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
