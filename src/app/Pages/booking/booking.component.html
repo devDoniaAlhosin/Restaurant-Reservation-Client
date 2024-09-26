@@ -1,0 +1,69 @@
+<section class="bookingPage">
+  <div class="booking-layout">
+    <h1>Book a Table</h1>
+    <p>We consider all the drivers of change and give you the components you need to create a truly unique experience.</p>
+
+    <form>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="username" placeholder="Enter your Username" required>
+            <label for="username">Enter your Username</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="phone" placeholder="Enter your Phone" required>
+            <label for="phone">Enter your Phone</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-floating mb-3">
+            <input type="date" class="form-control" id="date" placeholder="Select Date" required>
+            <label for="date">Select Date</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating mb-3">
+            <input type="time" class="form-control" id="time" placeholder="Select Time" required>
+            <label for="time">Select Time</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="totalPerson" placeholder="Total Persons" required min="1">
+            <label for="totalPerson">Total Persons</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-floating mb-3">
+            <textarea class="form-control" id="notes" placeholder="Notes" style="height: 100px"></textarea>
+            <label for="notes">Notes (Optional)</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-grid gap-2">
+        <button class="btn custom-btn" type="submit">Book Now</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="iframe-container">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.574586121072!2d-122.42618448468118!3d37.7757862797605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808b536403b9%3A0x3f8b2d6e0c616aa8!2sYour%20Restaurant%20Name!5e0!3m2!1sen!2sus!4v1633451620403!5m2!1sen!2sus"
+      frameborder="0"
+      class="booking-iframe"
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
