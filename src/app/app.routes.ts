@@ -11,6 +11,7 @@ import { UsersDashboardComponent } from './Pages/subs-dashboard/users-dashboard/
 import { MenuDashboardComponent } from './Pages/subs-dashboard/menu-dashboard/menu-dashboard.component';
 import { RequestsDashboardComponent } from './Pages/subs-dashboard/requests-dashboard/requests-dashboard.component';
 import { BookingComponent } from './Pages/booking/booking.component';
+import { MybookingsComponent } from './Pages/mybookings/mybookings.component';
 
 export const routes: Routes = [
   {
@@ -60,6 +61,9 @@ export const routes: Routes = [
       },
       {path:'bookings' ,component:BookingComponent,
         title:'Bistro Bliss | Bookings',
+      },
+      {path:'mybookings' ,component:MybookingsComponent,
+        title:'Bistro Bliss | My Bookings',
       },
       { path: '**', component: NotFoundComponent },
 
