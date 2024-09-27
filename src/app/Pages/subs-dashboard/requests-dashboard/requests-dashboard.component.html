@@ -1,1 +1,36 @@
-<p>requests-dashboard works!</p>
+<div class="container mt-4">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Phone</th>
+          <th>Date & Time</th>
+          <th>Total Person</th>
+          <th>Notes</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of requests">
+          <td>{{ request.id }}</td>
+          <td>{{ request.username }}</td>
+          <td>{{ request.phone }}</td>
+          <td>{{ request.dateTime }}</td>
+          <td>{{ request.totalPerson }}</td>
+          <td>{{ request.notes }}</td>
+          <td>
+            <button class="btn btn-success me-2" >
+              Accept
+            </button>
+            <button class="btn btn-danger" >
+              Reject
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
