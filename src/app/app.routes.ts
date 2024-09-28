@@ -18,6 +18,8 @@ import { AuthGuard } from './Core/guards/authGuard/auth.guard';
 import { publicGuard } from './Core/guards/publicGuard/public.guard';
 import { ContactComponent } from './Pages/contact/contact.component';
 
+import { BookingComponent } from './Pages/booking/booking.component';
+import { MybookingsComponent } from './Pages/mybookings/mybookings.component';
 
 export const routes: Routes = [
 
@@ -84,7 +86,16 @@ export const routes: Routes = [
       },
       {path:"contact" , component: ContactComponent , title : "Bistro Bliss | Contact Us"},
 
+      {path:'bookings' ,component:BookingComponent,
+        title:'Bistro Bliss | Reservations',
+      },
+      {path:'mybookings' ,component:MybookingsComponent,
+        title:'Bistro Bliss | My Bookings',
+      },
       { path: '**', component: NotFoundComponent },
+
+
     ],
   },
+
 ];
