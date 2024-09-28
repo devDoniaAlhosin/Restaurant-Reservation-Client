@@ -16,9 +16,11 @@ import { RegisterComponent } from './Pages/auth/register/register.component';
 import { AdminGuard } from './Core/guards/adminGuard/admin.guard';
 import { AuthGuard } from './Core/guards/authGuard/auth.guard';
 import { publicGuard } from './Core/guards/publicGuard/public.guard';
+import { ContactComponent } from './Pages/contact/contact.component';
 
 
 export const routes: Routes = [
+
   {
     path: 'admin-login',
     component: AdminLoginComponent,
@@ -80,6 +82,7 @@ export const routes: Routes = [
         title: 'Bistro Bliss | Profile',
         canActivate: [AuthGuard],
       },
+      {path:"contact" , component: ContactComponent , title : "Bistro Bliss | Contact Us"},
 
       { path: '**', component: NotFoundComponent },
     ],

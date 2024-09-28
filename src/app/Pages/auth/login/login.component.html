@@ -6,20 +6,22 @@
     >
       <div class="text-center mb-4">
         <h2 class="mb-3">Welcome Back!</h2>
-        <p class="fs-6">Sign in with:</p>
+        <!-- <p class="fs-6">Sign in with:</p> -->
         <div class="social-buttons mb-3">
-          <button type="button" class="btn btn-link btn-floating mx-1">
+          <!-- <button type="button" class="btn btn-link btn-floating mx-1">
+
             <fa-icon class="fs-4" [icon]="faFacebook"></fa-icon>
+          </button> -->
+          <button type="button" class="btn text-decoration-none btn-link btn-floating mx-1">
+            <a class="text-decoration-none fs-5 google--link"  (click)="signInWithGoogle()" > <fa-icon class="fs-4" [icon]="faGoogle"></fa-icon>Sign In with Google </a>
+            <!-- <fa-icon class="fs-4" [icon]="faGoogle"></fa-icon> -->
           </button>
-          <button type="button" class="btn btn-link btn-floating mx-1">
-            <fa-icon class="fs-4" [icon]="faGoogle"></fa-icon>
-          </button>
-          <button type="button" class="btn btn-link btn-floating mx-1">
+          <!-- <button type="button" class="btn btn-link btn-floating mx-1">
             <fa-icon class="fs-4" [icon]="faLinkedin"></fa-icon>
           </button>
           <button type="button" class="btn btn-link btn-floating mx-1">
             <fa-icon class="fs-4" [icon]="faGithub"></fa-icon>
-          </button>
+          </button> -->
         </div>
         <p class="text-center or-separator">or</p>
       </div>

@@ -174,12 +174,13 @@
       <!-- Image upload -->
       <div class="form-outline mb-4">
         <label class="form-label" for="imageUpload">Profile Image  <span class="required-indicator">*</span></label>
-        <input type="file"
+        <input
+        type="file"
          id="imageUpload"
          class="form-control"
+         formControlName="profileImage"
          accept="image/*"
-          (change)="onFileSelected($event)"
-        name="avatar"
+        (change)="onFileSelected($event)"
         required/>
       </div>
       <div class="submit--btn">

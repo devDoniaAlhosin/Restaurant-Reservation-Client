@@ -29,6 +29,25 @@ export class LoginComponent {
     }
   }
 
+
+
+  signInWithGoogle() {
+    this.AuthService.loginWithGoogle().subscribe({
+      next: (response) => {
+
+      const token = response.token;
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(response.user));
+      this.userService.setUser(response.user);
+      this.router.navigate(['/profile']);
+
+      },
+      error: (error) => {
+        console.error('Error during Google login:', error);
+      }
+    });
+  }
+
   SendLoginData(loginForm: NgForm) {
     if (loginForm.valid) {
       const loginData = {

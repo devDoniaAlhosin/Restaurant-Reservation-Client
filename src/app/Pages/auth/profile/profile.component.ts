@@ -1,7 +1,7 @@
 import { UserService } from './../../../Core/services/userService/user.service';
 import { AuthService } from './../../../Core/auth/auth.service';
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
-import { Component, ElementRef, ViewChild , Renderer2 } from '@angular/core';
+import { Component, ElementRef, ViewChild , Renderer2, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faExclamationCircle ,faChevronUp,faPencil,faTrash,faChevronDown,faUser,faHome,faLock, faLocation, faKey ,faEnvelope, faPhone, faAddressCard } from '@fortawesome/free-solid-svg-icons';
@@ -46,7 +46,7 @@ export class ProfileComponent {
   selectedFile: File | null = null;
   errorVisible = false;
   successMessage: string | null = null;
-
+  fileName: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -54,7 +54,8 @@ export class ProfileComponent {
     private authService: AuthService,
     private userService: UserService,
     private ValidateService: ValidateService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private cd: ChangeDetectorRef
   ) {
 
     this.editProfileForm = this.fb.group(
@@ -66,7 +67,7 @@ export class ProfileComponent {
       old_password: ['', [Validators.required]],
       password: ['', Validators.minLength(6)],
       password_confirmation: [''],
-      image: [''],
+      image: [null , ''],
     },
     {
       validators: this.ValidateService.passwordMatchValidator('password', 'password_confirmation')
@@ -103,6 +104,7 @@ export class ProfileComponent {
         address: this.user.address,
         image: this.user.image
       });
+      this.fileName = this.user.image ? 'Existing Image' : '';
     }
   }
 
@@ -110,18 +112,17 @@ export class ProfileComponent {
     this.isCollapsed = !this.isCollapsed;
   }
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files) {
-      const file = input.files[0];
-      if (file && file.type.startsWith('image/')) {
-        this.selectedFile = file;
-        this.editProfileForm.get('image')?.setValue(this.selectedFile);
-      } else {
-        console.error('Selected file is not an image');
-      }
+
+
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0]; // Get the first selected file
+
+    if (file) {
+      this.selectedFile = file;
+      this.fileName = file.name; // Set the file name to be displayed
     }
   }
+
 
 
 
@@ -132,11 +133,12 @@ export class ProfileComponent {
         username: this.editProfileForm.value.username,
         email: this.editProfileForm.value.email,
         old_password: this.editProfileForm.value.old_password,
-        password: this.editProfileForm.value.password || undefined, // Optional
+        password: this.editProfileForm.value.password || undefined,
         password_confirmation: this.editProfileForm.value.password_confirmation || undefined, // Optional
         address: this.editProfileForm.value.address,
         phone: this.editProfileForm.value.phone,
-        image: this.editProfileForm.value.image ? this.editProfileForm.value.image.name : ''
+        // image: this.editProfileForm.value.image ? this.editProfileForm.value.image.name : ''
+          // image: this.selectedFile ? this.selectedFile: ''
       };
 
       this.authService.updateUserProfile(userData).subscribe(

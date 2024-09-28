@@ -22,6 +22,7 @@ import { ValidateService } from '../../../Core/services/validate/validate.servic
 })
 
 export class UsersDashboardComponent {
+
   icons = {
     faPencil ,
     faTrash,
@@ -39,8 +40,9 @@ export class UsersDashboardComponent {
   currentPage: number = 1;
   itemsPerPage: number = 5;
   paginatedUsers :any;
-user:any;
+  user:any;
   users: any[] = [];
+  userId: number = 0;
   ValidateService: any;
 
   constructor(
@@ -51,18 +53,16 @@ user:any;
 
   ) {
     // Edit Single  User  By Admin
-    this.editUserForm = this.fb.group(
-      {
-      username: ['', [Validators.required, Validators.minLength(4) ]],
+    this.editUserForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['' , [Validators.pattern(/^(\+20[0-9]{10}|01[012][0-9]{8})$/)]],
+      phone: ['', [Validators.required, Validators.pattern('[+0-9]{10,12}')]],
+      password: ['', [Validators.pattern(/^(\+20[0-9]{10}|01[012][0-9]{8})$/)]],
       address: ['', [Validators.minLength(5), Validators.maxLength(100)]],
-      password: ['', [ Validators.pattern('/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/')]], // Strong one
-      image: [''],
-      role:['' , [ Validators.required]]
-    },
+      role: ['', [Validators.required]],
+      image:['']
+    });
 
-  );
   }
   ngOnInit(): void {
     this.fetchUsers();
@@ -88,78 +88,165 @@ user:any;
     this.currentPage = event;
   }
 
-  onFileSelected(event: Event): void {
+  onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
-    if (input.files) {
+    if (input.files && input.files.length) {
       const file = input.files[0];
-      if (file && file.type.startsWith('image/')) {
-        this.selectedFile = file;
-        this.editUserForm.get('image')?.setValue(this.selectedFile);
-      } else {
-        console.error('Selected file is not an image');
-      }
+      this.editUserForm.get("image")?.setValue(this.selectedFile);
     }
   }
 
-  editUser() {
-    // if (this.editUserForm.valid) {
-    //   const userData = {
-    //     username: this.editUserForm.value.username,
-    //     email: this.editUserForm.value.email,
-    //     password: this.editUserForm.value.password || undefined,
-    //     address: this.editUserForm.value.address,
-    //     phone: this.editUserForm.value.phone,
-    //     image: this.editUserForm.value.image ? this.editUserForm.value.image.name : '',
-    //     role: this.editUserForm.value.role
-    //   };
 
-    //   this.authService.updateUserProfile(userData).subscribe(
-    //     response => {
+  // 2. Edit a user
+  editUser(userId: number) {
+    this.userId = userId;
+    this.authService.getSingleUser(userId).subscribe((userData) => {
+      this.editUserForm.patchValue({
+        username: userData.username,
+        email: userData.email,
+        phone: userData.phone,
+        address: userData.address,
+        role: userData.role,
+        image :  null
+      });
 
-    //       this.userService.setUser(response.user);
-    //       console.log('User updated successfully', response);
-    //       this.successMessage = "User updated successfully!";
-    //       setTimeout(() => {
-    //         this.errorVisible = true;
-    //       }, 50);
-    //       setTimeout(() => {
-    //         this.errorVisible = false;
-    //         this.successMessage = null;
-    //       }, 10000);
+    });
 
-
-    //     },
-    //     error => {
-    //       if (error.error.errors) {
-    //         const errorMessages: string[] = [];
-    //         for (const key in error.error.errors) {
-    //           if (error.error.errors.hasOwnProperty(key)) {
-    //             errorMessages.push(...error.error.errors[key]);
-    //           }
-    //         }
-    //         this.errorMessage = errorMessages.join(' & ');
-    //       } else if (error.message) {
-    //         this.errorMessage = error.message;
-    //       }
-
-    //       console.error('Error updating user:', error);
-    //       this.successMessage = null;
-    //       setTimeout(() => {
-    //         this.errorVisible = true;
-    //       }, 50);
-    //       setTimeout(() => {
-    //         this.errorVisible = false;
-    //         this.errorMessage = null;
-    //       }, 10000);
-    //     });
-
-
-    //  }
   }
 
+  // 2. Update a user
+  updateUser(): void {
+    if (this.editUserForm.valid) {
+      const updatedUserData = { ...this.editUserForm.value };
+
+      // to prevent leaving admin dashboard without admin
+      const currentUser = this.authService.getUser();
+
+      if (currentUser.id === this.userId && currentUser.role === 'admin' && updatedUserData.role === 'user') {
+        this.errorMessage = "You cannot change your own role from admin to user.";
+        setTimeout(() => {
+          this.errorVisible = true;
+        }, 50);
+        setTimeout(() => {
+          this.errorVisible = false;
+          this.successMessage = null;
+        }, 10000);
+
+        return;
+      }
+
+
+      if (!updatedUserData.password) {
+        delete updatedUserData.password;
+      }
+
+      this.authService.updateSingleUser(this.userId , updatedUserData ).subscribe(
+        (response) => {
+          this.fetchUsers();
+          this.successMessage = "Profile updated successfully!";
+          setTimeout(() => {
+            this.errorVisible = true;
+          }, 50);
+          setTimeout(() => {
+            this.errorVisible = false;
+            this.successMessage = null;
+          }, 10000);
+
+        },
+        (error) => {
+          if (error.error.errors) {
+            const errorMessages: string[] = [];
+            for (const key in error.error.errors) {
+              if (error.error.errors.hasOwnProperty(key)) {
+                errorMessages.push(...error.error.errors[key]);
+              }
+            }
+            this.errorMessage = errorMessages.join(' & ');
+          } else if (error.message) {
+            this.errorMessage = error.message;
+          }
+
+          console.error('Error updating user:', error);
+          this.successMessage = null;
+          setTimeout(() => {
+            this.errorVisible = true;
+          }, 50);
+          setTimeout(() => {
+            this.errorVisible = false;
+            this.errorMessage = null;
+          }, 10000);
+        }
+      );
+    }
+  }
+
+  // 3. Delete User
   deleteUser(id: number) {
-    // Delete user logic here
-    console.log('Delete user with ID:', id);
+    console.log("Attempting to delete user:", id);
+    const currentUser = this.authService.getUser();
+    if (currentUser.id === id && currentUser.role === 'admin') {
+      console.log('Cannot delete own account, ID:', currentUser.id);
+      this.errorMessage = "You can't delete your own account.";
+      console.log(this.errorMessage);
+      this.showTemporaryMessage();
+      return;
+    }
+
+    // Proceed with user deletion if not the current user
+    this.authService.deleteSingleUser(id).subscribe(
+      (response) => {
+        console.log(response);
+        console.log('Deleted user with ID:', id);
+        this.fetchUsers();
+        this.successMessage = "User deleted successfully!";
+        this.showTemporaryMessage(true);
+      },
+      (error) => {
+        this.handleError(error);
+      }
+    );
   }
+
+   showTemporaryMessage(isSuccess: boolean = false) {
+    if (isSuccess) {
+      this.errorVisible = true;
+      setTimeout(() => {
+        this.successMessage = null;
+        this.errorVisible = false;
+      }, 3000);
+    } else {
+      this.errorVisible = true;
+      setTimeout(() => {
+        this.errorMessage = null;
+        this.errorVisible = false;
+      }, 3000);
+    }
+  }
+
+
+
+    handleError(error: any) {
+    if (error.error.errors) {
+      const errorMessages: string[] = [];
+      for (const key in error.error.errors) {
+        if (error.error.errors.hasOwnProperty(key)) {
+          errorMessages.push(...error.error.errors[key]);
+        }
+      }
+      this.errorMessage = errorMessages.join(' & ');
+    } else if (error.message) {
+      this.errorMessage = error.message;
+    }
+
+    console.error('Error deleting user:', error);
+    this.successMessage = null;
+    this.showTemporaryMessage();
+  }
+
+  createUser() {
+    this.fetchUsers();
+  }
+
 
 }
+

@@ -78,17 +78,20 @@ export class RegisterComponent {
           ),
         }
       );
-
-
     }
 
-    onFileSelected(event: Event): void {
-      const input = event.target as HTMLInputElement;
-      if (input.files) {
-        this.selectedFile = input.files[0];
-        this.registerForm.get('profileImage')?.setValue(this.selectedFile);
-      }
+    // onFileSelected(event: Event): void {
+    //   const input = event.target as HTMLInputElement;
+    //   if (input.files) {
+    //     this.selectedFile = input.files[0];
+    //     this.registerForm.get('profileImage')?.setValue(this.selectedFile);
+    //   }
+    // }
+    onFileSelected(event: any): void {
+       this.selectedFile = event.target.files[0]; // Get the first selected file
     }
+
+
 
 
     onSubmit() {
@@ -104,6 +107,8 @@ export class RegisterComponent {
         }
 
         this.authService.register(formData).subscribe(response => {
+
+
           this.userService.setUser(response.user);
           localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(response.user));

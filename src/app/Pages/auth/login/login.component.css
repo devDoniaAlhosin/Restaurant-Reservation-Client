@@ -26,6 +26,19 @@ select:focus {
 .social-buttons button {
   transition: transform 0.2s;
   color: var(--secondary-color);
+  border: 1px solid var(--primary-color);
+  width: 100%;
+padding: .25rem  3rem;
+
+  .google--link{
+    display: flex;
+gap: 1.5rem;
+align-items: center;
+justify-content: center;
+    text-decoration: none;
+    text-transform: capitalize;
+
+  }
 }
 
 .social-buttons button:hover {

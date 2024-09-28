@@ -8,6 +8,12 @@
           <button class="btn btn-create-user btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createUserModal">
              <span>Create New user</span>
           </button>
+          <div *ngIf="errorMessage" class="alert alert-danger text-center error--message" [ngClass]="{'show': errorVisible}">
+            {{ errorMessage }}
+          </div>
+          <div *ngIf="successMessage" class="alert alert-success text-center success--message"  [ngClass]="{'show': errorVisible}">
+            {{ successMessage }}
+          </div>
           <div class="table-responsive ">
             <table class="table table-striped table-hover">
               <thead>
@@ -49,7 +55,7 @@
                       <button  class="btn btn-primary btn-sm me-2"
                       data-bs-toggle="modal"
                       data-bs-target="#editUserModal"
-                    (click)="editUser()">
+                    (click)="editUser(user.id)">
                         <fa-icon [icon]="icons.faPencil"></fa-icon>
                       </button>
                     <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)"><fa-icon [icon]="icons.faTrash"></fa-icon></button>
@@ -60,7 +66,6 @@
             </table>
             <div class="paginator--container d-flex  justify-content-center"  >
               <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
-
             </div>
           </div>
         </div>
@@ -81,7 +86,7 @@
         <form
         enctype="multipart/form-data"
         [formGroup]="editUserForm"
-        (ngSubmit)="editUser()"
+        (ngSubmit)="updateUser()"
         id="editUserForm">
          <!-- Error and Success Messages -->
          <div *ngIf="errorMessage" class="alert alert-danger text-center error--message" [ngClass]="{'show': errorVisible}">
@@ -132,10 +137,10 @@
 
           <!-- Password Input Group -->
           <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
+            <label for="password" class="form-label">Update Password (Optional)</label>
             <div class="input-group">
               <span class="input-group-text">🔒</span>
-              <input type="password" class="form-control" id="password" formControlName="Update password" placeholder="Password" required>
+              <input type="password" class="form-control" id="password" formControlName="password" placeholder="Update Password" >
             </div>
             <div
             *ngIf="
@@ -161,7 +166,7 @@
             <label for="address" class="form-label">Address</label>
             <div class="input-group">
               <span class="input-group-text">🏠</span>
-              <textarea class="form-control" id="address" rows="2" formControlName="address" placeholder="Enter your address" required></textarea>
+              <textarea class="form-control" id="address" rows="2" formControlName="address" placeholder="Enter your address" ></textarea>
             </div>
             <div *ngIf="editUserForm.get('address')?.invalid && editUserForm.get('address')?.touched" class="text-danger">
               <small *ngIf="editUserForm.get('address')?.hasError('minlength')">Address must be at least 5 characters.</small>
@@ -174,15 +179,31 @@
             <label for="role" class="form-label">Role <span class="required-indicator">*</span></label>
             <div class="input-group">
               <span class="input-group-text">👤</span>
-              <select class="form-select" id="role" required>
+              <select class="form-select" id="role"  formControlName="role" required>
                 <option value="user">User</option>
-                <option value="admin">Admin</option>
+                <option value="admin" >Admin</option>
               </select>
             </div>
           </div>
 
+
+      <div class="form-outline mb-4">
+        <label class="form-label" for="imageUpload">User Image </label>
+        <input type="file"
+         id="imageUpload"
+         class="form-control"
+         formControlName="image"
+         accept="image/*"
+        (change)="onFileSelected($event)"
+        name="image"
+        />
+      </div>
+
+
+
+
           <!-- Submit Button -->
-          <button type="submit" class="btn btn-success">Update User</button>
+          <button type="submit" class="btn btn--form-update" [disabled]="editUserForm.invalid">Update User</button>
         </form>
       </div>
     </div>

@@ -1,72 +1,130 @@
-<!--Create User Modal -->
 <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="createUserModalLabel">Create New User</h5>
+        <h5 class="modal-title" id="createUserModalLabel">Create New  User</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="createUserForm" (ngSubmit)="createUser()">
+        <form
+        enctype="multipart/form-data"
+        [formGroup]="createUserForm"
+        (ngSubmit)="createUser()"
+        id="createUserForm">
+         <!-- Error and Success Messages -->
+         <div *ngIf="errorMessage" class="alert alert-danger text-center error--message" [ngClass]="{'show': errorVisible}">
+          {{ errorMessage }}
+        </div>
+        <div *ngIf="successMessage" class="alert alert-success text-center success--message"  [ngClass]="{'show': errorVisible}">
+          {{ successMessage }}
+        </div>
+
+
           <!-- Username Input Group -->
           <div class="mb-3">
-            <label for="newUsername" class="form-label">Username</label>
+            <label for="createUsername" class="form-label">Username <span class="required-indicator">*</span></label>
             <div class="input-group">
-              <span class="input-group-text"><fa-icon [icon]="icons.faUser"></fa-icon></span>
-              <input type="text" class="form-control" id="newUsername" required name="username">
+              <span class="input-group-text"> <fa-icon [icon]="icons.faUser"></fa-icon> </span>
+              <input type="text" placeholder="Username" class="form-control" id="createUsername" formControlName="username" required>
+            </div>
+            <div *ngIf="createUserForm.get('username')?.invalid && createUserForm.get('username')?.touched" class="text-danger">
+              <small *ngIf="createUserForm.get('username')?.hasError('required')">Username is required.</small>
+              <small *ngIf="createUserForm.get('username')?.hasError('minlength')">Username must be at least 4 characters.</small>
             </div>
           </div>
 
           <!-- Email Input Group -->
           <div class="mb-3">
-            <label for="newEmail" class="form-label">Email</label>
+            <label for="createEmail" class="form-label">Email <span class="required-indicator">*</span></label>
             <div class="input-group">
               <span class="input-group-text">&#64;</span>
-              <input type="email" class="form-control" id="newEmail" required  name="email">
+              <input type="email" class="form-control" id="createEmail" formControlName="email" placeholder="Email Address" required>
+            </div>
+            <div *ngIf="createUserForm.get('email')?.invalid && createUserForm.get('email')?.touched" class="text-danger">
+              <small *ngIf="createUserForm.get('email')?.hasError('required')">Email is required.</small>
+              <small *ngIf="createUserForm.get('email')?.hasError('email')">Please enter a valid email address.</small>
             </div>
           </div>
 
           <!-- Phone Input Group -->
           <div class="mb-3">
-            <label for="newPhone" class="form-label">Phone</label>
+            <label for="createPhone" class="form-label">Phone </label>
             <div class="input-group">
               <span class="input-group-text">📞</span>
-              <input type="tel" class="form-control" id="newPhone" required  name="phone">
+              <input type="tel" class="form-control" id="createPhone"  formControlName="phone" placeholder="(e.g., +1234567890)" required>
+            </div>
+            <div *ngIf="createUserForm.get('phone')?.invalid && createUserForm.get('phone')?.touched" class="text-danger">
+              <small *ngIf="createUserForm.get('phone')?.hasError('pattern')">Please enter a valid phone number.</small>
             </div>
           </div>
 
           <!-- Password Input Group -->
           <div class="mb-3">
-            <label for="newPassword" class="form-label">Password</label>
+            <label for="CreatePassword" class="form-label">Password <span class="required-indicator">*</span></label>
             <div class="input-group">
               <span class="input-group-text">🔒</span>
-              <input type="password" class="form-control" id="newPassword" name="password">
+              <input type="password" class="form-control" id="CreatePassword" formControlName="password" placeholder="Update Password" required>
             </div>
+            <div
+            *ngIf="
+              createUserForm.get('password')?.touched &&
+              createUserForm.get('password')?.invalid
+            "
+            class="form-text text-danger fs-6"
+          >
+            <div *ngIf="createUserForm.get('password')?.hasError('required')">
+              Password is required.
+            </div>
+            <div
+              *ngIf="createUserForm.get('password')?.hasError('minlength')"
+            >
+              Password must be at least 8 characters long
+            </div>
+          </div>
           </div>
 
           <!-- Address Input Group -->
           <div class="mb-3">
-            <label for="newAddress" class="form-label">Address</label>
+            <label for="createAddress" class="form-label">Address  <span class="required-indicator">*</span></label>
             <div class="input-group">
               <span class="input-group-text">🏠</span>
-              <textarea class="form-control" id="newAddress" rows="2" required  name="address"></textarea>
+              <textarea class="form-control" id="createAddress" rows="2" formControlName="address" placeholder="Enter your address" required></textarea>
+            </div>
+            <div *ngIf="createUserForm.get('address')?.invalid && createUserForm.get('address')?.touched" class="text-danger">
+              <small *ngIf="createUserForm.get('address')?.hasError('required')">Address is required .</small>
+              <small *ngIf="createUserForm.get('address')?.hasError('minlength')">Address must be at least 5 characters.</small>
+              <small *ngIf="createUserForm.get('address')?.hasError('maxlength')">Address can't Exceed  100 characters.</small>
             </div>
           </div>
 
           <!-- Role Dropdown -->
           <div class="mb-3">
-            <label for="newRole" class="form-label">Role</label>
+            <label for="createRole" class="form-label">Role <span class="required-indicator">*</span></label>
             <div class="input-group">
               <span class="input-group-text">👤</span>
-              <select class="form-select" id="newRole" required name="role">
+              <select class="form-select" id="createRole" formControlName="role" required>
                 <option value="user">User</option>
-                <option value="admin">Admin</option>
+                <option value="admin" >Admin</option>
               </select>
+
             </div>
           </div>
 
+
+      <div class="form-outline mb-4">
+        <label class="form-label" for="imageUpload2">Profile Image </label>
+        <input
+        type="file"
+         id="imageUpload2"
+         class="form-control"
+         accept="image/*"
+        (change)="onFileSelected($event)"
+        formControlName="image"
+        />
+      </div>
+
           <!-- Submit Button -->
-          <button type="submit" class="btn btn-success">Create User</button>
+          <button type="submit" class="btn btn--form-update" [disabled]="createUserForm.invalid">Update User</button>
         </form>
       </div>
     </div>

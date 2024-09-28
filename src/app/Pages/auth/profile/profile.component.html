@@ -181,7 +181,9 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form enctype="multipart/form-data" [formGroup]="editProfileForm" (ngSubmit)="saveChanges()">
+              <form enctype="multipart/form-data"
+              [formGroup]="editProfileForm"
+               (ngSubmit)="saveChanges()">
                 <!-- Error and Success Messages -->
                 <div *ngIf="errorMessage" class="alert alert-danger text-center error--message" [ngClass]="{'show': errorVisible}">
                   {{ errorMessage }}
@@ -283,7 +285,20 @@
                 <!-- Profile Image -->
                 <div class="mb-3">
                   <label for="imageInput" class="form-label">Profile Image</label>
-                  <input type="file" class="form-control " id="imageInput" formControlName="image" accept="image/*" (change)="onFileSelected($event)">
+                  <input
+                  type="file"
+                   id="imageUpload"
+                   class="form-control"
+                   formControlName="image"
+                   accept="image/*"
+                  (change)="onFileSelected($event)"
+                  />
+                  <div *ngIf="fileName">{{ fileName }}</div>
+                  <div *ngIf="user.image">
+                    <img [src]="user.image" alt="Profile Image" style="width: 100px; height: 100px;">
+                  </div>
+
+                  <!-- <input type="file" class="form-control " id="imageInput" formControlName="image" accept="image/*" (change)="onFileSelected($event)"> -->
                 </div>
 
                 <!-- Modal Footer -->
