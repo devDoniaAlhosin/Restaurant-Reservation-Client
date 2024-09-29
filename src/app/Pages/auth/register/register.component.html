@@ -31,6 +31,9 @@
         <div *ngIf="errorMessage" class="alert alert-danger error--message text-center" [ngClass]="{'show': errorVisible}">
           {{ errorMessage }}
         </div>
+        <div *ngIf="successMessage" class="alert alert-success success--message text-center" [ngClass]="{'show': errorVisible}">
+          {{ successMessage }}
+        </div>
 
 
       <!-- Email input -->

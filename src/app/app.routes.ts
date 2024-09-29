@@ -17,11 +17,13 @@ import { AdminGuard } from './Core/guards/adminGuard/admin.guard';
 import { AuthGuard } from './Core/guards/authGuard/auth.guard';
 import { publicGuard } from './Core/guards/publicGuard/public.guard';
 import { ContactComponent } from './Pages/contact/contact.component';
+import { VerifyEmailComponent } from './Pages/auth/verify-email/verify-email.component';
+import { ForgetPasswordComponent } from './Pages/auth/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './Pages/auth/reset-password/reset-password.component';
 
 
 export const routes: Routes = [
-
-  {
+  { path: 'verify-email/:userId/:token', component: VerifyEmailComponent },  {
     path: 'admin-login',
     component: AdminLoginComponent,
     title: 'Bistro Bliss | Admin-Login',
@@ -74,6 +76,8 @@ export const routes: Routes = [
           {path : '' , component: LoginComponent   },
           { path: 'login', component: LoginComponent  },
           { path: 'register', component: RegisterComponent  },
+          { path: 'forget-password', component: ForgetPasswordComponent , title:"Bistro Bliss | Forget Password"},
+          { path: 'reset-password', component: ResetPasswordComponent , title:"Bistro Bliss | reset Password"},
         ],
       },
       {

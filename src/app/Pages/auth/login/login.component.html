@@ -25,6 +25,16 @@
         </div>
         <p class="text-center or-separator">or</p>
       </div>
+         <!-- Error Message -->
+         <div *ngIf="successMessage" class="alert alert-success success--message text-center" [ngClass]="{'show': errorVisible}">
+          {{ successMessage }}
+        </div>
+
+
+      <div *ngIf="!errorVisible && errorMessage == 'Your email is not verified. Please verify it.'">
+        <button (click)="resendVerificationEmail()">Resend Verification Email</button>
+      </div>
+
 
        <!-- Error Message -->
        <div *ngIf="errorMessage" class="alert alert-danger error--message text-center" [ngClass]="{'show': errorVisible}">
@@ -113,7 +123,7 @@
           </div>
         </div>
         <div class="forget--password col-md-6 d-flex justify-content-center">
-          <a href="#!">Forgot password?</a>
+          <a class="forget-passsword-link" (click)="goToForgotPassword()" >Forgot password?</a>
         </div>
       </div>
 

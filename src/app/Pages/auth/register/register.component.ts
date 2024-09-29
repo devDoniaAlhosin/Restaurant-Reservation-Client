@@ -34,6 +34,7 @@ export class RegisterComponent {
   registerForm: FormGroup;
   selectedFile: File | null = null;
   errorMessage: string | null = null;
+  successMessage: string | null = null;
   user: any = null;
   isLoggedIn: boolean = false;
   private unsubscribe$ = new Subject<void>();
@@ -102,17 +103,28 @@ export class RegisterComponent {
         formData.append('phone', this.registerForm.get('phoneNumber')?.value);
         formData.append('address', this.registerForm.get('address')?.value);
         formData.append('password', this.registerForm.get('password')?.value);
+        formData.append('password_confirmation', this.registerForm.get('confirmPassword')?.value);
         if (this.selectedFile) {
           formData.append('image', this.selectedFile, this.selectedFile.name);
         }
 
         this.authService.register(formData).subscribe(response => {
+          this.successMessage = 'Registration successful! Please check your email to verify your account.';
+          setTimeout(() => {
+            this.errorVisible = true;
+          }, 50);
+          setTimeout(() => {
+            this.errorVisible = false;
+            this.errorMessage = null;
+          }, 10000);
+          setTimeout(() => {
+            this.router.navigate(['/auth/login']);
+          }, 7000);
 
-
-          this.userService.setUser(response.user);
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('user', JSON.stringify(response.user));
-          this.router.navigate(['/profile']);
+          // this.userService.setUser(response.user);
+          // localStorage.setItem('token', response.token);
+          // localStorage.setItem('user', JSON.stringify(response.user));
+          // this.router.navigate(['/profile']);
         }, error => {
           console.error('Registration failed', error);
           this.errorMessage = 'Registration failed. Please try again.';

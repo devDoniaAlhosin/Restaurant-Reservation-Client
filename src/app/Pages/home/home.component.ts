@@ -99,8 +99,6 @@ export class HomeComponent {
       const role = this.authService.getUserRole();
       if (role === 'admin') {
         this.router.navigate(['/admin']);
-      } else if (role === 'user') {
-        this.router.navigate(['/profile']);
       }
     } else {
       this.router.navigate(['/']);

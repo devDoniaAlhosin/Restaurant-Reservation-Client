@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +36,44 @@ export class AuthService {
       'Authorization': `Bearer ${localStorage.getItem('token')}`
   }});
 
-  }
+}
+
+verifyEmail(id: string, hash: string): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/verify-email/${id}/${hash}`)
+    .pipe(
+      tap(response => {
+      console.log('Successful Verifying ');
+
+      }),
+      catchError(error => {
+        this.handleError(error);
+        return throwError(error);
+      })
+    );
+}
+
+resendVerificationEmail() {
+  return this.http.post(`${this.apiUrl}/email/verification-notification`, {} );
+}
+
+//  request a password reset link
+requestPasswordReset(email: string): Observable<any> {
+  return this.http.post(`${this.apiUrl}/forgot-password`, { email });
+}
+
+// Method to reset the password
+resetPassword(email: string, password: string, passwordConfirmation: string, token: string): Observable<any> {
+  return this.http.post(`${this.apiUrl}/reset-password`, {
+    email,
+    password,
+    password_confirmation: passwordConfirmation,
+    token
+  });
+}
+
+
+
+
 
   getUser() {
     return JSON.parse(localStorage.getItem('user') || '{}');

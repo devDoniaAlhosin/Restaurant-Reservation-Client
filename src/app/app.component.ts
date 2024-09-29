@@ -27,15 +27,28 @@ export class AppComponent {
   }
 
   checkUserRole(): void {
+    const currentUrl = this.router.url;
     if (this.authService.isLoggedIn()) {
       const role = this.authService.getUserRole();
+      if (currentUrl === '/verify-email') {
+        return;
+      }
+      if (currentUrl === '/verify-email') {
+        return;
+      }
+
+
       if (role === 'admin') {
         this.router.navigate(['/admin']);
       } else if (role === 'user') {
         this.router.navigate(['/profile']);
       }
     } else {
+      if (!['/login', '/register', '/verify-email'].includes(currentUrl)) {
       this.router.navigate(['/']);
     }
+    }
   }
+
+
 }

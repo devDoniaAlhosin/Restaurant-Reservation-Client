@@ -19,6 +19,8 @@ export class LoginComponent {
   faGoogle=faGoogle
   faGithub=faGithub
  faLinkedin=faLinkedin
+
+ successMessage: string | null = null;
  errorMessage: string | null = null;
  errorVisible = false;
 
@@ -59,6 +61,17 @@ export class LoginComponent {
       this.AuthService.login(loginData.login, loginData.password).subscribe(
         (response: any) => {
           console.log('Login Response:', response);
+
+          if (!response.user.email_verified_at) {
+            this.errorMessage = 'Please verify your email before logging in.';
+            this.errorVisible = true;
+            setTimeout(() => {
+              this.errorVisible = false;
+              this.errorMessage = null;
+            }, 10000);
+            return;
+          }
+
           if (response.user.role !== 'user') {
             this.errorMessage = "Unauthorized action.";
             this.errorVisible = true;
@@ -94,6 +107,24 @@ export class LoginComponent {
       );
     }
   }
+
+  resendVerificationEmail() {
+    this.AuthService.resendVerificationEmail().subscribe(() => {
+      setTimeout(() => {
+        this.errorVisible = true;
+      }, 50);
+      this.successMessage = 'Verification email sent successfully.'
+      alert('Verification email sent successfully.');
+    }, error => {
+      console.error('Failed to resend verification email', error);
+    });
+  }
+
+
+  goToForgotPassword() {
+    this.router.navigate(['/auth/forget-password']);
+  }
+
 
 
 
