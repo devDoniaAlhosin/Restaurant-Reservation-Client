@@ -22,3 +22,16 @@ tbody{
     }
   }
 }
+
+.search-bar{
+  padding: 5px 10px;
+  width: 70%;
+   margin: 0 auto;
+   margin-bottom: 20px;
+    border-radius: 10px;
+  border: 1px solid var(--secondary-color);
+
+  &:focus,&:active{
+    outline: none;
+  }
+}

@@ -1,11 +1,26 @@
 <div class="container-fluid">
+
+
   <div class="row">
+
     <!-- Users Table -->
     <div class="col-md-12">
+
       <div class="card text-center">
+
         <div class="card-body">
           <h3 class="card-title  fw-bold fst-italic text-start">Menu List</h3>
+
           <a (click)="openDialog()"><i class='bx bxs-add-to-queue specialIcon'></i></a>
+          <input
+          type="text"
+          [formControl]="searchControl"
+          (keydown)="searchOnEnter($event)"
+          class="search-bar"
+          placeholder="Search...">
+
+
+
 
 
 
@@ -37,12 +52,13 @@
               </tbody>
             </table>
 
-          <p-paginator
-          (onPageChange)="onPageChange($event)"
-          [rows]="rows"
-          [totalRecords]="totalRecords"
-          [pageLinkSize]="4"
-        ></p-paginator>
+            <p-paginator
+              *ngIf="showPaginator"
+              (onPageChange)="onPageChange($event)"
+              [rows]="rows"
+              [totalRecords]="totalRecords"
+              [pageLinkSize]="4"
+            ></p-paginator>
 
           </div>
         </div>
