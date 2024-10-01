@@ -3,18 +3,24 @@
     <h1>Book a Table</h1>
     <p>We consider all the drivers of change and give you the components you need to create a truly unique experience.</p>
 
-    <form>
+    <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="username" placeholder="Enter your Username" required>
+            <input type="text" class="form-control" id="username" formControlName="username" placeholder="Enter your Username" required>
             <label for="username">Enter your Username</label>
+            <div *ngIf="bookingForm.get('username')?.invalid && (bookingForm.get('username')?.touched || showErrorMessages)" class="text-danger">
+              Username must match the logged-in user's username.
+            </div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="phone" placeholder="Enter your Phone" required>
+            <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="Enter your Phone" required>
             <label for="phone">Enter your Phone</label>
+            <div *ngIf="bookingForm.get('phone')?.invalid && (bookingForm.get('phone')?.touched || showErrorMessages)" class="text-danger">
+              Phone must match the logged-in user's phone.
+            </div>
           </div>
         </div>
       </div>
@@ -22,14 +28,20 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating mb-3">
-            <input type="date" class="form-control" id="date" placeholder="Select Date" required>
+            <input type="date" class="form-control" id="date" formControlName="date" placeholder="Select Date" required>
             <label for="date">Select Date</label>
+            <div *ngIf="bookingForm.get('date')?.invalid && (bookingForm.get('date')?.touched || showErrorMessages)" class="text-danger">
+              Please select a valid date (today or within 3 months).
+            </div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating mb-3">
-            <input type="time" class="form-control" id="time" placeholder="Select Time" required>
-            <label for="time">Select Time</label>
+            <input type="text" class="form-control" id="time" formControlName="time" placeholder="Select Time" required>
+            <label for="time">Select Time (e.g., 12:00 PM)</label>
+            <div *ngIf="bookingForm.get('time')?.invalid && (bookingForm.get('time')?.touched || showErrorMessages)" class="text-danger">
+              Please enter time in format (hh:mm AM/PM).
+            </div>
           </div>
         </div>
       </div>
@@ -37,8 +49,11 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-floating mb-3">
-            <input type="number" class="form-control" id="totalPerson" placeholder="Total Persons" required min="1">
+            <input type="number" class="form-control" id="totalPerson" formControlName="totalPerson" placeholder="Total Persons" required min="1">
             <label for="totalPerson">Total Persons</label>
+            <div *ngIf="bookingForm.get('totalPerson')?.invalid && (bookingForm.get('totalPerson')?.touched || showErrorMessages)" class="text-danger">
+              Please enter at least one person.
+            </div>
           </div>
         </div>
       </div>
@@ -46,15 +61,18 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-floating mb-3">
-            <textarea class="form-control" id="notes" placeholder="Notes" style="height: 100px"></textarea>
+            <textarea class="form-control" id="notes" formControlName="notes" placeholder="Notes" style="height: 100px"></textarea>
             <label for="notes">Notes (Optional)</label>
           </div>
         </div>
       </div>
 
       <div class="d-grid gap-2">
-        <button class="btn custom-btn" type="submit">Book Now</button>
+        <button class="btn btn-primary" type="submit">Book Now</button>
       </div>
+
+      <div *ngIf="serverError" class="text-danger">{{ serverError }}</div>
+      <div *ngIf="successMessage" class="text-success">{{ successMessage }}</div>
     </form>
   </div>
 

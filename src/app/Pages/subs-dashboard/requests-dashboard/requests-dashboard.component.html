@@ -1,4 +1,29 @@
 <div class="container mt-4">
+    <!-- Filters Section -->
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label for="filterDate" class="form-label">Filter by Date (YYYY-MM-DD):</label>
+        <div class="input-group">
+          <input type="date" class="form-control" id="filterDate" [(ngModel)]="filterDate" (change)="filteredRequests()">
+          <span class="input-group-text">
+            <i class="bi bi-calendar-event"></i> <!-- Bootstrap calendar icon -->
+          </span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="filterTime" class="form-label">Filter by Time (h:i A):</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="filterTime" placeholder="hh:mm AM/PM" [(ngModel)]="filterTime" (change)="filteredRequests()">
+          <span class="input-group-text">
+            <i class="bi bi-clock"></i> <!-- Bootstrap clock icon -->
+          </span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="searchQuery" class="form-label">Search by Username:</label>
+        <input type="text" class="form-control" id="searchQuery" placeholder="Enter username" [(ngModel)]="searchQuery" (input)="filteredRequests()">
+      </div>
+    </div>
   <div class="table-responsive">
     <table class="table table-hover align-middle">
       <thead class="table-light">
@@ -9,11 +34,12 @@
           <th>Date & Time</th>
           <th>Total Person</th>
           <th>Notes</th>
+          <th>Status</th> <!-- Added Status column -->
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <!-- <tr *ngFor="let request of requests">
+        <tr *ngFor="let request of filteredRequests()">
           <td>{{ request.id }}</td>
           <td>{{ request.username }}</td>
           <td>{{ request.phone }}</td>
@@ -21,16 +47,26 @@
           <td>{{ request.totalPerson }}</td>
           <td>{{ request.notes }}</td>
           <td>
-            <button class="btn btn-success me-2" >
-              Accept
-            </button>
-            <button class="btn btn-danger" >
-              Reject
-            </button>
+            <span class="badge" [ngClass]="{
+              'bg-success': request.status === 'accepted',
+              'bg-danger': request.status === 'rejected',
+              'bg-warning': request.status === 'pending'
+            }">
+              {{ request.status || 'Pending' }}
+            </span>
           </td>
-        </tr> -->
+          <td>
+            <button class="btn btn-success me-2" (click)="acceptRequest(request)"
+            [disabled]="request.status !== 'pending' || request.buttonsDisabled">
+      Accept
+    </button>
+    <button class="btn btn-danger" (click)="rejectRequest(request)"
+            [disabled]="request.status !== 'pending' || request.buttonsDisabled">
+      Reject
+    </button>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
 </div>
-

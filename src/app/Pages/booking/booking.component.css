@@ -82,4 +82,19 @@
     transform: translateY(-10px);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   }
+  .text-danger {
+    color: red;
+  }
+  .invalid-feedback {
+    display: none; /* Hide by default */
+  }
+
+
+  .form-control:invalid ~ .invalid-feedback {
+    display: block; /* Show when the input is invalid */
+  }
+
+  .form-control:valid ~ .invalid-feedback {
+    display: none; /* Hide when the input is valid */
+  }
 
