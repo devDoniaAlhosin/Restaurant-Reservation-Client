@@ -15,7 +15,7 @@ import { AuthLayoutComponent } from './Layouts/auth-layout/auth-layout.component
 import { RegisterComponent } from './Pages/auth/register/register.component';
 import { AdminGuard } from './Core/guards/adminGuard/admin.guard';
 import { AuthGuard } from './Core/guards/authGuard/auth.guard';
-import { publicGuard } from './Core/guards/publicGuard/public.guard';
+import { PublicGuard } from './Core/guards/publicGuard/public.guard';
 import { ContactComponent } from './Pages/contact/contact.component';
 import { VerifyEmailComponent } from './Pages/auth/verify-email/verify-email.component';
 import { ForgetPasswordComponent } from './Pages/auth/forget-password/forget-password.component';
@@ -23,11 +23,14 @@ import { ResetPasswordComponent } from './Pages/auth/reset-password/reset-passwo
 
 
 export const routes: Routes = [
-  { path: 'verify-email/:userId/:token', component: VerifyEmailComponent },  {
+  { path: 'reset-password', component: ResetPasswordComponent , title:"Bistro Bliss | reset Password"},
+  { path: 'verify-email',
+    component: VerifyEmailComponent ,
+     canActivate: [PublicGuard],},
+  {
     path: 'admin-login',
     component: AdminLoginComponent,
     title: 'Bistro Bliss | Admin-Login',
-
   },
   {
     path: 'admin',
@@ -77,7 +80,7 @@ export const routes: Routes = [
           { path: 'login', component: LoginComponent  },
           { path: 'register', component: RegisterComponent  },
           { path: 'forget-password', component: ForgetPasswordComponent , title:"Bistro Bliss | Forget Password"},
-          { path: 'reset-password', component: ResetPasswordComponent , title:"Bistro Bliss | reset Password"},
+          // { path: 'reset-password', component: ResetPasswordComponent , title:"Bistro Bliss | reset Password"},
         ],
       },
       {

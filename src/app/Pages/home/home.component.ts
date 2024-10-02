@@ -1,7 +1,7 @@
 import { AuthService } from './../../Core/auth/auth.service';
 import { NgFor, NgIf } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ScrollAnimationDirective } from '../../Shared/directives/scrollAnimation/scroll-animation.directive';
 import {
@@ -24,6 +24,7 @@ import {
  faClock
 
 } from '@fortawesome/free-regular-svg-icons';
+import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -77,6 +78,7 @@ export class HomeComponent {
     image: "../../../assets/img/p3.png"
     }
   ];
+  verificationStatus: string | null = null;
   faMugSaucer=faMugSaucer;
   faUtensils=faUtensils;
   faMugHot=faMugHot;
@@ -94,7 +96,7 @@ export class HomeComponent {
 
 
 
-  constructor( private authService : AuthService ,  private router: Router ){
+  constructor( private authService : AuthService ,  private router: Router, private route: ActivatedRoute, ){
     if (this.authService.isLoggedIn()) {
       const role = this.authService.getUserRole();
       if (role === 'admin') {
@@ -107,13 +109,55 @@ export class HomeComponent {
 
 
 ngOnInit(): void {
+  this.route.queryParams.subscribe(params => {
+    console.log('All query parameters:', params);
+    const verificationUrl = params['verficationUrl'];
+    const signature = params['signature'];
+    console.log('Verification URL:', verificationUrl);
+    if (verificationUrl) {
+      const combinedParams = `${verificationUrl}&signature=${signature}`;
+      this.verifyEmail(combinedParams);
+    } else {
+      this.verificationStatus = 'Invalid verification link.';
+    }
+  });
+
   this.showItems();
 }
 @HostListener('window:scroll', ['$event'])
 onScroll(): void {
   this.showItems();
 }
+verifyEmail(verificationUrl: string) {
 
+  const token = localStorage.getItem('verifyToken');
+
+  if (!token) {
+    console.error('No token found for verification.');
+    this.verificationStatus = 'Email verification failed! Missing token.';
+    return;
+  }
+
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`,
+  });
+
+  console.log('Sending request to:', verificationUrl);
+  console.log('Authorization Token:', token);
+
+ this.authService.verifyEmail(verificationUrl, headers).subscribe(
+    (response) => {
+      console.log('Email verified successfully!', response);
+      this.verificationStatus = 'Email verified successfully!';
+      this.router.navigate(['/auth/login'], { queryParams: { message: 'email_verified' } });
+    },
+    (error) => {
+      console.error('Email verification failed!', error);
+        this.verificationStatus = 'Email verification failed! Please try again.';
+        this.router.navigate(['/verify-email'], { queryParams: { message: 'email_verification_failed' } });
+    }
+  );
+}
 showItems(): void {
   const serviceItems = document.querySelectorAll('.service-item');
   const triggerBottom = window.innerHeight * 0.85;

@@ -50,7 +50,6 @@ export class RegisterComponent {
     private userService :UserService
     ) {
       this.isLoggedIn = this.authService.isLoggedIn();
-
       if (this.isLoggedIn) {
         this.user = this.authService.getUser();
         this.router.navigate(['/']);
@@ -81,15 +80,9 @@ export class RegisterComponent {
       );
     }
 
-    // onFileSelected(event: Event): void {
-    //   const input = event.target as HTMLInputElement;
-    //   if (input.files) {
-    //     this.selectedFile = input.files[0];
-    //     this.registerForm.get('profileImage')?.setValue(this.selectedFile);
-    //   }
-    // }
+
     onFileSelected(event: any): void {
-       this.selectedFile = event.target.files[0]; // Get the first selected file
+       this.selectedFile = event.target.files[0];
     }
 
 
@@ -122,7 +115,7 @@ export class RegisterComponent {
           }, 7000);
 
           // this.userService.setUser(response.user);
-          // localStorage.setItem('token', response.token);
+          localStorage.setItem('verifyToken', response.token);
           // localStorage.setItem('user', JSON.stringify(response.user));
           // this.router.navigate(['/profile']);
         }, error => {

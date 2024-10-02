@@ -38,22 +38,17 @@ export class AuthService {
 
 }
 
-verifyEmail(id: string, hash: string): Observable<any> {
-  return this.http.get<any>(`${this.apiUrl}/verify-email/${id}/${hash}`)
-    .pipe(
-      tap(response => {
-      console.log('Successful Verifying ');
-
-      }),
-      catchError(error => {
-        this.handleError(error);
-        return throwError(error);
-      })
-    );
+verifyEmail(verificationUrl: string, headers: HttpHeaders): Observable<any> {
+  return this.http.get<any>(verificationUrl, { headers });
 }
 
+
 resendVerificationEmail() {
-  return this.http.post(`${this.apiUrl}/email/verification-notification`, {} );
+  const token = localStorage.getItem('verifyToken');
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`,
+  });
+  return this.http.post(`${this.apiUrl}/email/verification-notification`, {} , { headers });
 }
 
 //  request a password reset link

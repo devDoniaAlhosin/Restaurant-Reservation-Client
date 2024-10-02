@@ -1,5 +1,19 @@
-import { CanActivateFn } from '@angular/router';
+import { CanActivate, CanActivateFn, Router } from '@angular/router';
+import { AuthService } from '../../auth/auth.service';
+import { Injectable } from '@angular/core';
 
-export const publicGuard: CanActivateFn = (route, state) => {
-  return true;
-};
+@Injectable({
+  providedIn: 'root',
+})
+export class PublicGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  canActivate(): boolean {
+
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/home']);
+      return false;
+    }
+    return true;
+  }
+}

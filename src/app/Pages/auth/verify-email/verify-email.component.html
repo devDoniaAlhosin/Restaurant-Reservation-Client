@@ -1,15 +1,17 @@
-<div class="verify-email-container">
-  <h2>Email Verification</h2>
+<section class="verify-email">
+  <div class="verify-email-container">
+    <h2>Email Verification</h2>
 
-  <div class="verification-message" *ngIf="verificationStatus">
-    <p>{{ verificationStatus }}</p>
-  </div>
+    <div class="verification-message" *ngIf="verificationStatus">
+      <p>{{ verificationStatus }}</p>
+    </div>
 
-  <div class="loader" *ngIf="verificationStatus === 'Your email has been successfully verified!'">
-    <span class="spinner"></span>
-  </div>
+    <div class="loader" *ngIf="verificationStatus === 'Your email has been successfully verified!'">
+      <span class="spinner"></span>
+    </div>
 
-  <div class="footer">
-    <p>If you didn't receive a verification email, <a href="#" (click)="resendVerification()">click here to resend.</a></p>
+    <div class="footer">
+      <p>If you didn't receive a verification email, <a  (click)="resendVerification()">click here to resend.</a></p>
+    </div>
   </div>
-</div>
+</section>

@@ -1,7 +1,7 @@
 import { UserService } from './../../../Core/services/userService/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {faFacebook , faGoogle , faLinkedin , faGithub } from '@fortawesome/free-brands-svg-icons';
 import { FormsModule, NgForm, ValidationErrors } from '@angular/forms';
@@ -25,18 +25,34 @@ export class LoginComponent {
  errorVisible = false;
 
 
-  constructor(public router: Router,private AuthService: AuthService, private userService :UserService ) {
+  constructor(
+    public router: Router,
+    private AuthService: AuthService,
+    private userService :UserService,
+    private route: ActivatedRoute
+   ) {
     if (AuthService.isLoggedIn()) {
       this.router.navigate(['/']);
     }
+    this.route.queryParams.subscribe(params => {
+      if (params['message'] === 'email_verified') {
+        this.successMessage = 'Email verified successfully! You can log in now.';
+        this.errorVisible = true;
+        setTimeout(() => {
+          //  this.errorVisible = false;
+          this.successMessage = null;
+        }, 10000);
+      }
+    });
+
   }
+
 
 
 
   signInWithGoogle() {
     this.AuthService.loginWithGoogle().subscribe({
       next: (response) => {
-
       const token = response.token;
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(response.user));
@@ -62,6 +78,7 @@ export class LoginComponent {
         (response: any) => {
           console.log('Login Response:', response);
 
+
           if (!response.user.email_verified_at) {
             this.errorMessage = 'Please verify your email before logging in.';
             this.errorVisible = true;
@@ -84,11 +101,13 @@ export class LoginComponent {
 
 
           if (loginForm.value.rememberMe) {
+            localStorage.removeItem('verifyToken');
             sessionStorage.setItem('token', response.token);
-          }else{loginData
-            localStorage.setItem('token', response.token);
-          }loginData
+          }else{
 
+            localStorage.setItem('token', response.token);
+          }
+          localStorage.removeItem('verifyToken');
           localStorage.setItem('user', JSON.stringify(response.user));
           this.userService.setUser(response.user);
           this.router.navigate(['/profile']);

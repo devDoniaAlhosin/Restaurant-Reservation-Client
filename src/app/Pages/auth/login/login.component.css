@@ -165,6 +165,14 @@ justify-content: center;
   transform: translateY(-10px);
 
 }
+.success--message.show {
+  opacity: 1;
+  display: block;
+  transform: translateY(0);
+  color: var(--white-color) !important;
+  font-weight: 700;
+}
+
 .forget-passsword-link{
   cursor: pointer;
 }

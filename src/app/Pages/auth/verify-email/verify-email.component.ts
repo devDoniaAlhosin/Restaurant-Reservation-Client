@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../Core/auth/auth.service';
 import { NgIf } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-verify-email',
@@ -14,48 +14,47 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class VerifyEmailComponent {
   verificationStatus: string | null = null;
   message?: string;
-
+  id: string = '';
+  hash: string = '';
+  verified: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
     private router: Router,
     private http: HttpClient
-  ) {}
+  ) {
 
-  ngOnInit() {
+  }
+
+  ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      const id = params['id'];
-      const hash = params['hash'];
-
-      if (id && hash) {
-        this.authService.verifyEmail(id, hash).subscribe(
-          response => {
-            this.message = 'Email successfully verified!';
-            // Optionally, redirect or show a login option
-          },
-          error => {
-            this.message = 'Email verification failed. Please try again.';
-          }
-        );
+      const verificationUrl = params['message'];
+      if (verificationUrl) {
+      this.verificationStatus = 'Email verification failed! Please try again.';
       } else {
-        this.message = 'Invalid verification link.';
+        this.verificationStatus = 'Invalid verification link.';
       }
     });
   }
+  // verifyEmail(verificationUrl: string) {
+  //   const token = localStorage.getItem('verifyToken');
 
-verifyEmail(id: string, hash: string) {
-  this.authService.verifyEmail(id, hash).subscribe(
-    (response) => {
-      this.verificationStatus = 'Email successfully verified!';
-      this.router.navigate(['/login']);
-    },
-    (error) => {
-      console.error('Verification failed', error);
-      this.verificationStatus = 'Email verification failed.';
-    }
-  );
-}
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`,
+  //   });
 
+  //   this.authService.verifyEmail(verificationUrl, headers).subscribe(
+  //     (response) => {
+  //       console.log('Email verified successfully!', response);
+  //       this.verificationStatus = 'Email verified successfully!';
+  //       this.router.navigate(['/'], { queryParams: { message: 'email_verified' } });
+  //     },
+  //     (error) => {
+  //       console.error('Email verification failed!', error);
+  //       this.verificationStatus = 'Email verification failed! Please try again.';
+  //     }
+  //   );
+  // }
 
 
 
