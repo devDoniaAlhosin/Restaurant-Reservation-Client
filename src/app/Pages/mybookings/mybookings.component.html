@@ -1,51 +1,60 @@
 <section class="myBookings">
   <h2 class="text-center mb-4">My Bookings</h2>
   <div class="past-bookings row">
-    <div class="col-md-4 col-sm-6 mb-4">
+    <div *ngFor="let booking of bookings" class="col-md-4 col-sm-6 mb-4">
       <div class="card booking-card">
         <div class="card-header d-flex justify-content-between align-items-center">
           <span class="card-icon"><i class="bi bi-calendar3"></i></span>
-          <span class="booking-status badge bg-success">Accepted</span>
+
+          <!-- Booking Status and Edit Button in the same row -->
+          <div class="d-flex align-items-center">
+            <span class="booking-status badge" [ngClass]="{
+              'bg-success': booking.status === 'accepted',
+              'bg-warning text-dark': booking.status === 'pending',
+              'bg-danger': booking.status === 'rejected'
+            }">{{ booking.status | titlecase }}</span>
+
+            <!-- Edit Booking Button -->
+            <button *ngIf="booking.status === 'pending'" class="btn btn-secondary btn-sm ms-2 edit-booking-btn" (click)="onEditBooking(booking)">Edit</button>
+          </div>
         </div>
         <div class="card-body text-center">
-          <p class="card-date">Date: <span>12/09/2024</span></p>
-          <p class="card-rating">Rating: <span>4.5</span></p>
-          <p class="card-persons">Number of persons: <span>5</span></p>
-          <p class="card-payment">Payment: <span>Completed</span></p>
-          <button class="btn btn-primary mt-3 view-details-btn">View Details</button>
+          <ng-container *ngIf="editingBooking?.id !== booking.id">
+            <!-- Display Mode -->
+            <p class="card-date">Date: <span>{{ booking.date_time | date: 'shortDate' }}</span></p>
+            <!-- <p class="card-date">Date: <span>{{ booking.date }}</span></p> -->
+
+            <p class="card-time">Time: <span>{{ booking.time }}</span></p>
+            <p class="card-persons">Number of persons: <span>{{ booking.total_person }}</span></p>
+          </ng-container>
+
+          <ng-container *ngIf="editingBooking?.id === booking.id">
+            <!-- Edit Mode -->
+            <div class="form-group mb-2">
+              <label for="editDate-{{booking.id}}">Date:</label>
+              <input type="date" class="form-control" [(ngModel)]="editingBooking.date" (ngModelChange)="validateDate()" name="editDate" id="editDate-{{booking.id}}">
+              <div *ngIf="dateError" class="text-danger">{{ dateError }}</div>
+            </div>
+
+            <div class="form-group mb-2">
+              <label for="editTime-{{booking.id}}">Time:</label>
+              <input type="text" class="form-control"  [(ngModel)]="editingBooking.time" (ngModelChange)="validateTime()" name="editTime" id="editTime-{{booking.id}}">
+              <div *ngIf="timeError" class="text-danger">{{ timeError }}</div>
+            </div>
+
+            <div class="form-group mb-2">
+              <label for="editTotalPersons-{{booking.id}}">Number of persons:</label>
+              <input type="number" class="form-control" [(ngModel)]="editingBooking.total_person" (ngModelChange)="validateTotalPersons()" name="editTotalPersons" id="editTotalPersons-{{booking.id}}" min="1">
+              <div *ngIf="totalPersonsError" class="text-danger">{{ totalPersonsError }}</div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+              <button class="btn btn-success mt-2" (click)="onSaveBooking()">Save</button>
+              <button class="btn btn-secondary mt-2 ms-2" (click)="onCancelEdit()">Cancel</button>
+            </div>
+          </ng-container>
         </div>
       </div>
     </div>
-    <div class="col-md-4 col-sm-6 mb-4">
-      <div class="card booking-card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <span class="card-icon"><i class="bi bi-calendar3"></i></span>
-          <span class="booking-status badge bg-warning text-dark">Pending</span>
-        </div>
-        <div class="card-body text-center">
-          <p class="card-date">Date: <span>12/09/2024</span></p>
-          <p class="card-rating">Rating: <span>4.5</span></p>
-          <p class="card-persons">Number of persons: <span>5</span></p>
-          <p class="card-payment">Payment: <span>Pending</span></p>
-          <button class="btn btn-secondary mt-3 edit-booking-btn">Edit Booking</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 col-sm-6 mb-4">
-      <div class="card booking-card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <span class="card-icon"><i class="bi bi-calendar3"></i></span>
-          <span class="booking-status badge bg-warning text-dark">Pending</span>
-        </div>
-        <div class="card-body text-center">
-          <p class="card-date">Date: <span>12/09/2024</span></p>
-          <p class="card-rating">Rating: <span>4.5</span></p>
-          <p class="card-persons">Number of persons: <span>5</span></p>
-          <p class="card-payment">Payment: <span>Pending</span></p>
-          <button class="btn btn-secondary mt-3 edit-booking-btn">Edit Booking</button>
-        </div>
-      </div>
-    </div>
-    <!-- Add more cards here if needed -->
   </div>
 </section>

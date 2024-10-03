@@ -18,3 +18,15 @@
 .table-hover tbody tr:hover {
   background-color: #f8f9fa;
 }
+.btn-outline-danger {
+  background-color: #f8d7da; /* Light red background */
+  border: none; /* Remove border */
+}
+
+.d-flex {
+  display: flex;
+}
+
+.gap-2 {
+  gap: 0.5rem; /* Add spacing between buttons */
+}
