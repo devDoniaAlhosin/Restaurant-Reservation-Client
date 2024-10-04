@@ -1,1 +1,75 @@
-<p>requests-dashboard works!</p>
+<div class="container mt-4">
+  <!-- Filters Section -->
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <label for="filterMonth" class="form-label">Filter by Month:</label>
+      <select class="form-select" id="filterMonth" [(ngModel)]="filterMonth">
+        <option value="">Select a month</option>
+        <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label for="filterYear" class="form-label">Filter by Year:</label>
+      <select id="filterYear" class="form-select" [(ngModel)]="filterYear">
+        <option value="">Select a year</option>
+        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label for="searchQuery" class="form-label">Search by Username:</label>
+      <input type="text" class="form-control" id="searchQuery" placeholder="Enter username" [(ngModel)]="searchQuery">
+    </div>
+  </div>
+
+  <!-- Booking Requests Table -->
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Phone</th>
+          <th>Date</th> <!-- Separate Date Column -->
+          <th>Time</th> <!-- Separate Time Column -->
+          <th>Total Person</th>
+          <th>Notes</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of filteredRequests()">
+          <td>{{ request.id }}</td>
+          <td>{{ request.username }}</td>
+          <td>{{ request.phone }}</td>
+          <td>{{ request.date }}</td> <!-- Display Date -->
+          <td>{{ request.time }}</td> <!-- Display Time -->
+          <td>{{ request.total_person }}</td>
+          <td>{{ request.notes }}</td>
+          <td>
+            <span class="badge" [ngClass]="{
+              'bg-success': request.status === 'accepted',
+              'bg-danger': request.status === 'rejected',
+              'bg-warning': request.status === 'pending'
+            }">
+              {{ request.status || 'Pending' }}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-success me-2" (click)="acceptRequest(request)"
+                    [disabled]="request.status !== 'pending' || request.buttonsDisabled">
+              Accept
+            </button>
+            <button class="btn btn-danger" (click)="rejectRequest(request)"
+                    [disabled]="request.status !== 'pending' || request.buttonsDisabled">
+              Reject
+            </button>
+            <button class="btn btn-danger" (click)="deleteBooking(request.id)">
+              <i class="bi bi-trash"></i> <!-- Bootstrap trash icon -->
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

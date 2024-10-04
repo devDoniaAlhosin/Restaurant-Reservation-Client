@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
+.myBookings {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  flex-direction: column;
+  background-color:  #F9F9F7;
+  margin-bottom: 40px;
+}
+
+.past-bookings {
+  width: 90%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.booking-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.booking-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  background-color: #f7f7f7;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.card-icon {
+  font-size: 1.5rem;
+  color: #007bff;
+}
+
+.booking-status {
+  font-size: 0.75rem;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-date,
+.card-rating,
+.card-persons,
+.card-payment {
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.card-body span {
+  font-weight: 600;
+  color: #007bff;
+}
+
+.view-details-btn,
+.edit-booking-btn {
+  color: white;
+  border: none;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.view-details-btn {
+  background-color: #AD343E;
+}
+
+.view-details-btn:hover {
+  background-color: white;
+  color: #AD343E;
+  border: 2px solid  #AD343E;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.edit-booking-btn {
+  background-color: #AD343E;
+}
+
+.edit-booking-btn:hover {
+  background-color: white;
+  color: #AD343E;
+  border: 2px solid  #AD343E;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .myBookings {
+    height: auto;
+  }
+
+  .booking-card {
+    margin-bottom: 20px;
+  }
+}

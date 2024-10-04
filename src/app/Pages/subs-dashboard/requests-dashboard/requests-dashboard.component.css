@@ -1,0 +1,32 @@
+.btn-success,
+.btn-danger {
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.btn-success:hover {
+  background-color: white;
+  color: var(--primary-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-danger:hover {
+  background-color: white;
+  color: var(--black-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f8f9fa;
+}
+.btn-outline-danger {
+  background-color: #f8d7da; /* Light red background */
+  border: none; /* Remove border */
+}
+
+.d-flex {
+  display: flex;
+}
+
+.gap-2 {
+  gap: 0.5rem; /* Add spacing between buttons */
+}

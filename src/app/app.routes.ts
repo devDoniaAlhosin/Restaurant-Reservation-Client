@@ -21,6 +21,8 @@ import { VerifyEmailComponent } from './Pages/auth/verify-email/verify-email.com
 import { ForgetPasswordComponent } from './Pages/auth/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './Pages/auth/reset-password/reset-password.component';
 
+import { BookingComponent } from './Pages/booking/booking.component';
+import { MybookingsComponent } from './Pages/mybookings/mybookings.component';
 
 export const routes: Routes = [
   { path: 'password-reset/:token', component: ResetPasswordComponent , title:"Bistro Bliss | reset Password"},
@@ -91,7 +93,16 @@ export const routes: Routes = [
       },
       {path:"contact" , component: ContactComponent , title : "Bistro Bliss | Contact Us"},
 
+      {path:'bookings' ,component:BookingComponent,
+        title:'Bistro Bliss | Reservations',
+      },
+      {path:'mybookings' ,component:MybookingsComponent,
+        title:'Bistro Bliss | My Bookings',
+      },
       { path: '**', component: NotFoundComponent },
+
+
     ],
   },
+
 ];
