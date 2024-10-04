@@ -131,35 +131,6 @@ export class LoginComponent {
   }
 
 
-  // resendVerificationEmail(): void {
-  //   // const token = localStorage.getItem('authToken');verifyToken
-  //   const token = localStorage.getItem('verifyToken');
-
-  //   if (token) {
-  //     const headers = new HttpHeaders({
-  //       'Authorization': `Bearer ${token}`,
-  //     });
-
-  //     this.AuthService.resendVerificationEmail(headers).subscribe(
-  //       (response) => {
-  //         this.verificationStatus = 'Verification email has been resent. Please check your inbox.';
-  //         Swal.fire({
-  //           title: 'Verification Email !',
-  //           text: 'Verification email has been resent. Please check your inbox.',
-  //           icon: 'success',
-  //           showConfirmButton: false,
-  //           timer: 2000
-  //         });
-  //       },
-  //       (error) => {
-  //         console.error('Failed to resend verification email', error);
-  //         this.verificationStatus = 'Failed to resend verification email. Please try again later.';
-  //       }
-  //     );
-  //   } else {
-  //     this.verificationStatus = 'User is not authenticated. Please log in and try again.';
-  //   }
-  // }
   resendVerificationEmail(): void {
     const token = localStorage.getItem('verifyToken');
 

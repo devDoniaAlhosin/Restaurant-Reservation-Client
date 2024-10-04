@@ -11,6 +11,7 @@ import {    faPencil ,
   faEnvelope,}  from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../../../../Core/services/userService/user.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-user-create-form',
   standalone: true,
@@ -53,7 +54,7 @@ export class UserCreateFormComponent {
       phone: ['' , [Validators.required ,Validators.pattern(/^(\+20[0-9]{10}|01[012][0-9]{8})$/)]],
       address: ['', [Validators.required,Validators.minLength(5), Validators.maxLength(100)]],
       password: ['', [Validators.required, Validators.minLength(8)]], // Strong one
-      image: [''],
+      // image: [''],
       role:['' , [ Validators.required]]
     },
 
@@ -143,7 +144,7 @@ createUser(): void {
       address: this.createUserForm.get('address')?.value,
       password: this.createUserForm.get('password')?.value,
       role: this.createUserForm.get('role')?.value,
-      image: this.selectedFile ? this.selectedFile.name : null
+      // image: this.selectedFile ? this.selectedFile.name : null
     };
 
 
@@ -153,6 +154,15 @@ createUser(): void {
     this.authService.createSingleUser(userData).subscribe(
       (response) => {
         console.log('User created successfully:', response);
+        Swal.fire({
+          icon: 'success',
+          title: 'User Created Successfully',
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        });
         this.successMessage = "User Created successfully!";
         this.showTemporaryMessage(true);
         this.userCreated.emit();
@@ -164,10 +174,30 @@ createUser(): void {
         } else {
           this.errorMessage = 'An unexpected error occurred.';
         }
+        Swal.fire({
+          icon: 'error',
+          title: 'User Creation Failed',
+          text: this.errorMessage,
+          toast: true,
+          position: 'center',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        });
       }
     );
   } else {
     this.errorMessage = 'Please fill in all required fields.';
+    Swal.fire({
+      icon: 'warning',
+      title: 'Validation Error',
+      text: this.errorMessage,
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
   }
 }
 

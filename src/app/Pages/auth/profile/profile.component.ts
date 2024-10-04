@@ -1,6 +1,7 @@
+import { subMonths } from 'date-fns';
 import { UserService } from './../../../Core/services/userService/user.service';
 import { AuthService } from './../../../Core/auth/auth.service';
-import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
+import { DatePipe, NgClass, NgFor, NgIf, NgStyle, TitleCasePipe } from '@angular/common';
 import { Component, ElementRef, ViewChild , Renderer2, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -8,6 +9,9 @@ import { faExclamationCircle ,faChevronUp,faPencil,faTrash,faChevronDown,faUser,
 import { Router } from '@angular/router';
 import { ValidateService } from '../../../Core/services/validate/validate.service';
 import { CookieService } from 'ngx-cookie-service';
+import { BookingService } from '../../../Core/services/bookingService/booking.service';
+import Swal from 'sweetalert2';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -18,7 +22,8 @@ import { CookieService } from 'ngx-cookie-service';
     NgFor,
     NgClass,
     NgIf,
-    NgStyle
+    NgStyle,DatePipe,
+    TitleCasePipe
   ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
@@ -50,6 +55,7 @@ export class ProfileComponent {
   fileName: string = '';
   token?: string ;
   userCookie?: string ;
+  bookings: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -59,7 +65,9 @@ export class ProfileComponent {
     private ValidateService: ValidateService,
     private renderer: Renderer2,
     private cd: ChangeDetectorRef,
-    private cookieService: CookieService
+    private bookingService: BookingService,
+    private cookieService: CookieService,
+    private modalService: NgbModal
   ) {
 
     this.editProfileForm = this.fb.group(
@@ -80,7 +88,8 @@ export class ProfileComponent {
   }
 
   ngOnInit(): void {
-    this.checkForTokenAndUserData();
+    this.fetchingUserBooking()
+
     this.loadUserData();
     this.isLoggedIn = this.authService.isLoggedIn();
 
@@ -93,22 +102,6 @@ export class ProfileComponent {
     if (this.isLoggedIn) {
         this.user = this.authService.getUser();
 
-    }
-  }
-
-  checkForTokenAndUserData() {
-    this.token = this.cookieService.get('token');
-    this.userCookie = this.cookieService.get('user');
-
-    console.log('Token:', this.token);
-    console.log('User:', this.userCookie);
-
-
-    if (this.token) {
-      localStorage.setItem('token', this.token);
-    }
-    if (this.user) {
-      localStorage.setItem('user', this.userCookie);
     }
   }
 
@@ -162,11 +155,20 @@ export class ProfileComponent {
 
       this.authService.updateUserProfile(userData).subscribe(
         response => {
-
           this.userService.setUser(response.user);
           localStorage.setItem('user', JSON.stringify(response.user));
-          console.log('User updated successfully', response);
           this.successMessage = "Profile updated successfully!";
+          Swal.fire({
+            title: 'Profile successful!',
+            text: 'Profile updated successful! ',
+            icon: 'success',
+             toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          });
+
           setTimeout(() => {
             this.errorVisible = true;
           }, 50);
@@ -174,6 +176,8 @@ export class ProfileComponent {
             this.errorVisible = false;
             this.successMessage = null;
           }, 10000);
+
+          this.modalService.dismissAll();
 
 
         },
@@ -206,5 +210,21 @@ export class ProfileComponent {
 
   }
 
+
+  // Get User Confirmed Bookings
+
+  fetchingUserBooking(){
+    this.bookingService.getsingleRequests().subscribe(
+      (data:any[]) =>{
+        console.log('Data' , data)
+        this.bookings = data;
+        this.bookings = data.map(booking => {
+          const [date, time] = booking.date_time.split('T');
+          console.log(date, time)
+          return { ...booking, date, time};
+        });
+      }
+    )
+  }
 
 }

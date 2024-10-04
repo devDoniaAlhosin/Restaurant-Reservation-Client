@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { UserService } from '../../../Core/services/userService/user.service';
 import { DatePipe, NgClass, NgFor, NgIf, SlicePipe } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -10,6 +10,8 @@ import { AuthService } from '../../../Core/auth/auth.service';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { UserCreateFormComponent } from "../components/users/user-create-form/user-create-form.component";
 import { ValidateService } from '../../../Core/services/validate/validate.service';
+import Swal from 'sweetalert2';
+import modal from 'bootstrap/js/dist/modal';
 @Component({
   selector: 'app-users-dashboard',
   standalone: true,
@@ -22,6 +24,7 @@ import { ValidateService } from '../../../Core/services/validate/validate.servic
 })
 
 export class UsersDashboardComponent {
+  @ViewChild('editUserModal') editUserModal!: ElementRef;
 
   icons = {
     faPencil ,
@@ -45,6 +48,11 @@ export class UsersDashboardComponent {
   userId: number = 0;
   ValidateService: any;
 
+  // Filtering
+  selectedRole: string = '';
+  filteredUsers: any[] = [];
+  searchUsername: string = '';
+
   constructor(
     private userService: UserService ,
     private fb: FormBuilder,
@@ -62,10 +70,28 @@ export class UsersDashboardComponent {
       role: ['', [Validators.required]],
       image:['']
     });
+    this.loadUsers();
 
+  }
+  loadUsers() {
+    this.userService.getUser().subscribe(users => {
+      this.users = users;
+      this.filteredUsers = users;
+    });
   }
   ngOnInit(): void {
     this.fetchUsers();
+
+  }
+
+  // Filtering
+
+  filterUsers() {
+    this.filteredUsers = this.users.filter(user => {
+      const matchesRole = this.selectedRole ? user.role === this.selectedRole : true;
+      const matchesUsername = user.username.toLowerCase().includes(this.searchUsername.toLowerCase());
+      return matchesRole && matchesUsername;
+    });
   }
 
 
@@ -77,6 +103,7 @@ export class UsersDashboardComponent {
       this.users = data;
       this.userService.setUser(data);
       this.paginatedUsers = this.users;
+      this.filteredUsers = this.users;
     },
     (error) => {
       console.error('Error fetching users:', error);
@@ -118,10 +145,8 @@ export class UsersDashboardComponent {
   updateUser(): void {
     if (this.editUserForm.valid) {
       const updatedUserData = { ...this.editUserForm.value };
-
       // to prevent leaving admin dashboard without admin
       const currentUser = this.authService.getUser();
-
       if (currentUser.id === this.userId && currentUser.role === 'admin' && updatedUserData.role === 'user') {
         this.errorMessage = "You cannot change your own role from admin to user.";
         setTimeout(() => {
@@ -131,7 +156,6 @@ export class UsersDashboardComponent {
           this.errorVisible = false;
           this.successMessage = null;
         }, 10000);
-
         return;
       }
 
@@ -143,7 +167,17 @@ export class UsersDashboardComponent {
       this.authService.updateSingleUser(this.userId , updatedUserData ).subscribe(
         (response) => {
           this.fetchUsers();
-          this.successMessage = "Profile updated successfully!";
+          this.successMessage = "User updated successfully!";
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'User Updated Successfully!',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          });
           setTimeout(() => {
             this.errorVisible = true;
           }, 50);
@@ -151,7 +185,7 @@ export class UsersDashboardComponent {
             this.errorVisible = false;
             this.successMessage = null;
           }, 10000);
-
+          this.closeModal();
         },
         (error) => {
           if (error.error.errors) {
@@ -162,8 +196,29 @@ export class UsersDashboardComponent {
               }
             }
             this.errorMessage = errorMessages.join(' & ');
+            Swal.fire({
+              icon: 'error',
+              title: 'Error!',
+              text: this.errorMessage,
+              // toast: true,
+              // position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+            });
+
           } else if (error.message) {
             this.errorMessage = error.message;
+            Swal.fire({
+              icon: 'error',
+              title: 'Error!',
+              text: error.message,
+              // toast: true,
+              // position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+            });
           }
 
           console.error('Error updating user:', error);
@@ -177,7 +232,9 @@ export class UsersDashboardComponent {
           }, 10000);
         }
       );
+
     }
+
   }
 
   // 3. Delete User
@@ -207,15 +264,43 @@ export class UsersDashboardComponent {
     );
   }
 
+  closeModal() {
+    const modalElement = this.editUserModal.nativeElement;
+    const modalInstance = modal.getInstance(modalElement);
+    if (modalInstance) {
+      modalInstance.hide();
+    }
+  }
+
    showTemporaryMessage(isSuccess: boolean = false) {
     if (isSuccess) {
       this.errorVisible = true;
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'User Deleted Successfully!',
+        // toast: true,
+        // position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
       setTimeout(() => {
         this.successMessage = null;
         this.errorVisible = false;
       }, 3000);
     } else {
       this.errorVisible = true;
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed in Deleting User! ',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
       setTimeout(() => {
         this.errorMessage = null;
         this.errorVisible = false;
@@ -245,6 +330,18 @@ export class UsersDashboardComponent {
 
   createUser() {
     this.fetchUsers();
+  }
+  showToast(message: string, icon: 'success' | 'error'): void {
+    Swal.fire({
+      icon: icon,
+      title: icon === 'success' ? 'Success' : 'Error',
+      text: message,
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
   }
 
 

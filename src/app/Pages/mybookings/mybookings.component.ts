@@ -16,10 +16,10 @@ import { of } from 'rxjs';
 })
 export class MybookingsComponent implements OnInit {
   bookings: any[] = [];
-  editingBooking: any | null = null; // To hold the currently edited booking
-  dateError: string | null = null; // To hold date error message
-  timeError: string | null = null; // To hold time error message
-  totalPersonsError: string | null = null; // To hold total persons error message
+  editingBooking: any | null = null;
+  dateError: string | null = null;
+  timeError: string | null = null;
+  totalPersonsError: string | null = null;
 
   constructor(private bookingService: BookingService) {}
 
@@ -46,15 +46,10 @@ export class MybookingsComponent implements OnInit {
     this.bookingService.getsingleRequests().subscribe(
         (data) => {
             this.bookings = data.map(booking => {
-                console.log('Raw booking date_time:', booking.date_time); // Check the format here
-                const dateObj = new Date(booking.date_time);
-                if (isNaN(dateObj.getTime())) {
-                    console.error('Invalid date:', booking.date_time); // Log invalid dates
-                    return { ...booking, time: 'Invalid Time', date: 'Invalid Date' }; // Return defaults for invalid dates
-                }
-                const timeString = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-                const dateString = dateObj.toLocaleDateString();
-                return { ...booking, time: timeString, date: dateString };
+                console.log('Raw booking date_time:', booking.date_time);
+                const [date, time] = booking.date_time.split('T');
+                return { ...booking, date, time };
+
             });
         },
         (error: HttpErrorResponse) => {
@@ -64,11 +59,11 @@ export class MybookingsComponent implements OnInit {
 }
 
   validateDate() {
-    this.dateError = null; // Reset error
+    this.dateError = null;
     if (this.editingBooking) {
-      const date = new Date(this.editingBooking.date); // Use the editingBooking.date
+      const date = new Date(this.editingBooking.date);
       const today = new Date();
-      today.setHours(0, 0, 0, 0); // Set time to midnight for comparison
+      today.setHours(0, 0, 0, 0);
 
       if (!this.editingBooking.date) {
         this.dateError = 'Date is required.';
@@ -107,16 +102,16 @@ export class MybookingsComponent implements OnInit {
     this.validateDate();
     this.validateTime();
 
-    // Check for validation errors before proceeding
+
     if (this.dateError || this.timeError) {
-        return; // Don't proceed if there are errors
+        return;
     }
 
     if (this.editingBooking) {
-        // Create a bookingData object for user update
+
         const bookingData = {
-            date: this.editingBooking.date, // Send date separately
-            time: this.editingBooking.time,   // Send time separately
+            date: this.editingBooking.date,
+            time: this.editingBooking.time,
             total_person: this.editingBooking.total_person,
             notes: this.editingBooking.notes
         };
@@ -126,10 +121,10 @@ export class MybookingsComponent implements OnInit {
                 // Handle error from backend
                 if (error.error && error.error.errors) {
                     if (error.error.errors.date) {
-                        this.dateError = error.error.errors.date[0]; // Capture date error
+                        this.dateError = error.error.errors.date[0];
                     }
                     if (error.error.errors.time) {
-                        this.timeError = error.error.errors.time[0]; // Capture time error
+                        this.timeError = error.error.errors.time[0];
                     }
                 }
                 // Return empty observable to complete the stream
@@ -140,17 +135,15 @@ export class MybookingsComponent implements OnInit {
                 // Update the local bookings list
                 const index = this.bookings.findIndex(b => b.id === this.editingBooking.id);
                 if (index > -1) {
-                    // Update the booking object with new details
+
                     this.bookings[index] = {
-                        ...this.bookings[index], // Keep existing properties
-                        date_time: this.getDateTimeString(this.editingBooking.date, this.editingBooking.time), // Update date_time
+                        ...this.bookings[index],
+                        date_time: this.getDateTimeString(this.editingBooking.date, this.editingBooking.time),
                         total_person: this.editingBooking.total_person,
                         notes: this.editingBooking.notes,
                     };
                 }
-                this.editingBooking = null; // Close the edit form
-
-                // Show success alert using SweetAlert
+                this.editingBooking = null;
                 Swal.fire({
                     title: 'Success!',
                     text: 'Booking updated successfully.',
@@ -231,14 +224,13 @@ export class MybookingsComponent implements OnInit {
 //   }
 // }
 
-// Helper method to format time to AM/PM
+
 formatTime(time: string): string {
   const date = new Date(`1970-01-01T${time}:00`); // Assuming time is in HH:MM:SS format
   return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
 }
 
 
-// Helper method to format the date and time
   getDateTimeString(date: string, time: string): string {
     return `${date} ${time}`;
   }

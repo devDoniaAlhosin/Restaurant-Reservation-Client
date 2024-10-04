@@ -63,7 +63,7 @@
             <label for="CreatePassword" class="form-label">Password <span class="required-indicator">*</span></label>
             <div class="input-group">
               <span class="input-group-text">🔒</span>
-              <input type="password" class="form-control" id="CreatePassword" formControlName="password" placeholder="Update Password" required>
+              <input type="password" class="form-control" id="CreatePassword" formControlName="password" placeholder="Create  Password" required>
             </div>
             <div
             *ngIf="
@@ -111,7 +111,7 @@
           </div>
 
 
-      <div class="form-outline mb-4">
+      <!-- <div class="form-outline mb-4">
         <label class="form-label" for="imageUpload2">Profile Image </label>
         <input
         type="file"
@@ -121,10 +121,10 @@
         (change)="onFileSelected($event)"
         formControlName="image"
         />
-      </div>
+      </div> -->
 
           <!-- Submit Button -->
-          <button type="submit" class="btn btn--form-update" [disabled]="createUserForm.invalid">Update User</button>
+          <button type="submit" class="btn btn--form-update" [disabled]="createUserForm.invalid">Create User</button>
         </form>
       </div>
     </div>

@@ -17,7 +17,6 @@ faEnvelope,
 faMapMarkedAlt,
 faCartShopping,
 faPercent
-
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -25,6 +24,7 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { UserService } from '../../Core/services/userService/user.service';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -102,30 +102,12 @@ export class HomeComponent {
     private authService : AuthService ,
     private router: Router,
     private route: ActivatedRoute,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private userService: UserService
    ){
-    this.token = this.cookieService.get('token');
-    this.userDetails = this.cookieService.get('user');
-    if (this.token) {
-      console.log('Token:',     this.token );
-    } else {
-      console.error('Token is null');
-    }
-
-    if (this.userDetails) {
-      const userData = JSON.parse(this.userDetails);
-      console.log('User:', userData);
-    } else {
-      console.error('User is null');
-    }
-
-
-
-
-
-
-
+    this.checkLoginStatus();
     if (this.authService.isLoggedIn()) {
+      this.isLoggedin = true ;
       const role = this.authService.getUserRole();
       if (role === 'admin') {
         this.router.navigate(['/admin']);
@@ -137,7 +119,23 @@ export class HomeComponent {
 
 
 ngOnInit(): void {
-  console.log( "Home Cookie " ,this.cookieService.get("token"))
+  this.userService.getUser().subscribe((user) => {
+    this.userDetails = user;
+  });
+  this.route.queryParams.subscribe(params => {
+    const token = params['token'];
+    const user = params['user'];
+
+    if (token) {
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', user);
+
+    }
+  });
+
+
+
   this.authService.checkForTokenAndUserData();
   this.route.queryParams.subscribe(params => {
     console.log('All query parameters:', params);
@@ -158,6 +156,18 @@ ngOnInit(): void {
 onScroll(): void {
   this.showItems();
 }
+checkLoginStatus() {
+  if (this.authService.isLoggedIn()) {
+    this.isLoggedin = true;
+    const role = this.authService.getUserRole();
+    if (role === 'admin') {
+      this.router.navigate(['/admin']);
+    }
+  } else {
+    this.router.navigate(['/']);
+  }
+}
+
 verifyEmail(verificationUrl: string) {
 
   const token = localStorage.getItem('verifyToken');

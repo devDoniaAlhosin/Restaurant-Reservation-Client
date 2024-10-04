@@ -1,9 +1,9 @@
 <section class="profile ">
   <div class="profile-background transition "  >
     <div class="container">
-      <div *ngIf="successMessage" class="alert alert-success  success--message" role="alert" [ngClass]="{'show': errorVisible}">
+      <!-- <div *ngIf="successMessage" class="alert alert-success  success--message" role="alert" [ngClass]="{'show': errorVisible}">
         {{ successMessage }}
-      </div>
+      </div> -->
       <div class="profile-container p-4 bg-white rounded shadow-lg">
         <div class="profile-header d-flex align-items-center mb-4 position-relative">
           <img [src]="user.image ? user.image : 'assets/img/user-avatar.png'" alt="Profile Picture" class="profile-pic rounded-circle border me-lg-4 ">
@@ -36,26 +36,27 @@
           <div id="collapseExample" [ngClass]="{'collapse': isCollapsed}" [ngStyle]="{'max-height': isCollapsed ? '0' : '1000px', 'overflow': isCollapsed ? 'hidden' : 'visible'}" class="transition">
             <div class="row mt-3">
               <!--  Cards -->
-              <div class="col-md-4">
-                <div class="booking-card confirmed">
+              <div class="col-md-4" *ngFor="let booking of bookings">
+                <div class="booking-card ">
                   <div class="card-body">
-                    <h5 class="card-title">Booking on 2024-01-01</h5>
-                    <p class="card-text">Time: 7:00 PM</p>
-                    <p class="card-text">Guests: 4</p>
-                    <span class="status badge ">Confirmed</span>
+                    <h5 class="card-title">{{ booking.date_time | date: 'EEEE, MMMM d' }}</h5>
+                    <p class="card-text">Time: {{ booking.date_time |date: 'h:mm a':'UTC' }}</p>
+                    <p class="card-text">Guests: {{ booking.total_person }}</p>
+                    <span
+                      [ngClass]="{
+                        'confirmed': booking.status === 'accepted',
+                        'cancelled': booking.status === 'rejected',
+                        'pending': booking.status === 'pending'
+                      }"
+                      class="status badge">
+                      {{ booking.status | titlecase }}
+                    </span>
+
+
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
-                <div class="booking-card pending">
-                  <div class="card-body">
-                    <h5 class="card-title">Booking on 2024-02-02</h5>
-                    <p class="card-text">Time: 3:00 PM</p>
-                    <p class="card-text">Guests: 4</p>
-                    <span class="status badge ">Pending</span>
-                  </div>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>

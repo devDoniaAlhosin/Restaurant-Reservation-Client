@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
+import { UserService } from '../services/userService/user.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,41 +15,28 @@ export class AuthService {
   errorMessage: string | null = null;
 
   private apiUrl = 'http://localhost:8000/api';
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
   // Google oAuth
   loginWithGoogle(): Observable<any> {
     return this.http.get(`${this.apiUrl}/auth/google/redirect`);
   }
 
-  // handleAuthenticationGoogle() {
-  //   this.http.get(`${this.apiUrl}/auth/google/callback`, { withCredentials: true })
-  //     .subscribe((response: any) => {
-  //       const token = response.token;
-  //       const userData = response.user;
+  checkForTokenAndUserData(): void {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
 
-  //       localStorage.setItem('token', token);
-  //       localStorage.setItem('user', JSON.stringify(userData));
-
-  //       this.router.navigate(['/profile']);
-  //     }, error => {
-  //       console.error('Authentication failed', error);
-  //     });
-  // }
-  checkForTokenAndUserData() {
-    const token = this.cookieService.get('token') || null;;
-    const user = this.cookieService.get('user');
-    console.log("Token" , token  , "user ",  user );
-    if (token) {
-      localStorage.setItem('token', token);
-      if (user) {
-        localStorage.setItem('user', user);
-      }
-      this.router.navigate(['/profile']);
+    if (token && user) {
+      const parsedUser = JSON.parse(user);
+      this.userService.setUser(parsedUser);
+    } else {
+      this.userService.clearUser();
     }
   }
-
-
   register(userData: object) :Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, userData);
   }

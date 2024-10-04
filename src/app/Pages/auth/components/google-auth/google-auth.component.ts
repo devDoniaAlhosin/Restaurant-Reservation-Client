@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../../Core/services/userService/user.service';
 import { AuthService } from '../../../../Core/auth/auth.service';
@@ -21,6 +21,7 @@ export class GoogleAuthComponent {
     private route: ActivatedRoute){
 
     }
+    @Input() buttonText: string = 'Sign In';
     private apiUrl = 'http://localhost:8000/api';
 
     login() {

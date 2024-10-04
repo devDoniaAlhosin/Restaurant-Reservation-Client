@@ -21,10 +21,9 @@
         <div class="card-body text-center">
           <ng-container *ngIf="editingBooking?.id !== booking.id">
             <!-- Display Mode -->
-            <p class="card-date">Date: <span>{{ booking.date_time | date: 'shortDate' }}</span></p>
-            <!-- <p class="card-date">Date: <span>{{ booking.date }}</span></p> -->
-
-            <p class="card-time">Time: <span>{{ booking.time }}</span></p>
+            <!-- <p class="card-date">Date: <span>{{ booking.date_time | date: 'shortDate' }}</span></p> -->
+            <h5 class="card-title">{{ booking.date_time | date: 'M/d/yy' }}</h5>
+            <p class="card-text">Time: {{ booking.date_time |date: 'h:mm a':'UTC' }}</p>
             <p class="card-persons">Number of persons: <span>{{ booking.total_person }}</span></p>
           </ng-container>
 

@@ -4,10 +4,57 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title ">Users Management</h5>
-          <button class="btn btn-create-user btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createUserModal">
-             <span>Create New user</span>
+          <div class="card-title mb-3  d-flex justify-content-between">
+            <h5 class="text-center d-flex align-items-center justify-content-center"> Users Management </h5>
+           <div class="d-flex  gap-5 mb-1">
+              <div class=" d-flex  justify-content-end gap-2 ">
+              <div>
+                <!-- Role Filter Dropdown -->
+                <label for="roleFilter" class="form-label">Filter by Role</label>
+                <select class="form-select" id="roleFilter" [(ngModel)]="selectedRole" (change)="filterUsers()">
+                  <option value="">All Roles</option>
+                  <option value="admin">Admin</option>
+                  <option value="user">User</option>
+                </select>
+              </div>
+
+              <div>
+                <!-- Username Search Input -->
+                <label for="usernameSearch" class="form-label">Search by Username</label>
+                <input type="text" class="form-control" id="usernameSearch" [(ngModel)]="searchUsername" (input)="filterUsers()" placeholder="Enter username">
+              </div>
+               </div>
+          <button class="border-0 btn--create align-content-center d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#createUserModal">
+            <span class="bg-opacity-100"><i class='bx bxs-add-to-queue specialIcon'></i></span>
           </button>
+           </div>
+
+
+
+        </div>
+          <!-- <button class="btn btn-create-user btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createUserModal">
+             <span>Create New user</span>
+          </button> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           <div *ngIf="errorMessage" class="alert alert-danger text-center error--message" [ngClass]="{'show': errorVisible}">
             {{ errorMessage }}
           </div>
@@ -198,10 +245,6 @@
         name="image"
         />
       </div>
-
-
-
-
           <!-- Submit Button -->
           <button type="submit" class="btn btn--form-update" [disabled]="editUserForm.invalid">Update User</button>
         </form>

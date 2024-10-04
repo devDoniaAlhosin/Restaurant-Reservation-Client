@@ -19,10 +19,11 @@ import { UserService } from '../../../Core/services/userService/user.service';
 import { AuthService } from '../../../Core/auth/auth.service';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
+import { GoogleAuthComponent } from "../components/google-auth/google-auth.component";
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink , FontAwesomeModule , NgIf , FormsModule, ReactiveFormsModule , NgClass],
+  imports: [RouterLink, FontAwesomeModule, NgIf, FormsModule, ReactiveFormsModule, NgClass, GoogleAuthComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })

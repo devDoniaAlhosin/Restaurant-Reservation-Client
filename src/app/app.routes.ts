@@ -101,9 +101,12 @@ export const routes: Routes = [
       {path:"contact" , component: ContactComponent , title : "Bistro Bliss | Contact Us"},
       {path:'bookings' ,component:BookingComponent,
         title:'Bistro Bliss | Reservations',
+        canActivate: [AuthGuard],
       },
       {path:'mybookings' ,component:MybookingsComponent,
         title:'Bistro Bliss | My Bookings',
+        canActivate: [AuthGuard],
+
       },
       {
         path: 'about',

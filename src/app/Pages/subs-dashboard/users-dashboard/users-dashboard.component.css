@@ -23,6 +23,7 @@
 .btn-create-user {
   border-radius: 0;
   border: 0;
+  margin-bottom: -2rem !important;
   background-color: var(--primary-color);
   transition: all 0.3s ease-in-out;
   color: var(--white-color);
@@ -137,4 +138,18 @@ select:focus {
 .bg-user{
   background-color: green;
   border-radius: 8px;
+}
+.btn--create{
+  background-color: transparent !important;
+}
+.specialIcon{
+  font-size: 30px;
+  text-decoration: none;
+  color: var(--primary-color);
+  background-color: transparent !important;
+  cursor: pointer;
+  display: flex;
+  border: 0;
+  outline: none;
+
 }
