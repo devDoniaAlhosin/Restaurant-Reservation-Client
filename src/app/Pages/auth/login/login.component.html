@@ -30,8 +30,8 @@
         </div>
 
 
-        <div *ngIf="!errorVisible && errorMessage === 'Please verify your email before logging in.'">
-          <button (click)="resendVerificationEmail()">Resend Verification Email</button>
+        <div *ngIf="errorVisible && errorMessage === 'Please verify your email before logging in.'" class="align-items-end">
+          <button class="btn btn-danger " (click)="resendVerificationEmail()">Resend Verification Email</button>
         </div>
 
 

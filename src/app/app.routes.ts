@@ -23,6 +23,8 @@ import { ResetPasswordComponent } from './Pages/auth/reset-password/reset-passwo
 
 import { BookingComponent } from './Pages/booking/booking.component';
 import { MybookingsComponent } from './Pages/mybookings/mybookings.component';
+import { MenuComponent } from './Pages/menu/menu.component';
+import { AboutComponent } from './Pages/about/about.component';
 
 export const routes: Routes = [
   { path: 'password-reset/:token', component: ResetPasswordComponent , title:"Bistro Bliss | reset Password"},
@@ -74,6 +76,11 @@ export const routes: Routes = [
 
       },
       {
+        path: 'menu',
+        component: MenuComponent,
+        title: 'Bistro Bliss | Menu',
+      },
+      {
         path: 'auth',
         component: AuthLayoutComponent,
         title: 'Bistro Bliss | Authentication',
@@ -92,12 +99,16 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {path:"contact" , component: ContactComponent , title : "Bistro Bliss | Contact Us"},
-
       {path:'bookings' ,component:BookingComponent,
         title:'Bistro Bliss | Reservations',
       },
       {path:'mybookings' ,component:MybookingsComponent,
         title:'Bistro Bliss | My Bookings',
+      },
+      {
+        path: 'about',
+        component: AboutComponent,
+        title: 'Bistro Bliss | About Us',
       },
       { path: '**', component: NotFoundComponent },
 

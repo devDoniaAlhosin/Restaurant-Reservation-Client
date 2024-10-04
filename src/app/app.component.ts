@@ -6,12 +6,11 @@ import { ScrollUpBtnComponent } from './Shared/components/scroll-up-btn/scroll-u
 import { AuthService } from './Core/auth/auth.service';
 import { HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-
-
+import {NgxSpinnerModule} from 'ngx-spinner';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent , ScrollUpBtnComponent],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent , ScrollUpBtnComponent ,NgxSpinnerModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

@@ -65,7 +65,7 @@ export class RegisterComponent {
             [Validators.required, ValidateService.strongPasswordValidator()],
           ],
           confirmPassword: ['', [Validators.required]],
-          profileImage: ['' , [Validators.required]],
+          profileImage: ['' ],
           address:['' , [Validators.minLength(5) ,Validators.maxLength(100) ]],
           phoneNumber:['' , [Validators.required ,Validators.pattern(/^(\+20[0-9]{10}|01[012][0-9]{8})$/)
             // +201061642356 +201112345678  01298765432
@@ -132,7 +132,7 @@ export class RegisterComponent {
             text: 'Registration failed. Please try again',
             icon: 'error',
             showConfirmButton: false,
-            timer: 2000
+            timer: 4000
           });
           this.errorMessage = 'Registration failed. Please try again.';
           setTimeout(() => {

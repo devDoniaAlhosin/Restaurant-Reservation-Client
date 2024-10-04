@@ -176,7 +176,7 @@
 
       <!-- Image upload -->
       <div class="form-outline mb-4">
-        <label class="form-label" for="imageUpload">Profile Image  <span class="required-indicator">*</span></label>
+        <label class="form-label" for="imageUpload">Profile Image  </label>
         <input
         type="file"
          id="imageUpload"
@@ -184,7 +184,7 @@
          formControlName="profileImage"
          accept="image/*"
         (change)="onFileSelected($event)"
-        required/>
+        />
       </div>
       <div class="submit--btn">
         <button type="submit" class="btn w-100 submit--btn btn-primary btn-block mb-4" [disabled]="registerForm.invalid">

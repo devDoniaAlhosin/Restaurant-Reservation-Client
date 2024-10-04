@@ -1,0 +1,40 @@
+.container {
+  width: 30rem;
+  max-height: 100vh;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+form {
+  overflow-y: auto;
+}
+
+
+h2 {
+  color: #333;
+  font-family: "Playfair Display", serif ;
+  font-size: 50px;
+    font-weight: 500;
+    line-height: 60.5px;
+    margin-bottom: 5rem;
+}
+
+input, textarea, select {
+  background-color: #fff;
+  border: 1px solid #ced4da;
+
+}
+input:focus, select:focus, textarea:focus, button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.text-danger {
+  font-size: 0.875rem;
+}
+
+button {
+  padding: 0.6rem 1.5rem;
+}
