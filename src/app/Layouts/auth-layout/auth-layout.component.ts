@@ -22,7 +22,7 @@ export class AuthLayoutComponent {
   constructor(public router: Router ) {}
   ngOnInit() {
     this.showLayout = true;
-    this.router.navigate(['/auth/login']);
+    // this.router.navigate(['/auth/login']);
   }
 
   toggleTab(tab: string) {

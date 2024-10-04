@@ -9,13 +9,12 @@
         <!-- <p class="fs-6">Sign in with:</p> -->
         <div class="social-buttons mb-3">
           <!-- <button type="button" class="btn btn-link btn-floating mx-1">
-
             <fa-icon class="fs-4" [icon]="faFacebook"></fa-icon>
           </button> -->
-          <button type="button" class="btn text-decoration-none btn-link btn-floating mx-1">
+          <app-google-auth></app-google-auth>
+          <!-- <button type="button" class="btn text-decoration-none btn-link btn-floating mx-1">
             <a class="text-decoration-none fs-5 google--link"  (click)="signInWithGoogle()" > <fa-icon class="fs-4" [icon]="faGoogle"></fa-icon>Sign In with Google </a>
-            <!-- <fa-icon class="fs-4" [icon]="faGoogle"></fa-icon> -->
-          </button>
+          </button> -->
           <!-- <button type="button" class="btn btn-link btn-floating mx-1">
             <fa-icon class="fs-4" [icon]="faLinkedin"></fa-icon>
           </button>
@@ -31,9 +30,10 @@
         </div>
 
 
-      <div *ngIf="!errorVisible && errorMessage == 'Your email is not verified. Please verify it.'">
-        <button (click)="resendVerificationEmail()">Resend Verification Email</button>
-      </div>
+        <div *ngIf="!errorVisible && errorMessage === 'Please verify your email before logging in.'">
+          <button (click)="resendVerificationEmail()">Resend Verification Email</button>
+        </div>
+
 
 
        <!-- Error Message -->

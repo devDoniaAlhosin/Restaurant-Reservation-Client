@@ -23,7 +23,7 @@ import { ResetPasswordComponent } from './Pages/auth/reset-password/reset-passwo
 
 
 export const routes: Routes = [
-  { path: 'reset-password', component: ResetPasswordComponent , title:"Bistro Bliss | reset Password"},
+  { path: 'password-reset/:token', component: ResetPasswordComponent , title:"Bistro Bliss | reset Password"},
   { path: 'verify-email',
     component: VerifyEmailComponent ,
      canActivate: [PublicGuard],},
@@ -80,7 +80,7 @@ export const routes: Routes = [
           { path: 'login', component: LoginComponent  },
           { path: 'register', component: RegisterComponent  },
           { path: 'forget-password', component: ForgetPasswordComponent , title:"Bistro Bliss | Forget Password"},
-          // { path: 'reset-password', component: ResetPasswordComponent , title:"Bistro Bliss | reset Password"},
+          // { path: 'reset-password', component: ResetPasswordComponent , title:"Bistro Bliss | reset Password" ,},
         ],
       },
       {

@@ -18,7 +18,7 @@ import { NgClass, NgIf } from '@angular/common';
 import { UserService } from '../../../Core/services/userService/user.service';
 import { AuthService } from '../../../Core/auth/auth.service';
 import { Subject } from 'rxjs';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -110,6 +110,13 @@ export class RegisterComponent {
             this.errorVisible = false;
             this.errorMessage = null;
           }, 10000);
+          Swal.fire({
+            title: 'Registration successful!',
+            text: 'Registration successful! Please check your email to verify your account.',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 7000
+          });
           setTimeout(() => {
             this.router.navigate(['/auth/login']);
           }, 7000);
@@ -120,6 +127,13 @@ export class RegisterComponent {
           // this.router.navigate(['/profile']);
         }, error => {
           console.error('Registration failed', error);
+          Swal.fire({
+            title: 'Registration failed!',
+            text: 'Registration failed. Please try again',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 2000
+          });
           this.errorMessage = 'Registration failed. Please try again.';
           setTimeout(() => {
             this.errorVisible = true;

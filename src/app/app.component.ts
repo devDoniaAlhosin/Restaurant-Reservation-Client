@@ -5,6 +5,7 @@ import { FooterComponent } from './Shared/components/footer/footer.component';
 import { ScrollUpBtnComponent } from './Shared/components/scroll-up-btn/scroll-up-btn.component';
 import { AuthService } from './Core/auth/auth.service';
 import { HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -17,20 +18,19 @@ import { HttpHeaders } from '@angular/common/http';
 export class AppComponent {
   title = 'Client';
 
-  constructor(private authService: AuthService, private router: Router ,private route: ActivatedRoute) {}
+  constructor(
+    private authService: AuthService,
+     private router: Router
+     ,private route: ActivatedRoute,
+     private cookieService: CookieService) {}
   verificationStatus: string | null = null;
+  getCookie(key: string){
+    return this.cookieService.get(key);
+  }
 
   ngOnInit() {
-    // this.route.queryParams.subscribe(params => {
-    //   const verificationUrl = params['verificationUrl'];
-    //   if (verificationUrl) {
-    //     this.verifyEmail(verificationUrl);
-    //   } else {
-    //     this.verificationStatus = 'Invalid verification link.';
-    //   }
-    // });
 
-    this.checkUserRole();
+   this.checkUserRole();
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
         window.scrollTo(0, 0);

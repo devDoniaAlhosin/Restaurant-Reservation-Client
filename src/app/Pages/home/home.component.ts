@@ -22,9 +22,9 @@ faPercent
 
 import {
  faClock
-
 } from '@fortawesome/free-regular-svg-icons';
 import { HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -93,10 +93,38 @@ export class HomeComponent {
   faCartShopping=faCartShopping
   faPercent=faPercent
   isLoggedin:boolean = false;
+  token:any;
+  userDetails:any;
 
 
 
-  constructor( private authService : AuthService ,  private router: Router, private route: ActivatedRoute, ){
+  constructor(
+    private authService : AuthService ,
+    private router: Router,
+    private route: ActivatedRoute,
+    private cookieService: CookieService
+   ){
+    this.token = this.cookieService.get('token');
+    this.userDetails = this.cookieService.get('user');
+    if (this.token) {
+      console.log('Token:',     this.token );
+    } else {
+      console.error('Token is null');
+    }
+
+    if (this.userDetails) {
+      const userData = JSON.parse(this.userDetails);
+      console.log('User:', userData);
+    } else {
+      console.error('User is null');
+    }
+
+
+
+
+
+
+
     if (this.authService.isLoggedIn()) {
       const role = this.authService.getUserRole();
       if (role === 'admin') {
@@ -109,6 +137,8 @@ export class HomeComponent {
 
 
 ngOnInit(): void {
+  console.log( "Home Cookie " ,this.cookieService.get("token"))
+  this.authService.checkForTokenAndUserData();
   this.route.queryParams.subscribe(params => {
     console.log('All query parameters:', params);
     const verificationUrl = params['verficationUrl'];

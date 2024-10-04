@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable, tap, throwError } from 'rxjs';
-
+import {CookieService} from 'ngx-cookie-service';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  cookieService = inject(CookieService);
   errorVisible = false;
   successMessage: string | null = null;
   errorMessage: string | null = null;
@@ -15,11 +16,38 @@ export class AuthService {
   private apiUrl = 'http://localhost:8000/api';
   constructor(private http: HttpClient, private router: Router) {}
 
-  private googleAuthUrl = 'http://localhost:8000/auth/google/redirect';
+  // Google oAuth
   loginWithGoogle(): Observable<any> {
-    window.location.href = this.googleAuthUrl;
-    return this.http.get<any>(this.googleAuthUrl);
+    return this.http.get(`${this.apiUrl}/auth/google/redirect`);
   }
+
+  // handleAuthenticationGoogle() {
+  //   this.http.get(`${this.apiUrl}/auth/google/callback`, { withCredentials: true })
+  //     .subscribe((response: any) => {
+  //       const token = response.token;
+  //       const userData = response.user;
+
+  //       localStorage.setItem('token', token);
+  //       localStorage.setItem('user', JSON.stringify(userData));
+
+  //       this.router.navigate(['/profile']);
+  //     }, error => {
+  //       console.error('Authentication failed', error);
+  //     });
+  // }
+  checkForTokenAndUserData() {
+    const token = this.cookieService.get('token') || null;;
+    const user = this.cookieService.get('user');
+    console.log("Token" , token  , "user ",  user );
+    if (token) {
+      localStorage.setItem('token', token);
+      if (user) {
+        localStorage.setItem('user', user);
+      }
+      this.router.navigate(['/profile']);
+    }
+  }
+
 
   register(userData: object) :Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, userData);
@@ -43,13 +71,11 @@ verifyEmail(verificationUrl: string, headers: HttpHeaders): Observable<any> {
 }
 
 
-resendVerificationEmail() {
-  const token = localStorage.getItem('verifyToken');
-  const headers = new HttpHeaders({
-    Authorization: `Bearer ${token}`,
-  });
-  return this.http.post(`${this.apiUrl}/email/verification-notification`, {} , { headers });
+
+resendVerificationEmail(headers: HttpHeaders): Observable<any> {
+  return this.http.post(`${this.apiUrl}/email/verification-notification`, {}, { headers });
 }
+
 
 //  request a password reset link
 requestPasswordReset(email: string): Observable<any> {
@@ -57,13 +83,9 @@ requestPasswordReset(email: string): Observable<any> {
 }
 
 // Method to reset the password
-resetPassword(email: string, password: string, passwordConfirmation: string, token: string): Observable<any> {
-  return this.http.post(`${this.apiUrl}/reset-password`, {
-    email,
-    password,
-    password_confirmation: passwordConfirmation,
-    token
-  });
+resetPassword(resetData : any): Observable<any> {
+  return this.http.post(`${this.apiUrl}/reset-password`,resetData
+  );
 }
 
 
@@ -74,13 +96,34 @@ resetPassword(email: string, password: string, passwordConfirmation: string, tok
     return JSON.parse(localStorage.getItem('user') || '{}');
   }
   isLoggedIn(): boolean {
-    const user = !!localStorage.getItem('token') || !!sessionStorage.getItem('token');
+    const user = !!localStorage.getItem('token') || !!sessionStorage.getItem('token') ||   !!this.cookieService.get('token'); ;
     return !!user;
   }
-  getUserRole(): string {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.role; //  'admin' or 'user'
+  getUserRole(): any {
+    const userFromLocal = JSON.parse(localStorage.getItem('user') || '{}');
+    if (userFromLocal && userFromLocal.role) {
+      return userFromLocal.role; // Return role if found in local storage
+    }
+
+    // Check session storage
+    const userFromSession = JSON.parse(sessionStorage.getItem('user') || '{}');
+    if (userFromSession && userFromSession.role) {
+      return userFromSession.role; // Return role if found in session storage
+    }
+
+    // Check cookies
+    const userFromCookie = this.cookieService.get('user');
+    if (userFromCookie) {
+      const user = JSON.parse(userFromCookie);
+      return user.role; // Return role if found in cookies
+    }
+
+    return null;
+    // const user = JSON.parse(localStorage.getItem('user') || '{}');
+    // return user.role; //  'admin' or 'user'
   }
+
+
   //  Update Profile
   updateUserProfile(userData: any): Observable<any> {
     return this.http.patch(`${this.apiUrl}/user/update`, userData, {
@@ -177,6 +220,8 @@ public showTemporaryMessage(isSuccess: boolean = false) {
   this.successMessage = null;
   this.showTemporaryMessage();
 }
+
+
 
 
 

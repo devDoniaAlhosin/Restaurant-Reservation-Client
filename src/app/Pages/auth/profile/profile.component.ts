@@ -7,6 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faExclamationCircle ,faChevronUp,faPencil,faTrash,faChevronDown,faUser,faHome,faLock, faLocation, faKey ,faEnvelope, faPhone, faAddressCard } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { ValidateService } from '../../../Core/services/validate/validate.service';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -47,6 +48,8 @@ export class ProfileComponent {
   errorVisible = false;
   successMessage: string | null = null;
   fileName: string = '';
+  token?: string ;
+  userCookie?: string ;
 
   constructor(
     private fb: FormBuilder,
@@ -55,7 +58,8 @@ export class ProfileComponent {
     private userService: UserService,
     private ValidateService: ValidateService,
     private renderer: Renderer2,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private cookieService: CookieService
   ) {
 
     this.editProfileForm = this.fb.group(
@@ -76,6 +80,7 @@ export class ProfileComponent {
   }
 
   ngOnInit(): void {
+    this.checkForTokenAndUserData();
     this.loadUserData();
     this.isLoggedIn = this.authService.isLoggedIn();
 
@@ -91,7 +96,21 @@ export class ProfileComponent {
     }
   }
 
+  checkForTokenAndUserData() {
+    this.token = this.cookieService.get('token');
+    this.userCookie = this.cookieService.get('user');
 
+    console.log('Token:', this.token);
+    console.log('User:', this.userCookie);
+
+
+    if (this.token) {
+      localStorage.setItem('token', this.token);
+    }
+    if (this.user) {
+      localStorage.setItem('user', this.userCookie);
+    }
+  }
 
   loadUserData() {
     this.user = this.authService.getUser();

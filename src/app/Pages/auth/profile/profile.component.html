@@ -8,7 +8,7 @@
         <div class="profile-header d-flex align-items-center mb-4 position-relative">
           <img [src]="user.image ? user.image : 'assets/img/user-avatar.png'" alt="Profile Picture" class="profile-pic rounded-circle border me-lg-4 ">
           <div class="profile-info">
-            <h1 class="title text-uppercase" id="username">{{user.username}}</h1>
+            <h1 class="title " id="username">{{user.username}}</h1>
             <p class="text-muted" id="email">
               <fa-icon [icon]="faEnvelope" class="me-1"></fa-icon> {{user.email}}
             </p>
@@ -18,8 +18,8 @@
             <p class="text-muted" id="address">
               <fa-icon [icon]="faLocation" class="me-1"></fa-icon> {{user.address}}
             </p>
-            <button class="btn btn-primary mt-2 d-flex align-content-center  gap-2 position-absolute top-0 end-0" data-bs-toggle="modal"  data-bs-target="#editProfileModal"   >
-               Edit <fa-icon [icon]="faPencil" class=""></fa-icon>
+            <button class="btn--custom btn  mt-2 d-flex align-content-center  gap-2 position-absolute top-0 end-0" data-bs-toggle="modal"  data-bs-target="#editProfileModal"   >
+                <fa-icon [icon]="faPencil" class=""></fa-icon>
              </button>
           </div>
         </div>
@@ -28,7 +28,7 @@
         <div id="bookingSection" class="bookings-section  mt-3">
           <h2 class="h4 d-flex justify-content-between">
             Booking History
-            <a class="btn btn-primary" (click)="toggleCollapse()" role="button" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+            <a class="btn btn--custom" (click)="toggleCollapse()" role="button" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
               <fa-icon [icon]="isCollapsed ? faChevronUp : faChevronDown"></fa-icon>
 
             </a>

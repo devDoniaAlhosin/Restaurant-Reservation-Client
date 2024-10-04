@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../Core/auth/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
 import { FormGroup, FormsModule,
    ReactiveFormsModule, Validators ,FormBuilder} from '@angular/forms';
@@ -16,7 +16,7 @@ import { ValidateService } from './../../../Core/services/validate/validate.serv
 })
 export class ResetPasswordComponent {
   token:string = "";
-  forgetForm: FormGroup | undefined;
+  resetForm: FormGroup ;
   email: string = "";
   password: string = "";
   password_confirmation: string = "";
@@ -26,48 +26,98 @@ export class ResetPasswordComponent {
   errorMessage: string | null = null;
   errorVisible = false;
 
+
   constructor(
     private authService: AuthService,
      private router: Router,
      private ValidateService: ValidateService,
      private userService :UserService,
-     private fb: FormBuilder
+     private fb: FormBuilder,
+     private route: ActivatedRoute,
 
     ) {
-    // if (authService.isLoggedIn()) {
-    //   this.router.navigate(['/']);
-    // }
+    if (authService.isLoggedIn()) {
+      this.router.navigate(['/']);
+    }
+
+    this.resetForm = this.fb.group(
+      {
+        email: ['', [Validators.required, Validators.email]],
+        password: [
+          '',
+          [Validators.required, ValidateService.strongPasswordValidator()],
+        ],
+        confirmPassword: ['', [Validators.required]],
+
+
+      },
+      {
+        validator: ValidateService.passwordMatchValidator(
+          'password',
+          'confirmPassword'
+        ),
+      }
+    );
+
+
   }
-  // ngOnInit() {
-  //   this.forgetForm = this.fb.group({
-  //     email: ['', [Validators.required, Validators.email]],
-  //     password: ['', [Validators.required, Validators.minLength(8)]],
-  //     confirmPassword: ['', Validators.required]
-  //   }, { validators: this.passwordMatchValidator });
-  // }
+
+  ngOnInit(){
+    this.route.paramMap.subscribe((params) => {
+      this.token = params.get('token')!;
+    });
+    this.route.queryParamMap.subscribe((params) => {
+      this.email = params.get('email') || '';
+    });
+    this.resetForm.patchValue({
+      email: this.email,
+    });
+  }
 
   passwordMatchValidator(form: FormGroup) {
     return form.get('password')?.value === form.get('confirmPassword')?.value ? null : { passwordMismatch: true };
   }
 
   requestResetLink() {
-    // if (this.forgetForm.valid) {
-    //   // Call your reset password service here
-    // const token =   localStorage.getItem('resetPassword')
-    //   const { email, password , confirmPassword } = this.forgetForm.value;
-    //   this.authService.resetPassword(email, password , confirmPassword , this.token).subscribe(
-    //     response => {
-    //       this.successMessage = "Reset link sent to your email!";
-    //       this.errorMessage = null;
-    //       // Optionally navigate to another page or clear the form
-    //       this.forgetForm.reset();
-    //     },
-    //     error => {
-    //       this.errorMessage = error.message || "An error occurred while sending the reset link.";
-    //       this.successMessage = null;
-    //     }
-    //   );
-    // }
+    if (this.resetForm.valid) {
+      const formData = new FormData();
+      formData.append('token', this.token);
+        formData.append('email', this.resetForm.get('email')?.value);
+        formData.append('password', this.resetForm.get('password')?.value);
+        formData.append('password_confirmation', this.resetForm.get('confirmPassword')?.value);
+
+        console.log('Token:', this.token);
+        console.log('Email:', this.resetForm.get('email')?.value);
+        console.log('Password:', this.resetForm.get('password')?.value);
+        console.log('Confirm Password:', this.resetForm.get('confirmPassword')?.value);
+        this.authService.resetPassword(formData).subscribe(
+          response => {
+            this.successMessage = 'Password reset successful!';
+          setTimeout(() => {
+            this.errorVisible = true;
+          }, 50);
+          setTimeout(() => {
+            this.errorVisible = false;
+            this.errorMessage = null;
+          }, 10000);
+          setTimeout(() => {
+            this.router.navigate(['/auth/login']);
+          }, 3000);
+
+          }, error => {
+            console.error('Password reset failed', error);
+            this.errorMessage = 'Password reset failed. Please try again.';
+            setTimeout(() => {
+              this.errorVisible = true;
+            }, 50);
+            setTimeout(() => {
+              this.errorVisible = false;
+              this.errorMessage = null;
+            }, 10000);
+          });
+
+
+    }
   }
 
 }

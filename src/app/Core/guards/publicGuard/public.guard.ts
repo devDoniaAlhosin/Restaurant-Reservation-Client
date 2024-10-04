@@ -10,7 +10,7 @@ export class PublicGuard implements CanActivate {
 
   canActivate(): boolean {
 
-    if (this.authService.isLoggedIn()) {
+    if (this.authService.isLoggedIn() && this.authService.getUserRole() === 'user') {
       this.router.navigate(['/home']);
       return false;
     }

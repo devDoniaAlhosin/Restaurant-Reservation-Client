@@ -1,5 +1,5 @@
 import { UserService } from './../../../Core/services/userService/user.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -7,12 +7,15 @@ import {faFacebook , faGoogle , faLinkedin , faGithub } from '@fortawesome/free-
 import { FormsModule, NgForm, ValidationErrors } from '@angular/forms';
 import { NgClass, NgIf } from '@angular/common';
 import { AuthService } from './../../../Core/auth/auth.service';
+import { GoogleAuthComponent } from "../components/google-auth/google-auth.component";
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink , FontAwesomeModule , NgIf ,FormsModule, NgClass],
+  imports: [RouterLink, FontAwesomeModule, NgIf, FormsModule, NgClass, GoogleAuthComponent],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
+
 })
 export class LoginComponent {
   faFacebook= faFacebook;
@@ -23,6 +26,7 @@ export class LoginComponent {
  successMessage: string | null = null;
  errorMessage: string | null = null;
  errorVisible = false;
+  verificationStatus?: string;
 
 
   constructor(
@@ -50,21 +54,6 @@ export class LoginComponent {
 
 
 
-  signInWithGoogle() {
-    this.AuthService.loginWithGoogle().subscribe({
-      next: (response) => {
-      const token = response.token;
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(response.user));
-      this.userService.setUser(response.user);
-      this.router.navigate(['/profile']);
-
-      },
-      error: (error) => {
-        console.error('Error during Google login:', error);
-      }
-    });
-  }
 
   SendLoginData(loginForm: NgForm) {
     if (loginForm.valid) {
@@ -80,7 +69,15 @@ export class LoginComponent {
 
 
           if (!response.user.email_verified_at) {
+            localStorage.setItem('verifyToken', response.token);
             this.errorMessage = 'Please verify your email before logging in.';
+            // Swal.fire({
+            //   title: 'Email not verified!',
+            //   text: 'Please verify your email before logging in.',
+            //   icon: 'warning',
+            //   confirmButtonText: 'OK'
+            // });
+
             this.errorVisible = true;
             setTimeout(() => {
               this.errorVisible = false;
@@ -104,7 +101,6 @@ export class LoginComponent {
             localStorage.removeItem('verifyToken');
             sessionStorage.setItem('token', response.token);
           }else{
-
             localStorage.setItem('token', response.token);
           }
           localStorage.removeItem('verifyToken');
@@ -114,30 +110,100 @@ export class LoginComponent {
         },
         error => {
           console.error('Login failed', error);
-          setTimeout(() => {
-            this.errorVisible = true;
-          }, 50);
-          this.errorMessage = ` Your Credentials are incorrect`;
-          setTimeout(() => {
-            this.errorVisible = false;
-            this.errorMessage = null;
-          }, 10000);
+          Swal.fire({
+            title: 'Error!',
+            text: 'Your Credentials are incorrect',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          // setTimeout(() => {
+          //   this.errorVisible = true;
+          // }, 50);
+          // this.errorMessage = ` Your Credentials are incorrect`;
+          // setTimeout(() => {
+          //   this.errorVisible = false;
+          //   this.errorMessage = null;
+          // }, 10000);
         }
       );
     }
   }
 
-  resendVerificationEmail() {
-    this.AuthService.resendVerificationEmail().subscribe(() => {
-      setTimeout(() => {
-        this.errorVisible = true;
-      }, 50);
-      this.successMessage = 'Verification email sent successfully.'
-      alert('Verification email sent successfully.');
-    }, error => {
-      console.error('Failed to resend verification email', error);
-    });
+
+  // resendVerificationEmail(): void {
+  //   // const token = localStorage.getItem('authToken');verifyToken
+  //   const token = localStorage.getItem('verifyToken');
+
+  //   if (token) {
+  //     const headers = new HttpHeaders({
+  //       'Authorization': `Bearer ${token}`,
+  //     });
+
+  //     this.AuthService.resendVerificationEmail(headers).subscribe(
+  //       (response) => {
+  //         this.verificationStatus = 'Verification email has been resent. Please check your inbox.';
+  //         Swal.fire({
+  //           title: 'Verification Email !',
+  //           text: 'Verification email has been resent. Please check your inbox.',
+  //           icon: 'success',
+  //           showConfirmButton: false,
+  //           timer: 2000
+  //         });
+  //       },
+  //       (error) => {
+  //         console.error('Failed to resend verification email', error);
+  //         this.verificationStatus = 'Failed to resend verification email. Please try again later.';
+  //       }
+  //     );
+  //   } else {
+  //     this.verificationStatus = 'User is not authenticated. Please log in and try again.';
+  //   }
+  // }
+  resendVerificationEmail(): void {
+    const token = localStorage.getItem('verifyToken');
+
+    if (token) {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`,
+      });
+
+      this.AuthService.resendVerificationEmail(headers).subscribe(
+        (response) => {
+          this.verificationStatus = 'Verification email has been resent. Please check your inbox.';
+
+          Swal.fire({
+            title: 'Verification Email Sent!',
+            text: 'Verification email has been resent. Please check your inbox.',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 7000
+          });
+        },
+        (error) => {
+          console.error('Failed to resend verification email', error);
+          this.verificationStatus = 'Failed to resend verification email. Please try again later.';
+
+          Swal.fire({
+            title: 'Error',
+            text: 'Failed to resend verification email. Please try again later.',
+            icon: 'error',
+            showConfirmButton: true
+          });
+        }
+      );
+    } else {
+      this.verificationStatus = 'User is not authenticated. Please log in and try again.';
+
+      Swal.fire({
+        title: 'Authentication Error',
+        text: 'User is not authenticated. Please log in and try again.',
+        icon: 'warning',
+        showConfirmButton: true
+      });
+    }
   }
+
 
 
   goToForgotPassword() {
