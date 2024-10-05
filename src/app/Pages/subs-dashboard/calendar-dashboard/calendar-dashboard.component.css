@@ -1,0 +1,84 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+:host ::ng-deep .fc {
+  font-family: Arial, sans-serif;
+  max-width: 90%;
+  margin: auto;
+}
+
+:host ::ng-deep .fc .fc-toolbar-title {
+  font-size: 1.5em;
+}
+
+:host ::ng-deep .fc-view-harness {
+  min-height: 800px; /* Adjust as necessary */
+}
+
+:host ::ng-deep .fc-daygrid-day {
+  cursor: pointer;
+  background-color: #f8f9fa; /* Light background for day cells */
+}
+
+:host ::ng-deep .fc-daygrid-day[data-date] {
+  background-color: #f8f9fa; /* Keep the same light background */
+}
+
+/* Custom styles for event rows */
+:host ::ng-deep .fc-event {
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none; /* Remove border */
+}
+
+:host ::ng-deep .fc-event:hover {
+  opacity: 1; /* Increase opacity on hover */
+}
+
+:host ::ng-deep .status-box {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+  margin-right: 8px;
+}
+
+.status-button {
+  padding: 10px 15px; /* Increased padding for a larger button */
+  border: none; /* Remove default border */
+  border-radius: 25px; /* Rounded corners for a pill shape */
+  color: white; /* Text color */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-weight: bold; /* Bold text */
+  font-size: 0.9em; /* Font size */
+  transition: all 0.3s; /* Smooth transition for all properties */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  text-transform: uppercase; /* Uppercase text */
+}
+
+.status-button:hover {
+  transform: translateY(-2px); /* Lift the button slightly on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+}
+
+.status-button.pending {
+  background: linear-gradient(135deg, #f39c12, #f9c802); /* Yellow gradient for pending */
+}
+
+.status-button.accepted {
+  background: linear-gradient(135deg, #28a745, #85d85b); /* Green gradient for accepted */
+}
+
+.status-button.rejected {
+  background: linear-gradient(135deg, #e74c3c, #ff7e7e); /* Red gradient for rejected */
+}
+
+

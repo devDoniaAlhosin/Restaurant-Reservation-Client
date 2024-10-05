@@ -11,30 +11,23 @@ export class BookingService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   createBooking(bookingData: any): Observable<any> {
-    const token = localStorage.getItem('token'); // Get the token from AuthService if needed
+    const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
+    // Here, ensure that bookingData includes username, phone, date, time, total_person, and notes
     return this.http.post<any>(this.apiUrl, bookingData, { headers });
   }
 
-   // Fetch all booking requests
-  //  getBookingRequests(): Observable<any[]> {
-  //   const token = localStorage.getItem('token');
-  //   const headers = new HttpHeaders({
-  //     'Authorization': `Bearer ${token}`,
-  //   });
 
-  //   return this.http.post<any[]>(this.apiUrl, { headers });
-  // }
    getBookingRequests(): Observable<any[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
 
-    return this.http.get<any[]>(this.apiUrl, { headers }); // Changed to GET method
+    return this.http.get<any[]>(this.apiUrl, { headers });
   }
   getsingleRequests(): Observable<any[]> {
     const token = localStorage.getItem('token');
@@ -42,13 +35,13 @@ export class BookingService {
         'Authorization': `Bearer ${token}`,
     });
 
-    return this.http.get<any[]>(`${this.apiUrl}/my`, { headers }); // Change to the new endpoint
+    return this.http.get<any[]>(`${this.apiUrl}/my`, { headers });
 }
 
 
   // Update booking status
   updateBookingStatus(id: number, status: string, notes: string | null): Observable<any> {
-    const url = `${this.apiUrl}/${id}/status`; // The endpoint for updating the booking status
+    const url = `${this.apiUrl}/${id}/status`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -59,7 +52,7 @@ export class BookingService {
     return this.http.patch<any>(url, payload, { headers });
   }
   deleteBooking(id: number): Observable<any> {
-    const url = `${this.apiUrl}/${id}`; // Assuming your endpoint follows this structure
+    const url = `${this.apiUrl}/${id}`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -68,14 +61,13 @@ export class BookingService {
     return this.http.delete<any>(url, { headers }); // Use the DELETE method
   }
   updateUserBooking(id: number, bookingData: any): Observable<any> {
-    const url = `${this.apiUrl}/${id}`; // Update this to your specific endpoint for user updates
+    const url = `${this.apiUrl}/${id}`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
-    
 
-    return this.http.patch<any>(url, bookingData, { headers }); // Use PATCH method
+    return this.http.patch<any>(url, bookingData, { headers });
   }
 }
 

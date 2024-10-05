@@ -11,7 +11,8 @@ faBars,
 faChevronLeft
 ,faChevronRight,
 faGripVertical,
-faRightFromBracket
+faRightFromBracket,
+faCalendarDays,
 
 } from '@fortawesome/free-solid-svg-icons';
 import { NgClass, NgIf, SlicePipe } from '@angular/common';
@@ -37,7 +38,7 @@ export class AdminLayoutComponent {
   faChevronRight=faChevronRight
   faGripVertical=faGripVertical
   faRightFromBracket=faRightFromBracket
-
+  faCalendarDays=faCalendarDays
   user: any = null;
   isLoggedIn: boolean = false;
   private unsubscribe$ = new Subject<void>();

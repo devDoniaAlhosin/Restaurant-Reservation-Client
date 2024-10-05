@@ -20,6 +20,7 @@ import { ContactComponent } from './Pages/contact/contact.component';
 
 import { BookingComponent } from './Pages/booking/booking.component';
 import { MybookingsComponent } from './Pages/mybookings/mybookings.component';
+import { CalendarDashboardComponent } from './Pages/subs-dashboard/calendar-dashboard/calendar-dashboard.component';
 
 export const routes: Routes = [
 
@@ -54,6 +55,11 @@ export const routes: Routes = [
         path: 'requests-dashboard',
         component: RequestsDashboardComponent,
         title: 'Bistro Bliss | Requests Dashboard',
+      },
+      {
+        path: 'calendar-dashboard',
+        component: CalendarDashboardComponent,
+        title: 'Bistro Bliss | Calender Dashboard',
       },
     ],
   },

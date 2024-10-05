@@ -52,6 +52,11 @@ export class RequestsDashboardComponent implements OnInit {
   years: string[] = []; // Array to hold available years
   searchQuery: string = ''; // Holds the search input for username
 
+  // Pagination properties
+  currentPage: number = 1; // Current page
+  itemsPerPage: number = 5; // Items per page
+  totalItems: number = 0; // Total items
+
   constructor(private bookingService: BookingService) {
     this.populateYears(); // Populate years on initialization
   }
@@ -70,6 +75,7 @@ export class RequestsDashboardComponent implements OnInit {
           date: request.date_time.split(' ')[0], // Extract the date part (YYYY-MM-DD)
           time: this.formatTime(request.date_time) // Format the time part (h:i A)
         }));
+        this.totalItems = this.requests.length; // Update total items
         console.log('Fetched booking requests:', this.requests);
       },
       error: (error: HttpErrorResponse) => {
@@ -77,7 +83,23 @@ export class RequestsDashboardComponent implements OnInit {
       }
     });
   }
+  totalPages(): number {
+    return Math.ceil(this.totalItems / this.itemsPerPage);
+  }
 
+  // Navigate to the previous page
+  goToPreviousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  // Navigate to the next page
+  goToNextPage(): void {
+    if (this.currentPage < this.totalPages()) {
+      this.currentPage++;
+    }
+  }
   // Populate years for filtering
   private populateYears(): void {
     const currentYear = new Date().getFullYear();
@@ -88,7 +110,7 @@ export class RequestsDashboardComponent implements OnInit {
 
   // Function to filter booking requests based on date, month, year, and search query
   filteredRequests(): BookingRequest[] {
-    return this.requests.filter(request => {
+    const filtered = this.requests.filter(request => {
       // Always show the request if no filters are applied
       if (!this.filterDate && !this.filterMonth && !this.filterYear && !this.searchQuery) {
         return true; // Show all bookings
@@ -133,6 +155,10 @@ export class RequestsDashboardComponent implements OnInit {
 
       return matchesDate && matchesMonth && matchesYear && matchesSearch; // Return true if all match
     });
+
+    // Handle pagination
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return filtered.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
   // Helper function to format the time part of dateTime
@@ -152,6 +178,8 @@ export class RequestsDashboardComponent implements OnInit {
     const hours = parseInt(hour);
     const isPM = hours >= 12;
     const formattedHour = hours % 12 === 0 ? 12 : hours % 12;
+
+    // Use backticks for template literals
     return `${formattedHour}:${minute} ${isPM ? 'PM' : 'AM'}`;
   }
 
@@ -229,5 +257,31 @@ export class RequestsDashboardComponent implements OnInit {
         });
       }
     });
+  }
+
+  // Go to the next page
+  nextPage(): void {
+    if ((this.currentPage * this.itemsPerPage) < this.totalItems) {
+      this.currentPage++;
+    }
+  }
+
+  // Go to the previous page
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  // Set current page
+  setPage(page: number): void {
+    if (page >= 1 && page <= Math.ceil(this.totalItems / this.itemsPerPage)) {
+      this.currentPage = page;
+    }
+  }
+
+  // Reset pagination
+  resetPagination(): void {
+    this.currentPage = 1; // Reset to the first page
   }
 }
