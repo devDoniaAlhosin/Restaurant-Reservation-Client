@@ -147,9 +147,11 @@ select:focus {
   text-decoration: none;
   color: var(--primary-color);
   background-color: transparent !important;
-  cursor: pointer;
+  cursor: pointer !important;
   display: flex;
   border: 0;
   outline: none;
+  margin-top: 2rem;
+  margin-right: 2rem;
 
 }

@@ -53,13 +53,11 @@ export class UserCreateFormComponent {
       email: ['', [Validators.required, Validators.email]],
       phone: ['' , [Validators.required ,Validators.pattern(/^(\+20[0-9]{10}|01[012][0-9]{8})$/)]],
       address: ['', [Validators.required,Validators.minLength(5), Validators.maxLength(100)]],
-      password: ['', [Validators.required, Validators.minLength(8)]], // Strong one
+      password: ['', [Validators.required, Validators.minLength(8)]],
       // image: [''],
       role:['' , [ Validators.required]]
     },
-
   );
-
   }
 
   ngOnInit(): void {
@@ -136,7 +134,6 @@ export class UserCreateFormComponent {
 //   }
 createUser(): void {
   if (this.createUserForm.valid) {
-    // Create a plain object instead of FormData
     const userData = {
       username: this.createUserForm.get('username')?.value,
       email: this.createUserForm.get('email')?.value,

@@ -6,7 +6,7 @@
         <div class="card-body">
           <div class="card-title mb-3  d-flex justify-content-between">
             <h5 class="text-center d-flex align-items-center justify-content-center"> Users Management </h5>
-           <div class="d-flex  gap-5 mb-1">
+           <div class="d-flex gap-5 mb-1">
               <div class=" d-flex  justify-content-end gap-2 ">
               <div>
                 <!-- Role Filter Dropdown -->
@@ -17,38 +17,20 @@
                   <option value="user">User</option>
                 </select>
               </div>
-
               <div>
                 <!-- Username Search Input -->
                 <label for="usernameSearch" class="form-label">Search by Username</label>
                 <input type="text" class="form-control" id="usernameSearch" [(ngModel)]="searchUsername" (input)="filterUsers()" placeholder="Enter username">
               </div>
-               </div>
-          <button class="border-0 btn--create align-content-center d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#createUserModal">
-            <span class="bg-opacity-100"><i class='bx bxs-add-to-queue specialIcon'></i></span>
-          </button>
+              </div>
+              <button class="border-0 btn--create align-content-center d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#createUserModal">
+                <span class="bg-opacity-100"><i class='bx bxs-add-to-queue specialIcon'></i></span>
+              </button>
            </div>
-
-
-
         </div>
           <!-- <button class="btn btn-create-user btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createUserModal">
              <span>Create New user</span>
           </button> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -172,10 +154,10 @@
 
           <!-- Phone Input Group -->
           <div class="mb-3">
-            <label for="phone" class="form-label">Phone </label>
+            <label for="phone" class="form-label">Phone  <span class="required-indicator">*</span></label>
             <div class="input-group">
               <span class="input-group-text">📞</span>
-              <input type="tel" class="form-control" id="phone"  formControlName="phone" placeholder="(e.g., +1234567890)" required>
+              <input type="tel" class="form-control" id="phone"  formControlName="phone" placeholder="(e.g., 01061642457)" required>
             </div>
             <div *ngIf="editUserForm.get('phone')?.invalid && editUserForm.get('phone')?.touched" class="text-danger">
               <small *ngIf="editUserForm.get('phone')?.hasError('pattern')">Please enter a valid phone number.</small>
@@ -256,5 +238,5 @@
 
 
 <!-- Create Form -->
-<app-user-create-form></app-user-create-form>
+<app-user-create-form (userCreated)="onUserCreated()"></app-user-create-form>
 

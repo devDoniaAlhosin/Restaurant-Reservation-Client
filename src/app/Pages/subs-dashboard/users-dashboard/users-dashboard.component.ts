@@ -60,7 +60,7 @@ export class UsersDashboardComponent {
     private authService: AuthService,
 
   ) {
-    // Edit Single  User  By Admin
+
     this.editUserForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
@@ -70,30 +70,25 @@ export class UsersDashboardComponent {
       role: ['', [Validators.required]],
       image:['']
     });
-    this.loadUsers();
+
 
   }
-  loadUsers() {
-    this.userService.getUser().subscribe(users => {
-      this.users = users;
-      this.filteredUsers = users;
-    });
-  }
+
   ngOnInit(): void {
     this.fetchUsers();
-
+  }
+  onUserCreated(): void {
+    this.fetchUsers();
   }
 
-  // Filtering
-
-  filterUsers() {
+  filterUsers(): void {
     this.filteredUsers = this.users.filter(user => {
       const matchesRole = this.selectedRole ? user.role === this.selectedRole : true;
-      const matchesUsername = user.username.toLowerCase().includes(this.searchUsername.toLowerCase());
+      const matchesUsername = this.searchUsername ? user.username.toLowerCase().includes(this.searchUsername.toLowerCase()) : true;
       return matchesRole && matchesUsername;
     });
+    this.updatePagination();
   }
-
 
 //  1. Fetched All Users
  fetchUsers(): void {
@@ -101,9 +96,9 @@ export class UsersDashboardComponent {
     (data) => {
       console.log( 'Fetching all users ' , data)
       this.users = data;
-      this.userService.setUser(data);
-      this.paginatedUsers = this.users;
-      this.filteredUsers = this.users;
+      this.filteredUsers = data;
+      // this.paginatedUsers = this.users;
+      this.updatePagination();
     },
     (error) => {
       console.error('Error fetching users:', error);
@@ -113,6 +108,11 @@ export class UsersDashboardComponent {
 
   pageChanged(event: number) {
     this.currentPage = event;
+  }
+  updatePagination(): void {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    this.paginatedUsers = this.filteredUsers.slice(start, end);
   }
 
   onFileSelected(event: Event) {
@@ -140,7 +140,6 @@ export class UsersDashboardComponent {
     });
 
   }
-
   // 2. Update a user
   updateUser(): void {
     if (this.editUserForm.valid) {
@@ -239,21 +238,14 @@ export class UsersDashboardComponent {
 
   // 3. Delete User
   deleteUser(id: number) {
-    console.log("Attempting to delete user:", id);
     const currentUser = this.authService.getUser();
     if (currentUser.id === id && currentUser.role === 'admin') {
-      console.log('Cannot delete own account, ID:', currentUser.id);
       this.errorMessage = "You can't delete your own account.";
-      console.log(this.errorMessage);
       this.showTemporaryMessage();
       return;
     }
-
-    // Proceed with user deletion if not the current user
     this.authService.deleteSingleUser(id).subscribe(
       (response) => {
-        console.log(response);
-        console.log('Deleted user with ID:', id);
         this.fetchUsers();
         this.successMessage = "User deleted successfully!";
         this.showTemporaryMessage(true);
