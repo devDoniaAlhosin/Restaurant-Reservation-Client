@@ -112,7 +112,7 @@ export class UsersDashboardComponent {
   updatePagination(): void {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-    this.paginatedUsers = this.filteredUsers.slice(start, end);
+    this.paginatedUsers = this.filteredUsers;
   }
 
   onFileSelected(event: Event) {
@@ -241,6 +241,16 @@ export class UsersDashboardComponent {
     const currentUser = this.authService.getUser();
     if (currentUser.id === id && currentUser.role === 'admin') {
       this.errorMessage = "You can't delete your own account.";
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: "You can't delete your own account",
+        // toast: true,
+        // position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
       this.showTemporaryMessage();
       return;
     }
