@@ -23,7 +23,7 @@ tbody{
   }
 }
 
-.search-bar{
+/* .search-bar{
   padding: 5px 10px;
   width: 70%;
    margin: 0 auto;
@@ -34,4 +34,51 @@ tbody{
   &:focus,&:active{
     outline: none;
   }
+} */
+
+/* Style for the search bar */
+.search-bar {
+  width: 300px;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  outline: none;
+  margin-right: 15px;
+}
+
+.search-bar:focus {
+  border-color: var(--primary-color);
+
+}
+
+/* Style for the dropdown */
+select {
+  padding: 10px 15px;
+  width: 200px;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  background-color: #f8f9fa;
+  color: #495057;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+select:hover {
+  border-color: var(--primary-color);
+}
+
+select:focus {
+  border-color: var(--primary-color);
+
+}
+
+option {
+  color: #495057;
+  padding: 10px;
+  font-size: 16px;
 }
