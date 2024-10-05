@@ -1,57 +1,65 @@
 <div class="container-fluid">
-
-
   <div class="row">
-
     <!-- Users Table -->
     <div class="col-md-12">
-
       <div class="card text-center">
-
         <div class="card-body">
-          <h3 class="card-title  fw-bold fst-italic text-start">Menu List</h3>
+          <h3 class="card-title fw-bold fst-italic text-start">Menu List</h3>
 
-          <a (click)="openDialog()"><i class='bx bxs-add-to-queue specialIcon'></i></a>
+          <!-- Add Button -->
+          <a (click)="openDialog()">
+            <i class='bx bxs-add-to-queue specialIcon'></i>
+          </a>
+
+          <!-- Search Bar -->
           <input
-          type="text"
-          [formControl]="searchControl"
-          (keydown)="searchOnEnter($event)"
-          class="search-bar"
-          placeholder="Search...">
+            type="text"
+            [formControl]="searchControl"
+            (keydown)="searchOnEnter($event)"
+            class="search-bar"
+            placeholder="Search..."
+          />
+
+          <!-- Category Dropdown -->
+          <select (change)="fetchMenu($event)">
+            <option value="all">All</option>
+            <option value="breakfast">Breakfast</option>
+            <option value="main_dish">Main Dishes</option>
+            <option value="drink">Drinks</option>
+            <option value="dessert">Desserts</option>
+          </select>
 
 
 
-
-
-
-          <div class="table-responsive">
+          <!-- Menu Table -->
+          <div class="table-responsive mt-3">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  @for (item of menuTiles; track $index) {
-                    <th scope="col">{{item}}</th>
-                  }
+                  <th *ngFor="let item of menuTiles; let i = index">
+                    {{ item }}
+                  </th>
                 </tr>
               </thead>
-              <tbody >
-                @for (item of menuItems; track $index) {
-                  <tr>
-                    <th scope="row">{{item.id}}</th>
-                    <td><img [src]="item.image"></td>
-                    <td>{{item.name}}</td>
-                    <td>{{item.description}}</td>
-                    <td>{{item.category_name}}</td>
-                    <td>{{item.price}}</td>
-                    <td>
-                      <a (click)="openDialog(item)" class="btn btn-primary btn-sm me-2">Edit</a>
-                      <a (click)="deleteMenu(item.id)" class="btn btn-outline-danger btn-sm me-2">Delete</a>
-                    </td>
-                  </tr>
-                }
-
+              <tbody>
+                <tr *ngFor="let item of getFilteredMenuItems(); let i = index">
+                  <th scope="row">{{ item.id }}</th>
+                  <td><img [src]="item.image" alt="Menu Image" class="menu-image"></td>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.description }}</td>
+                  <td>{{ item.category_name }}</td>
+                  <td>{{ item.price }}</td>
+                  <td>
+                    <!-- Edit Button -->
+                    <a (click)="openDialog(item)" class="btn btn-primary btn-sm me-2">Edit</a>
+                    <!-- Delete Button -->
+                    <a (click)="deleteMenu(item.id)" class="btn btn-outline-danger btn-sm me-2">Delete</a>
+                  </td>
+                </tr>
               </tbody>
             </table>
 
+            <!-- Paginator -->
             <p-paginator
               *ngIf="showPaginator"
               (onPageChange)="onPageChange($event)"
@@ -59,7 +67,6 @@
               [totalRecords]="totalRecords"
               [pageLinkSize]="4"
             ></p-paginator>
-
           </div>
         </div>
       </div>

@@ -8,15 +8,17 @@ import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';  // RxJS operator for debouncing
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-menu-dashboard',
   standalone: true,
-  imports: [PaginatorModule,CommonModule,ReactiveFormsModule ],
+  imports: [PaginatorModule, CommonModule, ReactiveFormsModule],
   templateUrl: './menu-dashboard.component.html',
   styleUrls: ['./menu-dashboard.component.css']
 })
 export class MenuDashboardComponent {
   menuItems: Menu[] = [];
+  selectedMenuType: string = 'all';
   searchControl = new FormControl('');  // Using FormControl for search
   searchValue = '';
   showPaginator = true;  // To conditionally hide paginator
@@ -99,4 +101,35 @@ export class MenuDashboardComponent {
       this.getMenu(this.rows, 0);  // Trigger search
     }
   }
+
+  // Filter menu items based on the selected category
+  getFilteredMenuItems() {
+    if (this.selectedMenuType === 'all') {
+      return this.menuItems;
+    } else {
+      return this.menuItems.filter(item => item.category_name === this.selectedMenuType);
+    }
+  }
+
+  // Change the selected menu type and trigger a refetch
+  fetchMenu(event: any) {
+    const selectedType = event.target.value;
+    this.selectedMenuType = selectedType;
+
+    if (this.selectedMenuType === 'all') {
+      // Show paginator and fetch paginated data for "all"
+      this.showPaginator = true;
+      this.getMenu(this.rows, 0);  // Fetch paginated data
+    } else {
+      // Hide paginator and fetch all data for the selected type
+      this.showPaginator = false;
+
+      // Fetch ALL menu items (no pagination)
+      this.menuService.getMenu(9999, 0).subscribe((data) => {
+        // Filter items by the selected category
+        this.menuItems = data.data.filter((item: any) => item.category_name === this.selectedMenuType);
+      });
+    }
+  }
+
 }
