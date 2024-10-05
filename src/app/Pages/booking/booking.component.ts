@@ -5,6 +5,7 @@ import { BookingService } from '../../Core/services/bookingService/booking.servi
 import Swal from 'sweetalert2'; // Import SweetAlert2
 import { addDays, isBefore, isAfter, isToday } from 'date-fns';
 
+
 @Component({
   selector: 'app-booking',
   standalone: true,

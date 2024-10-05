@@ -23,8 +23,12 @@ import { ResetPasswordComponent } from './Pages/auth/reset-password/reset-passwo
 
 import { BookingComponent } from './Pages/booking/booking.component';
 import { MybookingsComponent } from './Pages/mybookings/mybookings.component';
+<<<<<<< HEAD
 import { MenuComponent } from './Pages/menu/menu.component';
 import { AboutComponent } from './Pages/about/about.component';
+=======
+import { CalendarDashboardComponent } from './Pages/subs-dashboard/calendar-dashboard/calendar-dashboard.component';
+>>>>>>> origin/bookings
 
 export const routes: Routes = [
   { path: 'password-reset/:token', component: ResetPasswordComponent , title:"Bistro Bliss | reset Password"},
@@ -61,6 +65,11 @@ export const routes: Routes = [
         path: 'requests-dashboard',
         component: RequestsDashboardComponent,
         title: 'Bistro Bliss | Requests Dashboard',
+      },
+      {
+        path: 'calendar-dashboard',
+        component: CalendarDashboardComponent,
+        title: 'Bistro Bliss | Calender Dashboard',
       },
     ],
   },

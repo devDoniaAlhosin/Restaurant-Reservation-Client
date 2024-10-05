@@ -30,3 +30,41 @@
 .gap-2 {
   gap: 0.5rem; /* Add spacing between buttons */
 }
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.pagination-button {
+  color: white;
+  border: none;
+  padding: 4px 6px;
+  margin: 0 8px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color:#007bff ;
+
+}
+
+.pagination-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.page-number-box {
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; 
+  height: 30px;
+  border-radius: 5px;
+  font-weight: bold;
+  color:#007bff;
+  margin: 0 8px;
+}
+
+
