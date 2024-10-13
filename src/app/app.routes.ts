@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes, RouterLinkActive } from '@angular/router';
 import { MainLayoutComponent } from './Layouts/main-layout/main-layout.component';
 import { HomeComponent } from './Pages/home/home.component';
 import { LoginComponent } from './Pages/auth/login/login.component';
@@ -28,6 +28,7 @@ import { MenuComponent } from './Pages/menu/menu.component';
 import { AboutComponent } from './Pages/about/about.component';
 
 import { CalendarDashboardComponent } from './Pages/subs-dashboard/calendar-dashboard/calendar-dashboard.component';
+import { ContactDashboardComponent } from './Pages/subs-dashboard/contact-dashboard/contact-dashboard.component';
 
 
 export const routes: Routes = [
@@ -70,6 +71,11 @@ export const routes: Routes = [
         path: 'calendar-dashboard',
         component: CalendarDashboardComponent,
         title: 'Bistro Bliss | Calender Dashboard',
+      },
+      {
+        path: 'contact-dashboard',
+        component: ContactDashboardComponent,
+        title: 'Bistro Bliss | Contacts Dashboard',
       },
     ],
   },

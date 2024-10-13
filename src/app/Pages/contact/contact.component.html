@@ -18,26 +18,111 @@
           <p>We consider all the drivers of change gives you the components you need to change to create a truly happens.</p>
         </div>
 
-        <form >
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
-            <label for="floatingName">Name</label>
-          </div>
-
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com">
-            <label for="floatingEmail">Email address</label>
-          </div>
+        <form
+        [formGroup] = "ContactUsForm"
+        (ngSubmit)="onSubmit()"
+        >
 
 
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingSubject" placeholder="Subject">
-            <label for="floatingSubject">Subject</label>
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            formControlName="name"
+            class="form-control"
+            id="floatingName"
+            placeholder="Your Name"
+            required
+          />
+          <label for="floatingName">Name <span class="required-indicator">*</span></label>
+          <div
+            *ngIf="
+              ContactUsForm.get('name')?.touched &&
+              ContactUsForm.get('name')?.invalid
+            "
+            class="form-text text-danger fs-6"
+          >
+            <div *ngIf="ContactUsForm.get('name')?.hasError('required')">
+              Name is required.
+            </div>
+            <div *ngIf="ContactUsForm.get('name')?.hasError('minlength')">
+              Please enter a valid name with at least four characters.
+            </div>
           </div>
+        </div>
+
+
+          <div class="form-floating mb-3">
+            <input type="email"  formControlName="email"  class="form-control" id="floatingEmail" placeholder="name@example.com" required>
+            <label for="floatingEmail">Email address <span class="required-indicator">*</span></label>
+            <div
+            *ngIf="
+              ContactUsForm.get('email')?.touched &&
+              ContactUsForm.get('email')?.invalid
+            "
+            class="form-text text-danger fs-6"
+          >
+            <div *ngIf="ContactUsForm.get('email')?.hasError('required')">
+              Email is required.
+            </div>
+            <div *ngIf="ContactUsForm.get('email')?.hasError('email')">
+              Please enter a valid email address.
+            </div>
+          </div>
+          </div>
+
+<!--
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingSubject" placeholder="Subject"  formControlName="subject"  required>
+            <label for="floatingSubject">Subject <span class="required-indicator">*</span> </label>
+            <div
+            *ngIf="
+              ContactUsForm.get('subject')?.touched &&
+              ContactUsForm.get('subject')?.invalid
+            "
+            class="form-text text-danger fs-6"
+          >
+            <div *ngIf="ContactUsForm.get('subject')?.hasError('required')">
+              Subject is required.
+            </div>
+          </div>
+          </div> -->
+          <div class="form-floating mb-3">
+            <select class="form-control" id="floatingSubject" formControlName="subject" required>
+              <option value="" disabled selected>Select Subject</option>
+              <option value="general">General Inquiry</option>
+              <option value="reservation">Reservation</option>
+              <option value="feedback">Feedback</option>
+              <option value="complaint">Complaint</option>
+            </select>
+            <label for="floatingSubject">Subject <span class="required-indicator">*</span></label>
+            <div
+              *ngIf="
+                ContactUsForm.get('subject')?.touched &&
+                ContactUsForm.get('subject')?.invalid
+              "
+              class="form-text text-danger fs-6"
+            >
+              <div *ngIf="ContactUsForm.get('subject')?.hasError('required')">
+                Subject is required.
+              </div>
+            </div>
+          </div>
+
 >
           <div class="form-floating mb-3">
-            <textarea class="form-control" id="floatingMessage" placeholder="Your message" style="height: 150px;"></textarea>
-            <label for="floatingMessage">Message</label>
+            <textarea class="form-control" id="floatingMessage"  formControlName="message" placeholder="Your message" style="height: 150px;" required></textarea>
+            <label for="floatingMessage">Message <span class="required-indicator">*</span></label>
+            <div
+            *ngIf="
+              ContactUsForm.get('message')?.touched &&
+              ContactUsForm.get('message')?.invalid
+            "
+            class="form-text text-danger fs-6"
+          >
+            <div *ngIf="ContactUsForm.get('message')?.hasError('required')">
+              Message is required.
+            </div>
+          </div>
           </div>
 
 

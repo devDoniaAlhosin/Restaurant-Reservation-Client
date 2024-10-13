@@ -210,8 +210,27 @@ public showTemporaryMessage(isSuccess: boolean = false) {
 }
 
 
+// Contact Us
+SendContactMessage(ContactData : object){
+  return this.http.post(`${this.apiUrl}/contact`, ContactData)
+}
+// Get all Messages From Contact Us
+getContactMessage(): Observable<any> {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    'Content-Type': 'application/json'
+  });
 
-
+  return this.http.get(`${this.apiUrl}/admin/contacts`, { headers });
+}
+// Delete specific Contact Us
+deleteContactMessage(Id : number){
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    'Content-Type': 'application/json'
+  });
+  return this.http.delete(`${this.apiUrl}/admin/contacts/${Id}`, {headers})
+}
 
 
 }

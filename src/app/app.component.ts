@@ -36,9 +36,7 @@ export class AppComponent {
       }
     });
 
-
   }
-
 
   verifyEmail(verificationUrl: string) {
     const token = localStorage.getItem('verifyToken');
@@ -68,10 +66,6 @@ export class AppComponent {
       }
     );
   }
-
-
-
-
 
   checkUserRole(): void {
     const currentUrl = this.router.url;

@@ -1,0 +1,51 @@
+<div class="container my-4">
+  <!-- <h2 class="text-center mb-4 display-6 fw-bold text-primary">Incomming Messages </h2> -->
+  <div class="row mb-4 justify-content-between d-flex flex-row " >
+    <h2 class="col-md-4 text-center  display-6 fw-bold text-primary">Incomming Messages </h2>
+    <div class="col-md-4">
+      <div class="input-group">
+        <span class="input-group-text bg-light"> <fa-icon [icon]="faFilter"></fa-icon></span>
+        <select class="form-select" (change)="filterMessages($event)">
+          <option value=""  selected>All Messages  </option>
+          <option value="general">General Inquiry</option>
+          <option value="reservation">Reservation</option>
+          <option value="feedback">Feedback</option>
+          <option value="complaint">Complaint</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="filteredMessages.length > 0" class="row g-4">
+    <div class="col-md-6" *ngFor="let message of filteredMessages">
+      <div class="card shadow-lg border-0 h-100">
+        <div class="card-header bg-primary text-white d-flex justify-content-between">
+          <h5 class="card-title mb-0">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+            {{ message.subject | titlecase }}
+          </h5>
+          <button (click)="deleteMessage(message.id)" class="btn">
+               <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
+
+        </div>
+        <div class="card-body">
+          <h6 class="card-subtitle mb-3 text-muted">
+            <fa-icon [icon]="faUser"></fa-icon> {{ message.name }}
+            <span class="badge bg-secondary ms-2">{{ message.email }}</span>
+          </h6>
+          <p class="card-text">{{ message.message }}</p>
+        </div>
+        <div class="card-footer bg-light d-flex justify-content-between align-items-center">
+          <small class="text-muted">Received on: {{ message.updated_at | date:'short' }}</small>
+          <span class="badge rounded-pill bg-info text-dark">{{ message.subject | titlecase }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Messages Found -->
+  <div *ngIf="filteredMessages.length === 0" class="alert alert-warning text-center mt-4">
+   <fa-icon [icon]="faExclamationCircle"></fa-icon> No messages found for the selected subject.
+  </div>
+</div>

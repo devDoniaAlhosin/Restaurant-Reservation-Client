@@ -71,7 +71,7 @@ border-radius: 20px;
 .contact--form {
   /* background-color: aqua; */
   padding: 3rem 0 5rem 0;
-  z-index: 1000000;
+  /* z-index: 1000000; */
   position: absolute;
   top: 10%;
   left: 50%;
@@ -130,4 +130,7 @@ border-radius: 20px;
     color: var(--white-color);
     border: 1px solid var(--white-color);
   }
+}
+.required-indicator{
+  color: red;
 }
