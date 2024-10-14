@@ -98,6 +98,8 @@ export const routes: Routes = [
       {path:'mybookings' ,component:MybookingsComponent,
         title:'Bistro Bliss | My Bookings',
       },
+
+
       { path: '**', component: NotFoundComponent },
 
 

@@ -28,10 +28,11 @@
             <th>ID</th>
             <th>Username</th>
             <th>Phone</th>
-            <th>Date</th>
-            <th>Time</th>
+            <th>Date&Time</th>
+            <!-- <th>Time</th> -->
             <th>Total Person</th>
             <th>Notes</th>
+            <th>Mail sent</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -41,10 +42,12 @@
             <td>{{ request.id }}</td>
             <td>{{ request.username }}</td>
             <td>{{ request.phone }}</td>
-            <td>{{ request.date }}</td>
-            <td>{{ request.time }}</td>
+            <td>{{ request.date }}
+            {{ request.time }}</td>
             <td>{{ request.total_person }}</td>
             <td>{{ request.notes }}</td>
+            <td>{{ request.email_sent}}</td>
+
             <td>
               <span class="badge" [ngClass]="{
                 'bg-success': request.status === 'accepted',

@@ -16,7 +16,6 @@ export class BookingService {
       'Authorization': `Bearer ${token}`
     });
 
-    // Here, ensure that bookingData includes username, phone, date, time, total_person, and notes
     return this.http.post<any>(this.apiUrl, bookingData, { headers });
   }
 
@@ -69,5 +68,15 @@ export class BookingService {
 
     return this.http.patch<any>(url, bookingData, { headers });
   }
+
+
+
+
+
+
+
 }
+
+
+
 

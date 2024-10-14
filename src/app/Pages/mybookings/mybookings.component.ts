@@ -6,11 +6,12 @@ import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-
+import { Router, RouterLink } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 @Component({
   selector: 'app-mybookings',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterLink, NgxPaginationModule],
   templateUrl: './mybookings.component.html',
   styleUrls: ['./mybookings.component.css']
 })
@@ -20,28 +21,14 @@ export class MybookingsComponent implements OnInit {
   dateError: string | null = null; // To hold date error message
   timeError: string | null = null; // To hold time error message
   totalPersonsError: string | null = null; // To hold total persons error message
-
-  constructor(private bookingService: BookingService) {}
+  currentPage = 1;
+  constructor(private bookingService: BookingService,private router: Router) {}
 
   ngOnInit() {
     this.fetchBookings();
   }
 
-  // fetchBookings() {
-  //   this.bookingService.getsingleRequests().subscribe(
-  //     (data) => {
-  //       this.bookings = data.map(booking => {
-  //         const dateObj = new Date(booking.date_time);
-  //         const timeString = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-  //         const dateString = dateObj.toLocaleDateString();
-  //         return { ...booking, time: timeString, date: dateString };
-  //       });
-  //     },
-  //     (error: HttpErrorResponse) => {
-  //       console.error('Error fetching bookings:', error);
-  //     }
-  //   );
-  // }
+
   fetchBookings() {
     this.bookingService.getsingleRequests().subscribe(
         (data) => {
@@ -62,7 +49,9 @@ export class MybookingsComponent implements OnInit {
         }
     );
 }
-
+goToCheckout(bookingId: string) {
+  this.router.navigate(['/payments', bookingId]);
+}
   validateDate() {
     this.dateError = null; // Reset error
     if (this.editingBooking) {

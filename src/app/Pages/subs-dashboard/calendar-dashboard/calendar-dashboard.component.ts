@@ -47,6 +47,7 @@ export class CalendarDashboardComponent implements OnInit {
           extendedProps: {
             status: booking['status'],
             username: booking['username'],
+            total_person:booking['total_person']
           },
         }));
 
@@ -59,8 +60,8 @@ export class CalendarDashboardComponent implements OnInit {
             return {
               html: `
                 <div style="display: flex; align-items: center; width: 100%; padding: 5px; background-color: ${this.getBookingColor(status)}; border-radius: 5px;">
-                  <div class="status-box" style="background-color: ${this.getBookingColor(status)}; width: 15px; height: 15px; border-radius: 3px; margin-right: 8px;"></div>
-                  ${username} (${status})
+                  <div class="status-box" style="background-color: ${this.getBookingColor(status)}; width: 20px; height: 15px; border-radius: 2px; margin-right: 2px;"></div>
+                  ${username} [${status}]
                 </div>
               `,
             };
@@ -107,7 +108,7 @@ export class CalendarDashboardComponent implements OnInit {
     this.bookingService.updateBookingStatus(bookingId, status, null).subscribe(
       () => {
         Swal.fire('Success', `Booking status updated to ${status}`, 'success');
-        this.loadBookings(); 
+        this.loadBookings();
       },
       (error: HttpErrorResponse) => {
         Swal.fire('Error', 'Failed to update booking status', 'error');
