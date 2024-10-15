@@ -98,6 +98,21 @@
   border: 2px solid  #AD343E;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+.pay-now-button {
+  background-color: #128195;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  transition: background-color 0.3s, transform 0.3s;
+  margin-left: 0.5rem;
+}
+
+.pay-now-button:hover {
+  background-color: #b6cacf;
+  color:#02434f;
+  border: 1px solid #02434f;
+  transform: scale(1.05);
+}
 
 @media (max-width: 768px) {
   .myBookings {

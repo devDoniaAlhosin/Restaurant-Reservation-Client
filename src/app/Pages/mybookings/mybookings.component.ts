@@ -22,6 +22,9 @@ export class MybookingsComponent implements OnInit {
   timeError: string | null = null; // To hold time error message
   totalPersonsError: string | null = null; // To hold total persons error message
   currentPage = 1;
+  
+  //Track payment status for each booking
+  paymentStatus: { [key: number]: boolean } = {};
   constructor(private bookingService: BookingService,private router: Router) {}
 
   ngOnInit() {
@@ -49,9 +52,18 @@ export class MybookingsComponent implements OnInit {
         }
     );
 }
-goToCheckout(bookingId: string) {
-  this.router.navigate(['/payments', bookingId]);
+payNow(booking: any) {
+  // Open the payment link in a new tab
+  const paymentLink = 'https://buy.stripe.com/test_8wMeVv1SFfYvgb6289'; // Your payment link
+  window.open(paymentLink, '_blank');
+
+  // Mark the booking as paid
+  this.paymentStatus[booking.id] = true; // Update the payment status for this booking
+
+  // Navigate to the payment success component (this might be done after payment completion via a callback)
+  this.router.navigate(['/payment-success']);
 }
+
   validateDate() {
     this.dateError = null; // Reset error
     if (this.editingBooking) {

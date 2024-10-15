@@ -15,8 +15,17 @@
             }">{{ booking.status | titlecase }}</span>
 
             <button *ngIf="booking.status === 'pending'" class="btn btn-secondary btn-sm ms-2 edit-booking-btn" (click)="onEditBooking(booking)">Edit</button>
+              <!-- Checkout Button for Accepted Bookings -->
+              <ng-container *ngIf="booking.status === 'accepted' && !paymentStatus[booking.id]">
+                <a href="#" (click)="payNow(booking)" class="btn btn-primary btn-sm ms-2 pay-now-button">
+                    Pay Now
+                </a>
+            </ng-container>
+
+
           </div>
         </div>
+
         <div class="card-body text-center">
           <ng-container *ngIf="editingBooking?.id !== booking.id">
             <p class="card-date">Date: <span>{{ booking.date }}</span></p>
