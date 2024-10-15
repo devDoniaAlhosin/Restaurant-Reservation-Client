@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Menu } from '../../../Models/menu.model';
-import { AuthService } from '../../auth/auth.service'; // Adjust the import path as necessary
+import { AuthService } from '../../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class MenuService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token'); // You can adjust this based on how you store the token
+    const token = localStorage.getItem('token');
     console.log('token', token);
 
     return new HttpHeaders({
