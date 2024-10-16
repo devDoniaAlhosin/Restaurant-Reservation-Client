@@ -123,3 +123,12 @@
     margin-bottom: 20px;
   }
 }
+.btn-outline-primary{
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  &:hover{
+    background-color: var(--primary-color);
+    color: var(--white-color);
+  }
+
+}

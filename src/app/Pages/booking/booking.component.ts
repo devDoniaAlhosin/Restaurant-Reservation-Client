@@ -32,15 +32,15 @@ export class BookingComponent implements OnInit {
   }
 
   onSubmit() {
-    this.showErrorMessages = true; // Show error messages if form is invalid
+    this.showErrorMessages = true;
     if (this.bookingForm.valid) {
       this.bookingService.createBooking(this.bookingForm.value).subscribe(
         response => {
           console.log('Booking created successfully:', response);
           this.serverError = '';
-          this.showErrorMessages = false; // Hide error messages on successful submission
+          this.showErrorMessages = false;
 
-          // Show success alert using SweetAlert2
+
           Swal.fire({
             icon: 'success',
             title: 'Booking Request Sent!',
@@ -48,16 +48,16 @@ export class BookingComponent implements OnInit {
             confirmButtonText: 'OK'
           });
 
-          this.bookingForm.reset(); // Reset the form if necessary
+          this.bookingForm.reset();
         },
         error => {
           console.error('Error creating booking:', error);
-          if (error.status === 422 && error.error.errors) {
-            // Backend returned validation errors; iterate over them and set the error messages in the form
-            for (const field in error.error.errors) {
+          if (error.status === 422 && error.error.messages) {
+
+            console.log(error.error.messages)
+            for (const field in error.error.messages) {
               if (this.bookingForm.get(field)) {
-                // Mark the control as touched and add an error message
-                this.bookingForm.get(field)?.setErrors({ backend: error.error.errors[field].join(', ') });
+                this.bookingForm.get(field)?.setErrors({ backend: error.error.messages[field].join(', ') });
               }
             }
           } else {

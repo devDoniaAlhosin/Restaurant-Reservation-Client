@@ -4,9 +4,11 @@ import { Router } from '@angular/router';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
 import { UserService } from '../services/userService/user.service';
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
   cookieService = inject(CookieService);
@@ -15,7 +17,7 @@ export class AuthService {
   errorMessage: string | null = null;
 
 
-  //https://restaurant-reservation-server-8pdl83g6d.vercel.app/
+
   private apiUrl = 'http://localhost:8000/api';
   constructor(
     private http: HttpClient,

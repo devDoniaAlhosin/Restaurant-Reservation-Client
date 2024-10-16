@@ -9,6 +9,7 @@ import { NgClass, NgIf } from '@angular/common';
 import { AuthService } from './../../../Core/auth/auth.service';
 import { GoogleAuthComponent } from "../components/google-auth/google-auth.component";
 import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-login',
   standalone: true,
