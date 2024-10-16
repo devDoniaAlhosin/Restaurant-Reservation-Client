@@ -39,7 +39,7 @@
               <div class="col-md-4" *ngFor="let booking of bookings">
                 <div class="booking-card ">
                   <div class="card-body">
-                    <h5 class="card-title">{{ booking.date_time | date: 'EEEE, MMMM d' }}</h5>
+                    <h5 class="card-title">{{ booking.date|  date: 'EEEE, MMMM d'}}</h5>
                     <p class="card-text">Time: {{ booking.date_time |date: 'h:mm a':'UTC' }}</p>
                     <p class="card-text">Guests: {{ booking.total_person }}</p>
                     <span
@@ -193,6 +193,12 @@
                   {{ successMessage }}
                 </div>
 
+                <!-- <div class="mb-3 d-flex align-content-center justify-content-center" >
+                  <div *ngIf="user.image" class="border-1 rounded-2">
+                    <img [src]="user.image" alt="Profile Image" style="width: 100px; height: 100px; " class="rounded-3">
+                  </div>
+                </div> -->
+
                 <!-- Username -->
                 <div class="mb-3">
                   <label for="usernameInput" class="form-label">Username <span class="required-indicator">*</span></label>
@@ -284,7 +290,7 @@
                 </div>
 
                 <!-- Profile Image -->
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <label for="imageInput" class="form-label">Profile Image</label>
                   <input
                   type="file"
@@ -299,8 +305,8 @@
                     <img [src]="user.image" alt="Profile Image" style="width: 100px; height: 100px;">
                   </div>
 
-                  <!-- <input type="file" class="form-control " id="imageInput" formControlName="image" accept="image/*" (change)="onFileSelected($event)"> -->
-                </div>
+                  <input type="file" class="form-control " id="imageInput" formControlName="image" accept="image/*" (change)="onFileSelected($event)">
+                </div> -->
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">

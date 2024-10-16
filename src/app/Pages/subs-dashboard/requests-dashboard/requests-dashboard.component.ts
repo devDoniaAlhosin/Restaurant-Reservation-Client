@@ -17,6 +17,7 @@ interface BookingRequest {
   date_time: string;
   total_person: number;
   notes: string;
+  email_sent:boolean;
   status?: string;
   buttonsDisabled?: boolean;
   date?: string; // Added date property

@@ -1,12 +1,11 @@
 <section class="myBookings">
   <h2 class="text-center mb-4">My Bookings</h2>
   <div class="past-bookings row">
-    <div *ngFor="let booking of bookings" class="col-md-4 col-sm-6 mb-4">
+    <!--  pagination pipe with *ngFor -->
+    <div *ngFor="let booking of bookings | paginate: { itemsPerPage: 6, currentPage: currentPage }" class="col-md-4 col-sm-6 mb-4">
       <div class="card booking-card">
         <div class="card-header d-flex justify-content-between align-items-center">
           <span class="card-icon"><i class="bi bi-calendar3"></i></span>
-
-          <!-- Booking Status and Edit Button in the same row -->
           <div class="d-flex align-items-center">
             <span class="booking-status badge" [ngClass]="{
               'bg-success': booking.status === 'accepted',
@@ -14,30 +13,32 @@
               'bg-danger': booking.status === 'rejected'
             }">{{ booking.status | titlecase }}</span>
 
-            <!-- Edit Booking Button -->
             <button *ngIf="booking.status === 'pending'" class="btn btn-secondary btn-sm ms-2 edit-booking-btn" (click)="onEditBooking(booking)">Edit</button>
+              <ng-container *ngIf="booking.status === 'accepted' && !paymentStatus[booking.id]">
+                <a href="#" (click)="payNow(booking)" class="btn btn-primary btn-sm ms-2 pay-now-button">
+                    Pay Now
+                </a>
+            </ng-container>
           </div>
         </div>
+
         <div class="card-body text-center">
           <ng-container *ngIf="editingBooking?.id !== booking.id">
-            <!-- Display Mode -->
-            <!-- <p class="card-date">Date: <span>{{ booking.date_time | date: 'shortDate' }}</span></p> -->
-            <h5 class="card-title">{{ booking.date_time | date: 'M/d/yy' }}</h5>
-            <p class="card-text">Time: {{ booking.date_time |date: 'h:mm a':'UTC' }}</p>
+            <p class="card-date">Date: <span>{{ booking.date|  date: 'M/d/yy'}}</span></p>
+            <p class="card-time">Time: <span>{{ booking.date_time | date: 'h:mm a' : 'UTC' }}</span></p>
             <p class="card-persons">Number of persons: <span>{{ booking.total_person }}</span></p>
           </ng-container>
 
           <ng-container *ngIf="editingBooking?.id === booking.id">
-            <!-- Edit Mode -->
             <div class="form-group mb-2">
               <label for="editDate-{{booking.id}}">Date:</label>
-              <input type="date" class="form-control" [(ngModel)]="editingBooking.date" (ngModelChange)="validateDate()" name="editDate" id="editDate-{{booking.id}}">
+              <input type="date" class="form-control" [(ngModel)]="editingBooking.date"  (ngModelChange)="validateTime()" name="editDate" id="editDate-{{booking.id}}">
               <div *ngIf="dateError" class="text-danger">{{ dateError }}</div>
             </div>
 
             <div class="form-group mb-2">
               <label for="editTime-{{booking.id}}">Time:</label>
-              <input type="text" class="form-control"  [(ngModel)]="editingBooking.time" (ngModelChange)="validateTime()" name="editTime" id="editTime-{{booking.id}}">
+              <input type="text" class="form-control" [(ngModel)]="editingBooking.time"   (ngModelChange)="validateTime()" name="editTime" id="editTime-{{booking.id}}">
               <div *ngIf="timeError" class="text-danger">{{ timeError }}</div>
             </div>
 
@@ -56,4 +57,7 @@
       </div>
     </div>
   </div>
+
+  <!-- Pagination controls -->
+  <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
 </section>
