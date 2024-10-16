@@ -74,8 +74,8 @@ export class ProfileComponent {
       {
       username: ['', [Validators.required, Validators.minLength(4) ]],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['' , [Validators.pattern(/^(\+20[0-9]{10}|01[012][0-9]{8})$/)]],
-      address: ['', [Validators.minLength(5), Validators.maxLength(100)]],
+      phone: ['' , [Validators.required ,  Validators.pattern(/^(?:\+201|01)\d{9}$/)]],
+      address: ['', [Validators .required , Validators.minLength(5), Validators.maxLength(100)]],
       old_password: ['', [Validators.required]],
       password: ['', Validators.minLength(6)],
       password_confirmation: [''],

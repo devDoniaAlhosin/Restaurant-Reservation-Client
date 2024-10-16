@@ -66,6 +66,15 @@ export class LoginComponent {
       this.AuthService.login(loginData.login, loginData.password).subscribe(
         (response: any) => {
           console.log('Login Response:', response);
+          if (response.user.role !== 'user') {
+            this.errorMessage = "Unauthorized action. Admins cannot perform this action.";
+            this.errorVisible = true;
+            setTimeout(() => {
+              this.errorVisible = false;
+              this.errorMessage = null;
+            }, 10000);
+            return;
+          }
 
 
           if (!response.user.email_verified_at) {
@@ -86,15 +95,6 @@ export class LoginComponent {
             return;
           }
 
-          if (response.user.role !== 'user') {
-            this.errorMessage = "Unauthorized action.";
-            this.errorVisible = true;
-            setTimeout(() => {
-              this.errorVisible = false;
-              this.errorMessage = null;
-            }, 10000);
-            return;
-          }
 
 
           if (loginForm.value.rememberMe) {
