@@ -20,8 +20,8 @@ interface BookingRequest {
   email_sent:boolean;
   status?: string;
   buttonsDisabled?: boolean;
-  date?: string; // Added date property
-  time?: string; // Added time property
+  date?: string;
+  time?: string;
 }
 
 @Component({
@@ -33,9 +33,9 @@ interface BookingRequest {
 })
 export class RequestsDashboardComponent implements OnInit {
   requests: BookingRequest[] = [];
-  filterDate: string = ''; // Holds the selected date for filtering (YYYY-MM-DD)
-  filterYear: string = ''; // Holds the selected year for filtering
-  filterMonth: string = ''; // Holds the selected month for filtering
+  filterDate: string = '';
+  filterYear: string = '';
+  filterMonth: string = '';
   months = [
     { value: '01', name: 'January' },
     { value: '02', name: 'February' },
@@ -49,9 +49,9 @@ export class RequestsDashboardComponent implements OnInit {
     { value: '10', name: 'October' },
     { value: '11', name: 'November' },
     { value: '12', name: 'December' }
-  ]; // Array of months
-  years: string[] = []; // Array to hold available years
-  searchQuery: string = ''; // Holds the search input for username
+  ];
+  years: string[] = [];
+  searchQuery: string = '';
 
   // Pagination properties
   currentPage: number = 1; // Current page
@@ -162,7 +162,6 @@ export class RequestsDashboardComponent implements OnInit {
     return filtered.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  // Helper function to format the time part of dateTime
   private formatTime(dateTime: string): string {
     if (!dateTime) {
       console.warn('Invalid dateTime:', dateTime); // Log if dateTime is undefined
@@ -202,6 +201,8 @@ export class RequestsDashboardComponent implements OnInit {
   private updateBookingStatus(id: number, status: string, notes: string | null): void {
     this.bookingService.updateBookingStatus(id, status, notes).subscribe({
       next: response => {
+        this.fetchBookingRequests();
+
         console.log('Status updated successfully:', response);
         // Update the local list of requests to reflect changes
         this.requests = this.requests.map(req =>
