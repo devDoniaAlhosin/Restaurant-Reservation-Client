@@ -1,9 +1,11 @@
+import { AuthService } from './../../Core/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BookingService } from '../../Core/services/bookingService/booking.service';
 import Swal from 'sweetalert2'; // Import SweetAlert2
 import { addDays, isBefore, isAfter, isToday } from 'date-fns';
+
 
 
 @Component({
@@ -18,7 +20,7 @@ export class BookingComponent implements OnInit {
   serverError: string = '';
   showErrorMessages: boolean = false;
 
-  constructor(private fb: FormBuilder, private bookingService: BookingService) {}
+  constructor(private fb: FormBuilder, private bookingService: BookingService ) {}
 
   ngOnInit() {
     this.bookingForm = this.fb.group({
@@ -30,6 +32,7 @@ export class BookingComponent implements OnInit {
       notes: ['']
     });
   }
+
 
   onSubmit() {
     this.showErrorMessages = true;

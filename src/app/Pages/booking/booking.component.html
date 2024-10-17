@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="username" formControlName="username" placeholder="Enter your Username" required>
+            <input type="text" class="form-control" id="username" formControlName="username" placeholder="Enter your Username" value="" required>
             <label for="username">Enter your Username</label>
             <div *ngIf="bookingForm.get('username')?.invalid && (bookingForm.get('username')?.touched || showErrorMessages)" class="text-danger">
               <span *ngIf="bookingForm.get('username')?.hasError('required')">Username is required.</span>

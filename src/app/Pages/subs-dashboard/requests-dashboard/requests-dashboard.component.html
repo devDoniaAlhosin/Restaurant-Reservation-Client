@@ -42,7 +42,7 @@
             <td>{{ request.id }}</td>
             <td>{{ request.username }}</td>
             <td>{{ request.phone }}</td>
-            <td>{{ request.date }}
+            <td>{{ request.date | date:'MMM d, y'}} -
             {{ request.time }}</td>
             <td>{{ request.total_person }}</td>
             <td>{{ request.notes }}</td>

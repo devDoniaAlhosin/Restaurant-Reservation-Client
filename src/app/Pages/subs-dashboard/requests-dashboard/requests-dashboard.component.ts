@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { BookingService } from '../../../Core/services/bookingService/booking.service'; // Import BookingService
@@ -27,7 +27,7 @@ interface BookingRequest {
 @Component({
   selector: 'app-requests-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule , DatePipe],
   templateUrl: './requests-dashboard.component.html',
   styleUrls: ['./requests-dashboard.component.css']
 })
@@ -70,12 +70,13 @@ export class RequestsDashboardComponent implements OnInit {
   private fetchBookingRequests(): void {
     this.bookingService.getBookingRequests().subscribe({
       next: (data) => {
-        // Split dateTime into date and time for filtering purposes
+
         this.requests = data.map(request => ({
           ...request,
-          date: request.date_time.split(' ')[0], // Extract the date part (YYYY-MM-DD)
-          time: this.formatTime(request.date_time) // Format the time part (h:i A)
+          date: request.date_time.split('T')[0],
+          time: this.formatTime(request.date_time)
         }));
+        console.log(this.requests)
         this.totalItems = this.requests.length; // Update total items
         console.log('Fetched booking requests:', this.requests);
       },
@@ -162,25 +163,16 @@ export class RequestsDashboardComponent implements OnInit {
     return filtered.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  private formatTime(dateTime: string): string {
-    if (!dateTime) {
-      console.warn('Invalid dateTime:', dateTime); // Log if dateTime is undefined
-      return ''; // Return an empty string or a default value
-    }
+  formatTime(utcTime: string): string {
+    const date = new Date(utcTime);
+    let hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+    const period = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    if (hours === 0) hours = 12;
+    const formattedTime = `${hours}:${minutes.toString().padStart(2, '0')} ${period}`;
 
-    const timePart = dateTime.split(' ')[1]; // Assuming dateTime is in 'Y-m-d H:i:s' format
-    if (!timePart) {
-      console.warn('No time part found for dateTime:', dateTime);
-      return ''; // Return an empty string if timePart is not found
-    }
-
-    const [hour, minute] = timePart.split(':');
-    const hours = parseInt(hour);
-    const isPM = hours >= 12;
-    const formattedHour = hours % 12 === 0 ? 12 : hours % 12;
-
-    // Use backticks for template literals
-    return `${formattedHour}:${minute} ${isPM ? 'PM' : 'AM'}`;
+    return  formattedTime
   }
 
   // Accept booking request
