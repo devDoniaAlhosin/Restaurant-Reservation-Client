@@ -1,6 +1,5 @@
 [build]
-  command = "ng build --configuration production || npm run build"
+  command = "ng build --configuration production"
   publish = "dist/client/browser"
-
 [build.environment]
   NPM_FLAGS = "--force"
