@@ -9,6 +9,8 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class MenuService {
   private apiUrl = "http://127.0.0.1:8000/api/menu/";
+  // private apiUrl = " https://restaurant-server-c21uyjyp8-devdoniaalhosins-projects.vercel.app/api/api/menu";
+  // https://restaurant-server-c21uyjyp8-devdoniaalhosins-projects.vercel.app/api
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -19,6 +21,7 @@ export class MenuService {
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
+      'x-vercel-protection-bypass' : 'QhiPLydYUzrgNuhLnGWnnqOnwzgKSOjT'
     });
   }
 
