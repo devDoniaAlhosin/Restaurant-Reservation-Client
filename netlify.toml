@@ -1,5 +1,7 @@
 [build]
   command = "ng build --configuration production"
   publish = "dist/client/browser"
-[build.environment]
-  NPM_FLAGS = "--force"
+
+[[plugins]]
+  package = "@netlify/plugin-cache"
+  config = { node_modules = true }
